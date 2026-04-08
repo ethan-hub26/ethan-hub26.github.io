@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AN_0080 NuMicro BSP를 Arm Compiler 6로 마이그레이션</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
+:root {
+  --red:#c8102e; --red-dark:#8c0b1f; --red-light:#fdeaed;
+  --bg:#f4f5f7; --panel:#fff;
+  --text:#1a1a1a; --muted:#6b7280; --border:#e2e4e9;
+  --accent:#0057a8; --green:#00875a; --orange:#d97706;
+  --shadow:0 2px 12px rgba(0,0,0,0.08); --shadow-lg:0 8px 32px rgba(0,0,0,0.13);
+  --r:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+a{color:var(--accent);}
+.site-header{background:linear-gradient(135deg,var(--red-dark),var(--red) 60%,#e63050);color:#fff;padding:40px;position:relative;overflow:hidden;}
+.site-header::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.07);}
+.hdr-title{font-size:clamp(22px,4vw,38px);font-weight:900;line-height:1.2;position:relative;}
+.hdr-sub{font-size:15px;opacity:.9;margin-top:8px;position:relative;max-width:920px;}
+.hdr-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;position:relative;}
+.meta-chip{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 14px;font-size:13px;}
+.layout{display:grid;grid-template-columns:260px 1fr;max-width:1280px;margin:0 auto;}
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-title{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--muted);padding:0 24px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-link{display:block;padding:7px 24px 7px 32px;color:var(--text);text-decoration:none;font-size:13.5px;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover,.nav-link.active{background:var(--red-light);border-left-color:var(--red);color:var(--red-dark);font-weight:600;}
+.main{padding:36px 44px;min-width:0;}
+.section{margin-bottom:52px;}
+.h1{font-size:26px;font-weight:900;color:var(--red-dark);border-bottom:3px solid var(--red);padding-bottom:10px;margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+.h1 .num{background:var(--red);color:#fff;border-radius:6px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+.h2{font-size:19px;font-weight:700;color:var(--accent);margin:26px 0 12px;display:flex;align-items:center;gap:8px;scroll-margin-top:20px;}
+.h2::before{content:'';display:inline-block;width:4px;height:20px;background:var(--accent);border-radius:2px;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin:14px 0;box-shadow:var(--shadow);}
+.card-red{border-left:4px solid var(--red);background:var(--red-light);}
+.callout{border-radius:var(--r);padding:16px 20px;margin:14px 0;position:relative;overflow:hidden;}
+.callout::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;}
+.callout-info{background:#eef4ff;}
+.callout-info::before{background:var(--accent);}
+.callout-title{font-weight:700;margin-bottom:6px;font-size:15px;color:var(--accent);}
+.subhead{font-size:15px;font-weight:700;color:var(--red-dark);margin:10px 0 8px;}
+.bullet-list{list-style:none;margin:8px 0;}
+.bullet-list li{padding:5px 0 5px 18px;position:relative;font-size:14.5px;}
+.bullet-list li::before{content:'•';position:absolute;left:0;color:var(--red);font-size:12px;}
+.step-list{counter-reset:step;list-style:none;margin:14px 0;}
+.step-list li{counter-increment:step;display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{content:counter(step);background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.fig-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);margin:16px 0;}
+.fig-box img{width:100%;display:block;}
+.fig-cap{text-align:center;font-size:13px;color:var(--muted);padding:10px;font-style:italic;border-top:1px solid var(--border);background:#fafafa;}
+.figure-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;margin:16px 0;}
+.figure-grid .fig-box{margin:0;}
+code{font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:#f5f6f8;border:1px solid #e4e7ec;padding:2px 6px;border-radius:4px;}
+p{margin-bottom:10px;}
+.back-top{position:fixed;right:24px;bottom:24px;background:var(--red);color:#fff;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;box-shadow:0 4px 16px rgba(200,16,46,0.4);z-index:100;}
+@media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{position:static;height:auto;}.main{padding:20px 16px;}.figure-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="site-header" id="top">
+  <div class="hdr-title">AN0080 NuMicro BSP를 Arm Compiler 6로 마이그레이션</div>
+  <div class="hdr-sub">공식 PDF <code>AN_0080_Migrate_NuMicro_BSP_to_ARM_Compiler_6_EN_Rev1.00.pdf</code>를 기준으로 정리한 한국어 HTML 가이드입니다. 개발 환경, AC5→AC6 전환 절차, 예제별 추가 설정, 그림 매핑을 한 화면에서 확인할 수 있도록 다시 구성했습니다.</div>
+  <div class="hdr-meta">
+    <span class="meta-chip">AN0080 Rev. 1.00</span>
+    <span class="meta-chip">11 Pages</span>
+    <span class="meta-chip">Arm Compiler 6 Migration</span>
+  </div>
+</div>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-title">Contents</div>
+  <a class="nav-link" href="#doc-overview">문서 개요</a>
+  <a class="nav-link" href="#sec1">1. 개요</a>
+  <a class="nav-link" href="#sec2">2. 개발 환경</a>
+  <a class="nav-link" href="#sec3">3. AC5 → AC6 전환</a>
+  <a class="nav-link" href="#sec4">4. 특수 샘플 코드</a>
+  <a class="nav-link" href="#sec5">5. 개정 이력</a>
+</aside>
+<main class="main">
+
+<section class="section" id="doc-overview">
+  <div class="h1"><span class="num">0</span>문서 개요</div>
+  <div class="card">
+    <div class="subhead">기준 문서</div>
+    <p><code>Doc/Manual/en-us--AN_0080_Migrate_NuMicro_BSP_to_ARM_Compiler_6_EN_Rev1.00.pdf</code></p>
+    <div class="subhead">대상</div>
+    <p>NuMicro 전 시리즈 BSP를 Arm Compiler 5 환경에서 Arm Compiler 6 환경으로 옮겨야 하는 개발자</p>
+    <div class="subhead">핵심 내용</div>
+    <ul class="bullet-list">
+      <li>Keil MDK Nuvoton Edition과 DFP 준비</li>
+      <li><code>retarget.c</code>, <code>startup_xxx.s</code> 교체</li>
+      <li><code>*.uvproj</code>를 <code>*.uvprojx</code>로 변환</li>
+      <li>Arm Compiler 6 선택 및 진단 억제 옵션 정리</li>
+      <li>M480 BSP 예제별 추가 설정</li>
+    </ul>
+  </div>
+  <div class="callout callout-info">
+    <div class="callout-title">구성 원칙</div>
+    <p>원문 내용을 한국어로 줄 단위에 가깝게 정리했습니다.</p>
+    <p>그림은 PDF의 Figure 2-1, Figure 3-1, Figure 3-2, Figure 3-3, Figure 4-1, Figure 4-2, Figure 4-3, Figure 4-4 순서로 맞춰 배치했습니다.</p>
+    <p>같은 챕터에 그림이 둘 이상 있는 경우 2열 그리드로 묶었습니다.</p>
+  </div>
+</section>
+
+<section class="section" id="sec1">
+  <div class="h1"><span class="num">1</span>개요</div>
+  <div class="card">
+    <p>Arm Compiler 6(AC6)은 MDK Version 5에서 사용할 수 있습니다.</p>
+    <p>Arm Compiler 6은 새로운 기술 기반이므로 기존 Arm Compiler 5와는 부분적으로만 호환됩니다.</p>
+    <p>이 애플리케이션 노트는 기존 소스 코드를 Arm Compiler 6으로 포팅할 때 필요한 핵심 절차를 요약합니다.</p>
+    <p>더 자세한 내용이 필요하면 <code>Migrate Arm Compiler 5 to Arm Compiler 6</code> 키워드로 MDK 튜토리얼 PDF를 참고하면 됩니다.</p>
+  </div>
+</section>
+
+<section class="section" id="sec2">
+  <div class="h1"><span class="num">2</span>개발 환경</div>
+  <div class="h2">2.1 Arm Keil MDK Nuvoton Edition</div>
+  <div class="card">
+    <p>Arm과 Nuvoton은 상용 개발에도 사용할 수 있는 무료 전문 툴체인 <code>Keil MDK Nuvoton Edition – Full Cortex-M</code>을 제공합니다.</p>
+    <p>이 에디션은 Arm Cortex-M0, M0+, M23, M33, M4, M55, M7, M85 기반의 Nuvoton 디바이스를 지원합니다.</p>
+    <p>Keil MDK Version 5.37 이상에서 사용할 수 있으며 Arm Compiler 6만 지원합니다.</p>
+    <p>다운로드 경로: <a href="https://www.nuvoton.com/tool-and-software/ide-and-compiler/keil-download/">Nuvoton Keil Download</a></p>
+  </div>
+  <div class="h2">2.2 DFP 지원</div>
+  <div class="card">
+    <p>Pack Installer에서 Nuvoton이 제공하는 Device Family Pack을 설치해야 합니다.</p>
+    <p>Arm Compiler 6 사용 시 최소 권장 버전은 <code>Nuvoton.NuMicro_DFP.1.3.25.pack</code> 이상입니다.</p>
+  </div>
+  <div class="fig-box">
+    <img src="an0080_figures/page04-img2.jpeg" alt="Figure 2-1 Pack Installer">
+    <div class="fig-cap">Figure 2-1. Pack Installer</div>
+  </div>
+</section>
+
+<section class="section" id="sec3">
+  <div class="h1"><span class="num">3</span>AC5에서 AC6로 전환</div>
+  <div class="card card-red">
+    <p>이 장은 Arm Compiler 5 기반 샘플 코드를 Arm Compiler 6으로 옮기는 가장 기본적인 절차를 설명합니다.</p>
+    <p>초기 마이그레이션 단계에서는 경고보다 에러에 먼저 집중할 수 있도록 경고 레벨을 <code>No Warnings</code>로 두는 것이 권장됩니다.</p>
+  </div>
+  <div class="card">
+    <div class="subhead">기본 순서</div>
+    <ul class="bullet-list">
+      <li>AC6를 지원하는 최신 BSP에서 <code>retarget.c</code>와 <code>startup_xxx.s</code> 확보</li>
+      <li>프로젝트 파일 확장자를 <code>*.uvproj</code>에서 <code>*.uvprojx</code>로 변경</li>
+      <li>µVision IDE에서 Arm Compiler 6 선택</li>
+      <li>µVision IDE에 남아 있는 진단 억제 옵션 정리</li>
+      <li>필요하면 <code>AC5-like Warnings</code> 선택</li>
+    </ul>
+  </div>
+
+  <div class="h2">3.1 retarget.c와 startup_xxx.s 확보</div>
+  <div class="card">
+    <p>Arm Compiler 6 어셈블리 문법은 기존 Arm 스타일이 아니라 GNU 스타일과 호환됩니다.</p>
+    <p>그래서 가장 간단한 해결 방법은 AC6를 지원하는 최신 NuMicro BSP에서 <code>retarget.c</code>와 <code>startup_xxx.s</code>를 가져와 기존 소스에 교체하는 것입니다.</p>
+    <p>작업 전에는 기존 소스를 백업해 두는 것이 좋습니다.</p>
+    <p>BSP 다운로드 경로: <a href="https://github.com/OpenNuvoton">OpenNuvoton GitHub</a></p>
+  </div>
+
+  <div class="h2">3.2 프로젝트 파일을 *.uvprojx로 변경</div>
+  <div class="card">
+    <ol class="step-list">
+      <li>기존 Keil 프로젝트 <code>*.uvproj</code>를 엽니다.</li>
+      <li>메인 메뉴에서 <code>Project &gt; Manage &gt; Migrate to Version 5 Format...</code>를 선택합니다.</li>
+      <li>변환이 끝나면 프로젝트가 <code>*.uvprojx</code>로 저장됩니다.</li>
+    </ol>
+    <p>변환 후에는 Target 메모리 설정과 Debugger 설정이 바뀌었는지 반드시 확인해야 합니다.</p>
+  </div>
+
+  <div class="figure-grid">
+    <div class="fig-box">
+      <img src="an0080_figures/page06-img2.png" alt="Figure 3-1 Migrate to Version 5 Format">
+      <div class="fig-cap">Figure 3-1. Migrate to Version 5 Format</div>
+    </div>
+    <div class="fig-box">
+      <img src="an0080_figures/page06-img3.png" alt="Figure 3-2 Select Compiler Version on Target Tab">
+      <div class="fig-cap">Figure 3-2. Target 탭에서 Compiler Version 선택</div>
+    </div>
+  </div>
+
+  <div class="h2">3.3 Arm Compiler 6 선택</div>
+  <div class="card">
+    <ol class="step-list">
+      <li>Keil 프로젝트를 열고 <code>Project &gt; Options for Target</code>를 선택합니다.</li>
+      <li>Arm Compiler를 MDK에 포함된 <code>Version 6.x</code>로 지정합니다.</li>
+      <li><code>OK</code>를 눌러 메인 화면으로 돌아옵니다.</li>
+    </ol>
+  </div>
+
+  <div class="h2">3.4 억제된 진단 메시지 제거</div>
+  <div class="card">
+    <ol class="step-list">
+      <li>Keil 프로젝트를 열고 <code>Project &gt; Options for Target</code>를 선택합니다.</li>
+      <li><code>C/C++ (AC6)</code> 탭에서 <code>Misc Controls</code>의 <code>--diag_suppress</code> 파라미터를 제거합니다.</li>
+      <li><code>OK</code>를 눌러 메인 화면으로 돌아옵니다.</li>
+    </ol>
+  </div>
+  <div class="fig-box">
+    <img src="an0080_figures/page07-img2.png" alt="Figure 3-3 Remove Parameter in Misc Controls">
+    <div class="fig-cap">Figure 3-3. Misc Controls에서 억제 파라미터 제거</div>
+  </div>
+</section>
+
+<section class="section" id="sec4">
+  <div class="h1"><span class="num">4</span>특수 샘플 코드</div>
+  <div class="card">
+    <p>3장의 기본 절차 외에도 일부 샘플 코드는 추가 설정이 필요합니다.</p>
+    <p>이 장은 M480 BSP 샘플을 기준으로, MDK 5.41 환경에서 Arm Compiler 5에서 6으로 옮길 때 필요한 설정을 예시로 보여줍니다.</p>
+    <p>샘플마다 세부 설정은 조금씩 다를 수 있습니다.</p>
+  </div>
+
+  <div class="h2">4.1 StdDriver/HSOTG_Dual_Role_UMAS</div>
+  <div class="card">
+    <ol class="step-list">
+      <li><code>retarget.c</code>와 <code>startup_M480.s</code>를 교체합니다.</li>
+      <li>프로젝트 파일 확장자를 <code>*.uvprojx</code>로 변경합니다.</li>
+      <li>Arm Compiler 6으로 전환합니다.</li>
+      <li><code>C/C++ (AC6)</code> 탭의 <code>Misc Controls</code>에 <code>-Wno-format</code>을 추가해 format 문자열 관련 경고를 억제합니다.</li>
+      <li>프로젝트를 다시 빌드합니다.</li>
+    </ol>
+  </div>
+  <div class="fig-box">
+    <img src="an0080_figures/page08-img2.png" alt="Figure 4-1 Use Misc Controls to Disable Custom Warnings">
+    <div class="fig-cap">Figure 4-1. Misc Controls를 이용한 사용자 경고 비활성화</div>
+  </div>
+
+  <div class="h2">4.2 StdDriver/FreeRTOS</div>
+  <div class="card">
+    <ol class="step-list">
+      <li><code>retarget.c</code>와 <code>startup_M480.s</code>를 교체합니다.</li>
+      <li>프로젝트 파일 확장자를 <code>*.uvprojx</code>로 변경합니다.</li>
+      <li>Arm Compiler 6으로 전환합니다.</li>
+      <li><code>port.c</code>를 RVDS 버전에서 GCC 버전으로 교체하고 include path를 <code>ThirdParty\FreeRTOS\Source\portable\GCC\ARM_CM4F</code>로 맞춥니다.</li>
+      <li><code>C/C++ (AC6)</code> 탭의 Language C를 <code>C99</code>로 설정합니다.</li>
+      <li>프로젝트를 다시 빌드합니다.</li>
+    </ol>
+  </div>
+
+  <div class="figure-grid">
+    <div class="fig-box">
+      <img src="an0080_figures/page09-img2.png" alt="Figure 4-2 Setup Compiler Include Paths">
+      <div class="fig-cap">Figure 4-2. Compiler Include Path 설정</div>
+    </div>
+    <div class="fig-box">
+      <img src="an0080_figures/page09-img3.png" alt="Figure 4-3 Set the C Language">
+      <div class="fig-cap">Figure 4-3. C Language 설정</div>
+    </div>
+  </div>
+
+  <div class="h2">4.3 NuMaker-PFM-M487/LwIP_MQTT</div>
+  <div class="card">
+    <ol class="step-list">
+      <li><code>retarget.c</code>와 <code>startup_M480.s</code>를 교체합니다.</li>
+      <li>프로젝트 파일 확장자를 <code>*.uvprojx</code>로 변경합니다.</li>
+      <li>Arm Compiler 6으로 전환합니다.</li>
+      <li><code>C/C++ (AC6)</code> 탭의 <code>Misc Controls</code>에서 <code>--diag_suppress</code>를 제거합니다.</li>
+      <li><code>port.c</code>를 GCC 버전으로 교체하고 include path를 <code>ThirdParty\FreeRTOS\Source\portable\GCC\ARM_CM4F</code>로 수정합니다.</li>
+      <li><code>C/C++ (AC6)</code> 탭의 Language C를 <code>C99</code>로 설정합니다.</li>
+      <li><code>lwipopts.h</code>에서 <code>__GNUC__</code> 매크로 판별 로직을 수정합니다. Arm Compiler 6도 <code>__GNUC__</code>를 정의하므로 잘못된 코드 경로가 선택될 수 있습니다.</li>
+    </ol>
+  </div>
+  <div class="fig-box">
+    <img src="an0080_figures/page09-img4.png" alt="Figure 4-4 Arm Compiler 6 defines __GNUC__">
+    <div class="fig-cap">Figure 4-4. Arm Compiler 6에서 __GNUC__가 정의되는 경우</div>
+  </div>
+</section>
+
+<section class="section" id="sec5">
+  <div class="h1"><span class="num">5</span>개정 이력</div>
+  <div class="card">
+    <p><strong>2024.12.18 / Rev. 1.00</strong></p>
+    <p>초기 버전</p>
+  </div>
+</section>
+
+</main>
+</div>
+<a class="back-top" href="#top">↑</a>
+</body>
+</html>
