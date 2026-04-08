@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuvoton ML51/56 상세 교육자료 v3</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+:root {
+  --bg:#080d12; --surface:#0e1620; --surface2:#141e2c; --surface3:#1a2538;
+  --border:#1d2e44; --border2:#243550;
+  --accent:#00c8ff; --accent2:#00ff9d; --accent3:#ff8c42; --accent4:#c084fc;
+  --warn:#ffb800; --danger:#ff4060; --ok:#22d46e;
+  --text:#c4d6e8; --text-dim:#5a7590; --text-bright:#e6f2ff;
+  --mono:'JetBrains Mono',monospace; --sans:'Noto Sans KR',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:200;background:rgba(8,13,18,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem}
+.logo{font-family:var(--mono);font-weight:700;font-size:12px;color:var(--accent);white-space:nowrap;letter-spacing:.06em}
+.logo span{color:var(--accent2)}
+.nav-scroll{display:flex;gap:2px;overflow-x:auto;margin-left:auto;scrollbar-width:none}
+.nav-scroll::-webkit-scrollbar{display:none}
+nav a{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);text-decoration:none;padding:4px 9px;border-radius:4px;white-space:nowrap;border:1px solid transparent;transition:all .15s}
+nav a:hover{color:var(--accent);border-color:var(--border2);background:var(--surface)}
+
+/* SIDEBAR + MAIN */
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;border-right:1px solid var(--border);padding:1.2rem 0;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.sb-group{padding:0.2rem 0 0.8rem}
+.sb-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.1em;padding:4px 1.2rem;text-transform:uppercase}
+.sb-link{display:block;font-size:12.5px;color:var(--text-dim);text-decoration:none;padding:5px 1.2rem;border-left:2px solid transparent;transition:all .12s}
+.sb-link:hover{color:var(--text-bright);border-left-color:var(--accent);background:rgba(0,200,255,.04)}
+.sb-link.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,200,255,.06)}
+.sb-badge{float:right;font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:rgba(0,255,157,.1);color:var(--accent2);border:1px solid rgba(0,255,157,.2)}
+
+.main{padding:2rem 2.5rem 5rem;max-width:860px}
+
+/* HERO */
+.hero{padding:2rem 0 2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--accent2);background:rgba(0,255,157,.07);border:1px solid rgba(0,255,157,.25);padding:3px 10px;border-radius:3px;margin-bottom:1rem;letter-spacing:.08em}
+h1{font-size:2rem;font-weight:900;color:var(--text-bright);line-height:1.2;margin-bottom:.7rem}
+h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:13px;color:var(--text-dim);max-width:600px}
+.tag-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.tag{font-family:var(--mono);font-size:10.5px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text-dim)}
+.tag.hi{border-color:rgba(0,200,255,.3);color:var(--accent)}
+
+/* SECTION */
+section{margin-bottom:3.5rem;scroll-margin-top:70px}
+.sec-label{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+h2{font-size:1.3rem;font-weight:800;color:var(--text-bright);margin-bottom:1.2rem}
+h3{font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--accent2);margin:1.8rem 0 .6rem}
+h4{font-size:.85rem;font-weight:700;color:var(--accent3);margin:.8rem 0 .3rem}
+p{font-size:13px;color:var(--text-dim);margin-bottom:.7rem}
+
+/* CARDS */
+.grid{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1rem 0}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:1fr 1fr 1fr 1fr}
+.card{background:var(--surface);padding:1.1rem 1.3rem}
+.card-t{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);margin-bottom:.5rem}
+.card-b{font-size:12.5px;color:var(--text-dim)}
+.card-b strong{color:var(--text)}
+.card-b code{font-family:var(--mono);font-size:11.5px;color:var(--accent3);background:rgba(255,140,66,.08);padding:1px 4px;border-radius:2px}
+
+/* TABLE */
+.tw{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--accent);text-align:left;padding:7px 12px;background:var(--surface2);border-bottom:1px solid var(--border)}
+td{padding:7px 12px;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top}
+td strong{color:var(--text)}
+td code{font-family:var(--mono);font-size:11px;color:var(--accent3)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.015)}
+
+/* CODE */
+pre{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:1.1rem 1.3rem;overflow-x:auto;margin:.8rem 0;font-family:var(--mono);font-size:12px;line-height:1.9;color:var(--text)}
+.kw{color:#569cd6} .cm{color:#4a6550;font-style:italic} .str{color:#ce9178}
+.num{color:#b5cea8} .fn{color:#dcdcaa} .pp{color:#c586c0}
+.type{color:#4ec9b0} .reg{color:var(--accent3)} .val{color:var(--accent2)}
+.mod{background:rgba(255,220,100,.08);border-left:2px solid var(--warn);padding-left:4px;display:block}
+
+/* CALLOUT */
+.call{display:flex;gap:.8rem;padding:.85rem 1.1rem;border-radius:6px;margin:.8rem 0;font-size:12.5px}
+.ci{font-size:15px;flex-shrink:0;margin-top:2px}
+.call.info{background:rgba(0,200,255,.06);border:1px solid rgba(0,200,255,.2)}
+.call.warn{background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.2);color:#d4b040}
+.call.danger{background:rgba(255,64,96,.06);border:1px solid rgba(255,64,96,.2);color:#d06070}
+.call.tip{background:rgba(0,255,157,.05);border:1px solid rgba(0,255,157,.2);color:#60c080}
+.call.purple{background:rgba(192,132,252,.06);border:1px solid rgba(192,132,252,.2);color:#b090d8}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;margin:.8rem 0}
+.step{display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.sn{width:26px;height:26px;background:var(--surface2);border:1px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--accent);flex-shrink:0;margin-top:2px}
+.sc h4{font-size:13px;font-weight:700;color:var(--text-bright);margin-bottom:.25rem}
+.sc p{font-size:12.5px;color:var(--text-dim);margin:0}
+
+/* REGISTER BLOCK */
+.reg-map{font-family:var(--mono);background:var(--surface2);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:.8rem 0;font-size:11.5px}
+.rm-hd{display:grid;grid-template-columns:80px 120px 80px 1fr;gap:.5rem;background:var(--surface3);border-bottom:1px solid var(--border);padding:6px 12px;font-size:10.5px;color:var(--accent);font-weight:600}
+.rm-row{display:grid;grid-template-columns:80px 120px 80px 1fr;gap:.5rem;padding:5px 12px;border-bottom:1px solid rgba(255,255,255,.03);align-items:start}
+.rm-row:last-child{border-bottom:none}
+.rm-row:hover{background:rgba(255,255,255,.02)}
+.r-addr{color:var(--accent3)}
+.r-name{color:var(--accent2);font-weight:600}
+.r-rw{color:var(--text-dim);font-size:10px}
+.r-desc{color:var(--text-dim);font-size:11px;line-height:1.5}
+
+/* BIT FIELD */
+.bitfield{display:flex;margin:.8rem 0;border:1px solid var(--border);border-radius:6px;overflow:hidden;font-family:var(--mono)}
+.bit{flex:1;text-align:center;padding:4px 2px;border-right:1px solid var(--border);font-size:10px}
+.bit:last-child{border-right:none}
+.bit .bn{color:var(--text-dim);font-size:9px;border-bottom:1px solid var(--border);padding-bottom:2px;margin-bottom:2px}
+.bit .bv{color:var(--accent2);font-size:11px;font-weight:600}
+.bit.rsv{background:rgba(255,255,255,.02)}
+.bit.rsv .bv{color:var(--text-dim)}
+.bit.hi{background:rgba(0,200,255,.06)}
+.bit.hi .bv{color:var(--accent)}
+.bit.act{background:rgba(0,255,157,.07)}
+.bit.act .bv{color:var(--accent2)}
+
+/* WAVEFORM DIAGRAM */
+.wave{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:1rem;margin:.8rem 0;font-family:var(--mono);font-size:11px;overflow-x:auto}
+.wave-row{display:flex;align-items:center;gap:.5rem;margin:.25rem 0}
+.wave-label{width:90px;color:var(--text-dim);font-size:10.5px;flex-shrink:0;text-align:right}
+.wave-line{font-size:13px;letter-spacing:0;color:var(--accent);white-space:pre}
+.wave-ann{font-size:10px;color:var(--warn)}
+
+/* FLOW */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin:.8rem 0}
+.fbox{background:var(--surface2);border:1px solid var(--border2);border-radius:5px;padding:5px 12px;font-family:var(--mono);font-size:11px;color:var(--text);white-space:nowrap}
+.fbox.hi{border-color:rgba(0,200,255,.4);color:var(--accent)}
+.fbox.ok{border-color:rgba(0,255,157,.4);color:var(--accent2)}
+.fbox.warn{border-color:rgba(255,184,0,.4);color:var(--warn)}
+.farr{color:var(--text-dim);font-size:14px}
+
+/* CHECKLIST */
+.chk{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.chk li{display:flex;align-items:flex-start;gap:.6rem;font-size:12.5px;color:var(--text-dim);padding:3px 0}
+.chk li::before{content:'□';font-family:var(--mono);color:var(--accent);flex-shrink:0}
+.chk li.ok::before{content:'■';color:var(--accent2)}
+.chk li strong{color:var(--text)}
+
+/* PIN MAP */
+.pinmap{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0}
+.pm{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.9rem;overflow:hidden}
+.pm-t{font-family:var(--mono);font-size:10.5px;color:var(--accent2);font-weight:600;margin-bottom:.5rem;letter-spacing:.06em}
+.pm-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.pm-row:last-child{border-bottom:none}
+.pn{color:var(--accent)}
+.pf{color:var(--text-dim);font-size:10.5px}
+
+/* PCB NOTE */
+.pcb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0}
+.pcb-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem}
+.pcb-t{font-family:var(--mono);font-size:11px;color:var(--accent3);font-weight:600;margin-bottom:.5rem}
+.pcb-b{font-size:12.5px;color:var(--text-dim);line-height:1.6}
+.pcb-b strong{color:var(--text)}
+
+hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
+footer{border-top:1px solid var(--border);padding:1.5rem 2.5rem;font-family:var(--mono);font-size:10.5px;color:var(--text-dim);text-align:center}
+
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .main{padding:1.5rem 1.2rem 4rem}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .pinmap,.pcb-grid{grid-template-columns:1fr}
+  h1{font-size:1.5rem}
+  .rm-hd,.rm-row{grid-template-columns:70px 110px 50px 1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">NUVOTON / <span>ML51·56</span> 상세 교육자료 v3</div>
+  <div class="nav-scroll">
+    <nav>
+      <a href="#touch">Touch(CTK)</a>
+      <a href="#adc">ADC</a>
+      <a href="#pwm">PWM</a>
+      <a href="#spi">SPI</a>
+      <a href="#i2c">I2C</a>
+      <a href="#wdt">WDT/BOD</a>
+      <a href="#power">전력관리</a>
+      <a href="#isr">인터럽트</a>
+      <a href="#mem">메모리</a>
+      <a href="#isp">ISP/IAP</a>
+      <a href="#bsp">BSP 설정</a>
+      <a href="#pcblayout">PCB</a>
+      <a href="#debug2">디버깅</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-group">
+    <div class="sb-label">핵심 주변장치</div>
+    <a href="#touch" class="sb-link">Touch Key (CTK) <span class="sb-badge">NEW</span></a>
+    <a href="#adc" class="sb-link">ADC 12-bit</a>
+    <a href="#pwm" class="sb-link">PWM / BPWM</a>
+    <a href="#spi" class="sb-link">SPI</a>
+    <a href="#i2c" class="sb-link">I²C</a>
+    <a href="#wdt" class="sb-link">WDT / BOD / LVR</a>
+  </div>
+  <div class="sb-group">
+    <div class="sb-label">시스템</div>
+    <a href="#power" class="sb-link">전력 관리</a>
+    <a href="#isr" class="sb-link">인터럽트 체계</a>
+    <a href="#mem" class="sb-link">메모리 모델</a>
+    <a href="#isp" class="sb-link">ISP / IAP / Config</a>
+    <a href="#bsp" class="sb-link">BSP 프로젝트 설정 <span class="sb-badge">NEW</span></a>
+  </div>
+  <div class="sb-group">
+    <div class="sb-label">실무</div>
+    <a href="#pcblayout" class="sb-link">PCB 레이아웃</a>
+    <a href="#debug2" class="sb-link">고급 디버깅</a>
+    <a href="#checklist2" class="sb-link">최종 체크리스트</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">📘 상세 교육자료 v3 — Touch · ADC · PWM · SPI · I²C · Power · ISR</div>
+  <h1>ML51 / ML56 <em>심화</em> 개발 가이드</h1>
+  <p class="hero-sub">Touch Key(CTK) 상세 구현부터 ADC, PWM, SPI/I²C, 전력 관리, 인터럽트 벡터, ISP/IAP, PCB 레이아웃까지 — 실무 기준 근거 있는 내용만 수록.</p>
+  <div class="tag-row">
+    <span class="tag hi">CTK Capacitive Touch</span>
+    <span class="tag hi">12-bit ADC</span>
+    <span class="tag">PWM/BPWM</span>
+    <span class="tag">SPI Master/Slave</span>
+    <span class="tag">I²C</span>
+    <span class="tag">Sleep/Power-down</span>
+    <span class="tag">ISP UART/USB</span>
+    <span class="tag hi">Nuvoton BSP 기준</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: TOUCH KEY — 근거: tk.h / TKLib.h / main.c / ML56_Slider_ARGB_Readme_EN.pdf -->
+<!-- ═══════════════════════════════════════ -->
+<section id="touch">
+  <div class="sec-label">01 // CAPACITIVE TOUCH KEY</div>
+  <h2>Touch Key (TK) 완전 정리</h2>
+  <p>ML56은 하드웨어 <strong>Touch Key(TK)</strong> 컨트롤러가 내장되어 있습니다. BSP 드라이버는 두 계층으로 구성됩니다. 저수준 하드웨어 드라이버(<code>tk.h / tk.c</code>)가 레지스터를 직접 제어하고, 고수준 라이브러리(<code>TKLib.h</code>)가 교정·스캔·슬라이더/휠 등 실제 어플리케이션 API를 제공합니다.</p>
+
+  <div class="call info"><span class="ci">ℹ️</span>
+    <div><strong>근거 파일:</strong> <code>Library/StdDriver/inc/tk.h</code>, <code>Library/StdDriver/src/tk.c</code>, <code>Library/StdDriver/inc/TKLib.h</code>, <code>SampleCode/NK_ML56SD/NK_ML56SD_LCD_TK_PD/main.c</code></div>
+  </div>
+
+  <h3>// 드라이버 2계층 구조</h3>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-t">저수준 — tk.h / tk.c</div>
+      <div class="card-b">
+        레지스터 직접 제어<br>
+        <code>TK_Open()</code> / <code>TK_Close()</code><br>
+        <code>TK_ConfigSensitivity()</code><br>
+        <code>TK_SetScanMode()</code><br>
+        <code>TK_EnableInt()</code> / <code>TK_CLR_INT_FLAG()</code><br>
+        <code>TK_GET_SENSE_DATA(u8TKNum)</code><br>
+        <code>TK_IS_BUSY()</code>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">고수준 — TKLib.h (어플리케이션 API)</div>
+      <div class="card-b">
+        교정·스캔·슬라이더/휠 추상화<br>
+        <code>TK_LoadPara(&amp;u32ChanelMsk)</code><br>
+        <code>TK_Init()</code><br>
+        <code>TK_ScanKey(&amp;ai8Signal[0])</code><br>
+        <code>TK_SliderPercentage(buf, cnt)</code><br>
+        <code>TK_WheelPercentage(buf, cnt)</code><br>
+        <code>TK_SavePara()</code> / <code>TK_GetPacket()</code>
+      </div>
+    </div>
+  </div>
+
+  <h3>// 주요 상수 (TKLib.h 기준)</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>상수</th><th>값</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td><code>TKLIB_TOL_NUM_KEY</code></td><td>15</td><td>TK0~TK14 총 15채널</td></tr>
+        <tr><td><code>TK_ADDR_PARAM_DFLASH</code></td><td>0x00EE80</td><td>교정값 저장 주소 (APROM Data Flash)</td></tr>
+        <tr><td><code>TK_KEY</code></td><td>0</td><td>일반 Key 타입</td></tr>
+        <tr><td><code>TK_SLIDER</code></td><td>1</td><td>슬라이더 타입</td></tr>
+        <tr><td><code>TK_WHEEL</code></td><td>2</td><td>휠 타입</td></tr>
+        <tr><td><code>TK_SHIELDING</code></td><td>3</td><td>차폐(Shield) 타입</td></tr>
+        <tr><td><code>TK_REFERENCE</code></td><td>4</td><td>기준(Reference) 타입</td></tr>
+        <tr><td><code>TRACK_SIGNAL_MIN_RANGE</code></td><td>30</td><td>Signal &lt; 30일 때만 Baseline 추적</td></tr>
+        <tr><td><code>TRACK_BASELINE_RELOAD_TIME</code></td><td>25</td><td>25회 초과 시 Baseline 갱신</td></tr>
+        <tr><td><code>DEBOUNCE_ENTRY</code></td><td>5</td><td>터치 인식 디바운스 기본값</td></tr>
+        <tr><td><code>DEBOUNCE_ESCAPE</code></td><td>6</td><td>터치 해제 디바운스 기본값</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>// 핵심 구조체 (TKLib.h 기준)</h3>
+  <pre><span class="cm">/* 채널별 교정값 — Flash 0xEE80에 저장 */</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> {
+    <span class="type">uint8_t</span> ccb;        <span class="cm">/* Complement Capacitor Bank (0~255) */</span>
+    <span class="type">uint8_t</span> refcb;      <span class="cm">/* Reference pad Capacitor Bank (0~255) */</span>
+    <span class="type">int8_t</span>  level;      <span class="cm">/* 터치 시 신호값 (Signal amplitude) */</span>
+    <span class="type">int8_t</span>  threshold;  <span class="cm">/* 터치 판정 임계값 — Calibration에서 자동 생성 */</span>
+} S_KEYINFO;
+
+<span class="cm">/* 알고리즘 파라미터 — NuSenadj 툴에서 설정 */</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> {
+    <span class="type">uint8_t</span>  u8EnIIR;          <span class="cm">/* IIR 필터 활성화 */</span>
+    <span class="type">uint8_t</span>  u8IIROld;         <span class="cm">/* IIR 이전 데이터 가중치 (예: 2) */</span>
+    <span class="type">uint8_t</span>  u8IIRNew;         <span class="cm">/* IIR 현재 데이터 가중치 (예: 6) */</span>
+    <span class="type">uint8_t</span>  u8EnDebounce;     <span class="cm">/* Debounce 활성화 */</span>
+    <span class="type">uint8_t</span>  u8Entry;          <span class="cm">/* 터치 인식 Debounce 횟수 (기본값: 5) */</span>
+    <span class="type">uint8_t</span>  u8Escape;         <span class="cm">/* 터치 해제 Debounce 횟수 (기본값: 6) */</span>
+    <span class="type">uint8_t</span>  u8EnBaseLineTrace; <span class="cm">/* Baseline 자동 추적 활성화 */</span>
+} S_TKFEAT;
+
+<span class="cm">/* TK IP 설정 */</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> {
+    <span class="type">uint32_t</span> u32EnChanMsk;    <span class="cm">/* 활성화 채널 비트마스크 */</span>
+    <span class="type">uint8_t</span>  u8RefChan;       <span class="cm">/* Reference 채널 번호 */</span>
+    <span class="type">uint8_t</span>  u8ShieldChan;    <span class="cm">/* Shield 채널 번호 */</span>
+    <span class="type">uint8_t</span>  u8SenPulse;      <span class="cm">/* 감지 펄스 폭 */</span>
+    <span class="type">uint8_t</span>  u8SenTimes;      <span class="cm">/* 감지 횟수 */</span>
+    <span class="type">uint8_t</span>  u8SliderRes;     <span class="cm">/* 슬라이더 해상도 (10/20/50/100) */</span>
+    <span class="type">uint8_t</span>  u8WheelRes;      <span class="cm">/* 휠 해상도 */</span>
+    <span class="type">uint8_t</span>  u8NoiseImmunity; <span class="cm">/* 노이즈 내성 레벨: 1/3, 1/2, 2/3 */</span>
+} S_TKINFO;</pre>
+
+  <h3>// 실제 초기화 흐름 (main.c 기준)</h3>
+  <pre><span class="pp">#include</span> <span class="str">"ml51.h"</span>
+<span class="pp">#include</span> <span class="str">"tklib.h"</span>
+
+<span class="kw">volatile</span> <span class="type">uint8_t</span> u8EventKeyScan = <span class="num">0</span>;
+
+<span class="cm">/* SysTick 콜백: 1틱(20ms)마다 호출 */</span>
+<span class="kw">void</span> <span class="fn">TickCallback_KeyScan</span>(<span class="kw">void</span>)
+{
+    u8EventKeyScan = <span class="num">1</span>;
+}
+
+<span class="kw">void</span> <span class="fn">main</span>(<span class="kw">void</span>)
+{
+    <span class="type">uint32_t</span> u32ChanelMsk;
+    <span class="type">int8_t</span> i8Ret;
+
+    <span class="cm">/* ① FMC 열기 — TK 교정값 로드를 위해 반드시 먼저 */</span>
+    <span class="fn">FMC_Open</span>();
+
+    <span class="cm">/* ② 교정값 로드 (Flash 0xEE80) */</span>
+    i8Ret = <span class="fn">TK_LoadPara</span>(&amp;u32ChanelMsk);
+    <span class="kw">if</span> (i8Ret &lt; <span class="num">0</span>)
+    {
+        <span class="cm">/* i8Ret == -1: 교정 데이터 없음 → 교정 모드 진입 필요 */</span>
+        <span class="kw">while</span>(<span class="num">1</span>);   <span class="cm">/* 교정 완료 전 동작 불가 */</span>
+    }
+
+    <span class="cm">/* ③ TK 컨트롤러 초기화 */</span>
+    <span class="fn">TK_Init</span>();
+
+    <span class="cm">/* ④ TK 채널 핀 멀티펑션 설정 (채널 마스크 기반 자동 설정) */</span>
+    <span class="fn">SetTkMultiFun</span>(u32ChanelMsk);
+
+    <span class="cm">/* ⑤ SysTick 초기화: 20ms 주기 */</span>
+    <span class="fn">Init_SysTick</span>();
+
+    <span class="cm">/* ⑥ KeyScan 이벤트 핸들러 등록: 1틱(20ms)마다 실행 */</span>
+    <span class="fn">TickSetTickEvent</span>(<span class="num">1</span>, TickCallback_KeyScan);
+
+    <span class="cm">/* ⑦ 전역 인터럽트 활성화 */</span>
+    ENABLE_GLOBAL_INTERRUPT;
+
+    <span class="kw">do</span> {
+        <span class="cm">/* 스캔 이벤트 발생 시 (20ms 주기) */</span>
+        <span class="kw">if</span> (u8EventKeyScan == <span class="num">1</span>)
+        {
+            <span class="type">int8_t</span> ai8Signal[<span class="val">TKLIB_TOL_NUM_KEY</span>];
+            u8EventKeyScan = <span class="num">0</span>;
+
+            <span class="cm">/* 전체 채널 스캔 */</span>
+            i8Ret = <span class="fn">TK_ScanKey</span>(&amp;ai8Signal[<span class="num">0</span>]);
+            <span class="cm">/* i8Ret == -1: 미터치  i8Ret >= 0: 터치된 채널 번호 */</span>
+
+            <span class="kw">if</span> (i8Ret != -<span class="num">1</span>)
+            {
+                <span class="cm">/* 키 터치 처리 */</span>
+            }
+        }
+    } <span class="kw">while</span>(<span class="num">1</span>);
+}</pre>
+
+  <div class="call warn"><span class="ci">⚠️</span>
+    <div><strong>FMC_Open() 누락 시 TK_LoadPara()가 항상 -1 반환.</strong> 교정값은 APROM Data Flash(0xEE80)에서 읽어오므로 FMC_Open()이 선행되어야 합니다.</div>
+  </div>
+
+  <h3>// 슬라이더 사용 (TK_SLIDER 타입)</h3>
+  <p>ML56 Demo Board의 슬라이더는 TK2~TK7 6채널로 구성됩니다(TK2=P29, TK3=P28, TK4=P27, TK5=P26, TK6=P25, TK7=P24). 슬라이더 해상도는 10/20/50/100 중 선택하며 NuSenadj 교정 시 설정합니다.</p>
+  <pre><span class="cm">/* 슬라이더 위치 읽기 — main.c (OPT_SLIDER 정의 시) */</span>
+{
+    <span class="type">uint16_t</span> u16ChnMsk;
+    <span class="type">uint8_t</span>  u8Count = <span class="num">0</span>;
+    <span class="type">int8_t</span>   ai8TmpSignal[<span class="val">TKLIB_TOL_NUM_KEY</span>];
+    <span class="type">int8_t</span>   i;
+
+    <span class="cm">/* 슬라이더 채널 마스크 조회 */</span>
+    u16ChnMsk = <span class="fn">TK_GetEnabledChannelMask</span>(<span class="val">TK_SLIDER</span>);
+
+    <span class="cm">/* 슬라이더 터치 여부 확인 */</span>
+    <span class="kw">if</span> (<span class="fn">TK_CheckSliderWheelPressed</span>(<span class="val">TK_SLIDER</span>) == <span class="num">1</span>)
+    {
+        <span class="cm">/* 슬라이더 채널 신호만 추출 */</span>
+        <span class="kw">for</span> (i = <span class="num">0</span>; i &lt; <span class="val">TKLIB_TOL_NUM_KEY</span>; i++)
+        {
+            <span class="kw">if</span> (u16ChnMsk &amp; (<span class="num">1ul</span> &lt;&lt; i))
+            {
+                ai8TmpSignal[u8Count] = ai8Signal[i];
+                u8Count++;
+            }
+        }
+        <span class="cm">/* 위치 퍼센트 계산 (0~100%) */</span>
+        i8SliderPercentage = <span class="fn">TK_SliderPercentage</span>(ai8TmpSignal, u8Count);
+    }
+}</pre>
+
+  <h3>// 감도 설정 — tk.h 매크로 기준</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Pulse Width 상수</th><th>시간</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>TK_SENSE_PULSE_P5</code></td><td>500 ns</td><td>방수 기능 권장값</td></tr>
+        <tr><td><code>TK_SENSE_PULSE_1</code></td><td>1 μs</td><td>일반 사용</td></tr>
+        <tr><td><code>TK_SENSE_PULSE_2</code></td><td>2 μs</td><td>IEC 61000-4-6 CNI 10Vrms 통과 권장값</td></tr>
+        <tr><td><code>TK_SENSE_PULSE_4</code></td><td>4 μs</td><td>고감도</td></tr>
+        <tr><td><code>TK_SENSE_PULSE_8</code></td><td>8 μs</td><td>최고감도 / 전력소비 증가</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Sense Count 상수</th><th>횟수</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>TK_SENSE_CNT_16</code></td><td>16</td><td>빠른 응답 / SNR 낮음</td></tr>
+        <tr><td><code>TK_SENSE_CNT_128</code></td><td>128</td><td>방수·CNI 권장값</td></tr>
+        <tr><td><code>TK_SENSE_CNT_255</code></td><td>255</td><td>고SNR / 응답 느림</td></tr>
+        <tr><td><code>TK_SENSE_CNT_1023</code></td><td>1023</td><td>최고SNR</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <pre><span class="cm">/* 감도 직접 설정 (저수준 — tk.h 사용 시) */</span>
+<span class="fn">TK_ConfigSensitivity</span>(
+    <span class="val">TK_SENSE_PULSE_2</span>,    <span class="cm">/* Pulse Width: 2us (CNI 권장) */</span>
+    <span class="val">TK_SENSE_CNT_128</span>,    <span class="cm">/* Sense Count: 128 (방수·CNI 권장) */</span>
+    <span class="val">TK_AVCCH_1_DIV_4</span>     <span class="cm">/* AVCCH 전압 선택 */</span>
+);
+<span class="cm">/* 감지 시간 = Pulse Width × Count = 2us × 128 = 256us */</span></pre>
+
+  <div class="call tip"><span class="ci">💡</span>
+    <div>실무에서는 감도 파라미터를 <strong>코드에서 직접 설정하지 않고 NuSenadj 교정 툴에서 설정 후 저장</strong>하는 것이 원칙입니다. TK_LoadPara()가 0xEE80에서 파라미터를 로드하므로 TK_Init() 이전에 반드시 호출해야 합니다.</div>
+  </div>
+
+  <h3>// TK 인터럽트 사용 (tk.h 기준)</h3>
+  <pre><span class="cm">/* 스캔 완료 인터럽트 활성화 */</span>
+<span class="fn">TK_EnableInt</span>(<span class="val">TK_INT_EN_SCAN_COMPLETE</span>);
+
+<span class="cm">/* 인터럽트 상태 확인 (폴링 또는 ISR 내에서) */</span>
+<span class="kw">if</span> (<span class="fn">TK_GET_INT_STATUS</span>(<span class="val">TK_INT_SCAN_COMPLETE</span>))
+{
+    <span class="cm">/* 스캔 완료 처리 */</span>
+    <span class="fn">TK_CLR_INT_FLAG</span>(<span class="val">TK_INT_SCAN_COMPLETE</span>); <span class="cm">/* Write-0 클리어 */</span>
+}
+
+<span class="cm">/* 인터럽트 비활성화 */</span>
+<span class="fn">TK_DisableInt</span>(<span class="val">TK_INT_EN_SCAN_COMPLETE</span>);</pre>
+
+  <div class="call danger"><span class="ci">🔴</span>
+    <div>TK_CLR_INT_FLAG()는 <strong>Write-0 클리어</strong> 방식입니다. 플래그 비트에 0을 써야 클리어됩니다. 일반적인 W1C(Write-1-Clear)와 반대이므로 주의하십시오.</div>
+  </div>
+
+  <h3>// FMC 함수 시그니처 (TKLib.h 기준)</h3>
+  <pre><span class="cm">/* TKLib.h에 선언된 실제 FMC 함수 — 주소는 16비트, 반환은 signed char */</span>
+<span class="kw">void</span>        <span class="fn">FMC_Open</span>(<span class="kw">void</span>);
+<span class="kw">signed char</span> <span class="fn">FMC_Erase</span>(<span class="kw">unsigned int</span> u16Addr);
+<span class="kw">signed char</span> <span class="fn">FMC_Write</span>(<span class="kw">unsigned int</span> u16Addr, <span class="kw">unsigned long</span> u32Data);
+
+<span class="cm">/* 사용 예 — TK 교정값 수동 저장 */</span>
+<span class="fn">FMC_Open</span>();
+<span class="fn">TK_SavePara</span>();   <span class="cm">/* TKLib: Erase + Write 0xEE80 자동 수행 */</span></pre>
+
+  <h3>// 교정 모드 vs 동작 모드</h3>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-t">DEMO_CALIBRATION 모드</div>
+      <div class="card-b">
+        NuSenadj 툴과 UART로 통신<br>
+        <code>TK_GetPacket()</code>로 설정값 수신<br>
+        <code>TK_Calibration_Untouch()</code> 수행<br>
+        <code>TK_SavePara()</code>로 0xEE80 저장<br>
+        양산 전 <strong>1회 수행 후 DEMO_FREERUN으로 전환</strong>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">DEMO_FREERUN 모드</div>
+      <div class="card-b">
+        <code>TK_LoadPara()</code>로 교정값 로드<br>
+        20ms 주기 스캔<br>
+        <code>TK_ScanKey()</code>로 터치 감지<br>
+        슬라이더/휠 위치 계산<br>
+        제품 양산 시 사용하는 모드
+      </div>
+    </div>
+  </div>
+
+  <h3>// ARGB LED — SPI로 타이밍 에뮬레이션</h3>
+  <p>ML56 Slider ARGB 예제에서 ARGB LED(WS2812 호환)의 신호를 SPI로 에뮬레이션합니다. HIRC 24MHz에서 분주비 8을 적용하면 SPI 클럭이 3MHz(1비트=0.333μs)가 됩니다.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>ARGB 신호</th><th>타이밍 (Readme.pdf 기준)</th><th>SPI 비트 패턴</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Logic 0</strong></td><td>TH=0.4μs±150ns / TL=0.85μs±150ns</td><td><code>1000</code> (4비트)</td></tr>
+        <tr><td><strong>Logic 1</strong></td><td>TH=0.8μs±150ns / TL=0.45μs±150ns</td><td><code>1110</code> (4비트)</td></tr>
+        <tr><td><strong>Reset</strong></td><td>Low ≥ 50μs</td><td>0을 충분히 전송</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="call info"><span class="ci">ℹ️</span>
+    <div>3바이트 GRB 값이 12바이트 SPI 시퀀스로 변환됩니다. 각 원래 비트를 SPI 4비트로 확장하여 표현합니다. SPI MOSI(P0.0)를 ARGB LED의 Din에 연결합니다.</div>
+  </div>
+
+</section>
+
+<!-- SECTION: ADC
+<!-- SECTION: ADC                           -->
+<!-- ═══════════════════════════════════════ -->
+<section id="adc">
+  <div class="sec-label">02 // ADC</div>
+  <h2>ADC 12-bit 상세</h2>
+
+  <div class="grid g3">
+    <div class="card">
+      <div class="card-t">해상도 / 채널</div>
+      <div class="card-b">ML51: <strong>12-bit × 8ch</strong><br>ML56: <strong>12-bit × 12ch</strong><br>SAR(Successive Approximation)</div>
+    </div>
+    <div class="card">
+      <div class="card-t">입력 전압 범위</div>
+      <div class="card-b">0 ~ VREF (내부/외부 선택)<br>내부 VREF: <strong>AVDD</strong><br>외부 VREF: VREF 핀 연결</div>
+    </div>
+    <div class="card">
+      <div class="card-t">변환 시간</div>
+      <div class="card-b">ADC 클럭 × 샘플링 사이클<br>ADC_CLK = FOSC / 분주비<br>최소 사이클 수: TRM 확인</div>
+    </div>
+  </div>
+
+  <h3>// ADC 초기화 및 단일 변환</h3>
+  <pre><span class="pp">#include</span> <span class="str">"adc.h"</span>
+
+<span class="kw">void</span> <span class="fn">ADC_Init</span>(<span class="kw">void</span>)
+{
+    <span class="cm">/* ADC 입력 핀: Input-Only 모드 설정 */</span>
+    <span class="fn">GPIO_SetMode</span>(<span class="reg">P1</span>, <span class="val">BIT0</span>, <span class="type">GPIO_MODE_INPUT</span>);  <span class="cm">// AIN0 = P1.0</span>
+
+    <span class="cm">/* ADC 클럭: FOSC / 2 (최대 권장치 확인 필요) */</span>
+    <span class="fn">ADC_Open</span>(<span class="reg">ADC</span>, <span class="type">ADC_INPUT_MODE_SINGLE_END</span>,
+             <span class="type">ADC_OPERATION_MODE_SINGLE</span>, <span class="val">BIT0</span>);
+
+    <span class="cm">/* VREF = AVDD 내부 기준 */</span>
+    <span class="fn">ADC_SET_REF_VOLTAGE</span>(<span class="reg">ADC</span>, <span class="type">ADC_REFSEL_POWER</span>);
+
+    <span class="fn">ADC_POWER_ON</span>(<span class="reg">ADC</span>);
+}
+
+<span class="type">uint16_t</span> <span class="fn">ADC_ReadChannel</span>(<span class="type">uint8_t</span> ch)
+{
+    <span class="fn">ADC_SET_INPUT_CHANNEL</span>(<span class="reg">ADC</span>, <span class="num">1</span> << ch);
+    <span class="fn">ADC_START_CONV</span>(<span class="reg">ADC</span>);
+    <span class="kw">while</span> (!<span class="fn">ADC_IS_DATA_VALID</span>(<span class="reg">ADC</span>));         <span class="cm">// 변환 완료 대기</span>
+    <span class="kw">return</span> <span class="fn">ADC_GET_CONVERSION_DATA</span>(<span class="reg">ADC</span>, ch);  <span class="cm">// 0 ~ 4095</span>
+}
+
+<span class="cm">/* 전압 환산: VREF = 3.3V, 12-bit */</span>
+<span class="cm">// float voltage = (float)raw * 3.3f / 4095.0f;</span></pre>
+
+  <div class="call warn"><span class="ci">⚠️</span>
+    <div>ADC 핀을 CTK 채널과 공유할 경우 <strong>시분할(Time-multiplex)</strong>로 사용해야 합니다. CTK 스캔 중 ADC 변환 동시 수행 불가.</div>
+  </div>
+
+  <h3>// ADC 연속 변환 + DMA (ML56 지원 여부 TRM 확인)</h3>
+  <pre><span class="cm">/* SCAN 모드: 여러 채널 자동 순환 변환 */</span>
+<span class="kw">void</span> <span class="fn">ADC_ScanMode_Init</span>(<span class="kw">void</span>)
+{
+    <span class="fn">ADC_Open</span>(<span class="reg">ADC</span>, <span class="type">ADC_INPUT_MODE_SINGLE_END</span>,
+             <span class="type">ADC_OPERATION_MODE_SCAN</span>,         <span class="cm">// SCAN 모드</span>
+             <span class="val">BIT0</span>|<span class="val">BIT1</span>|<span class="val">BIT2</span>|<span class="val">BIT3</span>);          <span class="cm">// 4채널</span>
+    <span class="fn">ADC_EnableInt</span>(<span class="reg">ADC</span>);
+    <span class="fn">ADC_START_CONV</span>(<span class="reg">ADC</span>);
+}
+
+<span class="type">uint16_t</span> g_adcBuf[<span class="num">4</span>];
+
+<span class="kw">void</span> <span class="fn">ADC_ISR</span>(<span class="kw">void</span>) <span class="kw">interrupt</span> <span class="num">11</span>  <span class="cm">// 벡터 번호 TRM 확인</span>
+{
+    <span class="type">uint8_t</span> i;
+    <span class="kw">if</span> (<span class="fn">ADC_GET_INT_FLAG</span>(<span class="reg">ADC</span>))
+    {
+        <span class="kw">for</span>(i=<span class="num">0</span>; i<<span class="num">4</span>; i++)
+            g_adcBuf[i] = <span class="fn">ADC_GET_CONVERSION_DATA</span>(<span class="reg">ADC</span>, i);
+        <span class="fn">ADC_CLR_INT_FLAG</span>(<span class="reg">ADC</span>);
+    }
+}</pre>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: PWM                           -->
+<!-- ═══════════════════════════════════════ -->
+<section id="pwm">
+  <div class="sec-label">03 // PWM</div>
+  <h2>PWM / BPWM 설정</h2>
+  <p>ML51/56은 <strong>PWM(6~8채널)</strong>과 <strong>BPWM(Basic PWM)</strong> 모듈을 포함합니다. LED 밝기 제어, 모터 구동, 버저에 사용합니다.</p>
+
+  <h3>// PWM0 채널0 — LED Dimming (1kHz, 50% duty)</h3>
+  <pre><span class="pp">#include</span> <span class="str">"pwm.h"</span>
+
+<span class="kw">void</span> <span class="fn">PWM_Init</span>(<span class="kw">void</span>)
+{
+    <span class="cm">/* PWM 출력 핀 설정 */</span>
+    <span class="fn">GPIO_SetMode</span>(<span class="reg">P2</span>, <span class="val">BIT0</span>, <span class="type">GPIO_MODE_OUTPUT</span>);
+    <span class="fn">SYS_SET_MFP</span>(<span class="reg">P2</span>, <span class="num">0</span>, <span class="type">PWM0CH0</span>);  <span class="cm">// 핀 기능: PWM0 CH0</span>
+
+    <span class="cm">/* PWM 클럭: FOSC=24MHz, Prescaler로 분주 */</span>
+    <span class="fn">PWM_ConfigOutputChannel</span>(
+        <span class="reg">PWM0</span>,           <span class="cm">// 모듈</span>
+        <span class="num">0</span>,              <span class="cm">// 채널</span>
+        <span class="num">1000</span>,           <span class="cm">// 주파수: 1kHz</span>
+        <span class="num">50</span>             <span class="cm">// Duty: 50%</span>
+    );
+
+    <span class="fn">PWM_EnableOutput</span>(<span class="reg">PWM0</span>, <span class="type">PWM_CH_0_MASK</span>);
+    <span class="fn">PWM_Start</span>(<span class="reg">PWM0</span>, <span class="type">PWM_CH_0_MASK</span>);
+}
+
+<span class="cm">/* Duty 동적 변경 (밝기 조절) */</span>
+<span class="kw">void</span> <span class="fn">PWM_SetDuty</span>(<span class="type">uint8_t</span> duty_pct)  <span class="cm">// 0 ~ 100</span>
+{
+    <span class="fn">PWM_ConfigOutputChannel</span>(<span class="reg">PWM0</span>, <span class="num">0</span>, <span class="num">1000</span>, duty_pct);
+}</pre>
+
+  <h3>// 버저 (Buzzer) — 가변 주파수</h3>
+  <pre><span class="cm">/* 주파수만 변경하면 음계 표현 가능 */</span>
+<span class="kw">void</span> <span class="fn">Buzzer_Tone</span>(<span class="type">uint32_t</span> freq_hz)
+{
+    <span class="fn">PWM_ConfigOutputChannel</span>(<span class="reg">PWM0</span>, <span class="num">1</span>, freq_hz, <span class="num">50</span>);
+    <span class="fn">PWM_EnableOutput</span>(<span class="reg">PWM0</span>, <span class="type">PWM_CH_1_MASK</span>);
+    <span class="fn">PWM_Start</span>(<span class="reg">PWM0</span>, <span class="type">PWM_CH_1_MASK</span>);
+}
+
+<span class="kw">void</span> <span class="fn">Buzzer_Off</span>(<span class="kw">void</span>)
+{
+    <span class="fn">PWM_DisableOutput</span>(<span class="reg">PWM0</span>, <span class="type">PWM_CH_1_MASK</span>);
+    <span class="fn">PWM_Stop</span>(<span class="reg">PWM0</span>, <span class="type">PWM_CH_1_MASK</span>);
+}</pre>
+
+  <div class="call info"><span class="ci">ℹ️</span>
+    <div><strong>BPWM vs PWM:</strong> BPWM은 모든 채널이 동일한 주기를 공유합니다. 채널마다 다른 주파수가 필요하면 PWM 모듈을 사용하십시오.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: SPI                           -->
+<!-- ═══════════════════════════════════════ -->
+<section id="spi">
+  <div class="sec-label">04 // SPI</div>
+  <h2>SPI Master / Slave</h2>
+
+  <h3>// SPI0 Master 초기화 (1MHz, Mode 0)</h3>
+  <pre><span class="pp">#include</span> <span class="str">"spi.h"</span>
+
+<span class="kw">void</span> <span class="fn">SPI0_Master_Init</span>(<span class="kw">void</span>)
+{
+    <span class="cm">/* 핀 기능 설정: MOSI/MISO/CLK/CS */</span>
+    <span class="fn">SYS_SET_MFP</span>(<span class="reg">P0</span>, <span class="num">4</span>, <span class="type">SPI0_MOSI</span>);
+    <span class="fn">SYS_SET_MFP</span>(<span class="reg">P0</span>, <span class="num">5</span>, <span class="type">SPI0_MISO</span>);
+    <span class="fn">SYS_SET_MFP</span>(<span class="reg">P0</span>, <span class="num">6</span>, <span class="type">SPI0_CLK</span>);
+    <span class="cm">/* CS는 GPIO로 수동 제어 권장 */</span>
+    <span class="fn">GPIO_SetMode</span>(<span class="reg">P0</span>, <span class="val">BIT7</span>, <span class="type">GPIO_MODE_OUTPUT</span>);
+    <span class="reg">P07</span> = <span class="val">1</span>;  <span class="cm">// CS High (비선택)</span>
+
+    <span class="cm">/* SPI Master, 8-bit, Mode0(CPOL=0,CPHA=0), 1MHz */</span>
+    <span class="fn">SPI_Open</span>(<span class="reg">SPI0</span>, <span class="type">SPI_MASTER</span>, <span class="type">SPI_MODE_0</span>,
+             <span class="num">8</span>, <span class="num">1000000</span>);
+
+    <span class="fn">SPI_EnableAutoSS</span>(<span class="reg">SPI0</span>, <span class="type">SPI_SS</span>, <span class="type">SPI_SS_ACTIVE_LOW</span>);
+}
+
+<span class="type">uint8_t</span> <span class="fn">SPI_Transfer</span>(<span class="type">uint8_t</span> txData)
+{
+    <span class="reg">P07</span> = <span class="val">0</span>;                              <span class="cm">// CS Low</span>
+    <span class="fn">SPI_WRITE_TX</span>(<span class="reg">SPI0</span>, txData);
+    <span class="kw">while</span> (<span class="fn">SPI_IS_BUSY</span>(<span class="reg">SPI0</span>));           <span class="cm">// 전송 완료 대기</span>
+    <span class="reg">P07</span> = <span class="val">1</span>;                              <span class="cm">// CS High</span>
+    <span class="kw">return</span> <span class="fn">SPI_READ_RX</span>(<span class="reg">SPI0</span>);
+}</pre>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Mode</th><th>CPOL</th><th>CPHA</th><th>클럭 유휴 상태</th><th>샘플 엣지</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mode 0</strong></td><td>0</td><td>0</td><td>Low</td><td>상승</td></tr>
+        <tr><td><strong>Mode 1</strong></td><td>0</td><td>1</td><td>Low</td><td>하강</td></tr>
+        <tr><td><strong>Mode 2</strong></td><td>1</td><td>0</td><td>High</td><td>하강</td></tr>
+        <tr><td><strong>Mode 3</strong></td><td>1</td><td>1</td><td>High</td><td>상승</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: I2C                           -->
+<!-- ═══════════════════════════════════════ -->
+<section id="i2c">
+  <div class="sec-label">05 // I²C</div>
+  <h2>I²C Master 기본 구현</h2>
+
+  <h3>// I2C0 Master 초기화 (100kHz)</h3>
+  <pre><span class="pp">#include</span> <span class="str">"i2c.h"</span>
+
+<span class="kw">void</span> <span class="fn">I2C0_Init</span>(<span class="kw">void</span>)
+{
+    <span class="cm">/* SDA/SCL 핀: Open-Drain + 외부 풀업 (4.7kΩ to VDD) 필수 */</span>
+    <span class="fn">GPIO_SetMode</span>(<span class="reg">P1</span>, <span class="val">BIT4</span>, <span class="type">GPIO_MODE_OPEN_DRAIN</span>); <span class="cm">// SDA</span>
+    <span class="fn">GPIO_SetMode</span>(<span class="reg">P1</span>, <span class="val">BIT5</span>, <span class="type">GPIO_MODE_OPEN_DRAIN</span>); <span class="cm">// SCL</span>
+    <span class="fn">SYS_SET_MFP</span>(<span class="reg">P1</span>, <span class="num">4</span>, <span class="type">I2C0_SDA</span>);
+    <span class="fn">SYS_SET_MFP</span>(<span class="reg">P1</span>, <span class="num">5</span>, <span class="type">I2C0_SCL</span>);
+
+    <span class="fn">I2C_Open</span>(<span class="reg">I2C0</span>, <span class="num">100000</span>);  <span class="cm">// 100kHz</span>
+}
+
+<span class="cm">/* 레지스터 1바이트 쓰기 */</span>
+<span class="kw">void</span> <span class="fn">I2C_WriteReg</span>(<span class="type">uint8_t</span> devAddr, <span class="type">uint8_t</span> regAddr, <span class="type">uint8_t</span> data)
+{
+    <span class="fn">I2C_START</span>(<span class="reg">I2C0</span>);
+    <span class="fn">I2C_Wait_Ready</span>(<span class="reg">I2C0</span>);
+
+    <span class="fn">I2C_SET_DATA</span>(<span class="reg">I2C0</span>, devAddr << <span class="num">1</span>);  <span class="cm">// Write</span>
+    <span class="fn">I2C_SET_CONTROL_REG</span>(<span class="reg">I2C0</span>, <span class="type">I2C_CTL_SI</span>);
+    <span class="fn">I2C_Wait_Ready</span>(<span class="reg">I2C0</span>);
+
+    <span class="fn">I2C_SET_DATA</span>(<span class="reg">I2C0</span>, regAddr);
+    <span class="fn">I2C_SET_CONTROL_REG</span>(<span class="reg">I2C0</span>, <span class="type">I2C_CTL_SI</span>);
+    <span class="fn">I2C_Wait_Ready</span>(<span class="reg">I2C0</span>);
+
+    <span class="fn">I2C_SET_DATA</span>(<span class="reg">I2C0</span>, data);
+    <span class="fn">I2C_SET_CONTROL_REG</span>(<span class="reg">I2C0</span>, <span class="type">I2C_CTL_SI</span>);
+    <span class="fn">I2C_Wait_Ready</span>(<span class="reg">I2C0</span>);
+
+    <span class="fn">I2C_STOP</span>(<span class="reg">I2C0</span>);
+    <span class="fn">I2C_Wait_Ready</span>(<span class="reg">I2C0</span>);
+}
+</pre>
+
+  <div class="call warn"><span class="ci">⚠️</span>
+    <div>I²C SDA/SCL 핀에 <strong>외부 풀업 저항(3.3kΩ ~ 4.7kΩ)</strong>이 없으면 통신 불가. GPIO를 Open-Drain으로 설정해도 내부 풀업만으로는 부족합니다.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: WDT / BOD — 근거: Nuvoton_8051_WDT_reset_EN.pdf -->
+<!-- ═══════════════════════════════════════ -->
+<section id="wdt">
+  <div class="sec-label">06 // WDT / BOD / LVR</div>
+  <h2>감시 타이머 및 전원 감시</h2>
+
+  <h3>// WDT 기본 동작 구조</h3>
+  <div class="call danger"><span class="ci">🔴</span>
+    <div><strong>WDT 기본 설정은 범용 타이머(인터럽트 전용)입니다.</strong> Reset 기능이 없습니다. WDT Reset을 사용하려면 반드시 <strong>CONFIG bytes</strong>에서 <code>WDTEN[3:0] (CONFIG4[7:4])</code>를 설정해야 합니다. <br>근거: Nuvoton_8051_WDT_reset_EN.pdf</div>
+  </div>
+
+  <h3>// WDT Reset 활성화 — ICP 프로그래밍에서 설정 (강력 권장)</h3>
+  <div class="call tip"><span class="ci">💡</span>
+    <div>WDT Reset은 <strong>NuWriter 또는 Keil Debug → Settings → Config</strong>에서 "WDT Options: Enabled and keep running in Idle/Power-down mode"를 선택하여 ICP 프로그래밍 시 설정하는 것을 강력 권장합니다. ICP로 CONFIG를 한 번만 쓰면 이후 변경되지 않아 안정적입니다.</div>
+  </div>
+
+  <h3>// 소프트웨어(IAP)로 CONFIG 수정 — 강력 비권장</h3>
+  <p>코드에서 IAP 명령으로 CONFIG 영역을 직접 수정하여 WDT Reset을 활성화하는 방법은 <strong>양산 현장에서 시스템 오류를 빈번하게 유발</strong>합니다. Nuvoton 공식 문서는 이 방법을 강력히 비권장합니다. 이유는 네 가지입니다.</p>
+
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-t">⚠️ 이유 1 — Reset 후 재확인 로직 필요</div>
+      <div class="card-b">CONFIG 수정은 Reset 후에야 적용됩니다. 따라서 프로그램 내에 수정 성공 여부를 확인하는 복잡한 로직이 필요하며, POR·Reset핀·BOD·WDT 모든 리셋 경로를 고려해야 합니다.</div>
+    </div>
+    <div class="card">
+      <div class="card-t">⚠️ 이유 2 — 전원 변동 / EFT 간섭</div>
+      <div class="card-b">실제 제품 환경에서는 전원이 불안정하거나 EFT(Electrical Fast Transient) 간섭이 발생합니다. 이로 인해 IC가 수십~수백 ms 동작 후 반복 리셋될 수 있습니다.</div>
+    </div>
+    <div class="card">
+      <div class="card-t">⚠️ 이유 3 — 쓰기 도중 리셋 위험</div>
+      <div class="card-b">CONFIG 수정은 원본 저장 → 새 값 적용 → CONFIG 영역 Erase → 새 값 Write의 여러 단계로 진행됩니다. 이유 1·2가 동시에 발생하면 어느 단계에서든 리셋이 일어나 CONFIG가 불완전한 상태가 될 수 있습니다.</div>
+    </div>
+    <div class="card">
+      <div class="card-t">⚠️ 이유 4 — 반복 수정으로 인한 불안정</div>
+      <div class="card-b">ICP로 CONFIG를 한 번 쓰면 이후 변경되지 않습니다. 그러나 소프트웨어로 쓰면 시스템 동작 중 여러 번 수정될 수 있어 시스템 불안정성 요인이 증가합니다.</div>
+    </div>
+  </div>
+
+  <div class="call danger"><span class="ci">🔴</span>
+    <div><strong>Nuvoton 공식 문서 결론:</strong> 양산된 최종 제품에서 CONFIG 재작성으로 인한 시스템 오류가 다수 확인되었습니다. <strong>소프트웨어 코드로 CONFIG를 수정하지 마십시오.</strong></div>
+  </div>
+
+  <h3>// WDT Feed 코드 (BSP 기준)</h3>
+  <pre><span class="pp">#include</span> <span class="str">"wdt.h"</span>
+
+<span class="cm">/* CONFIG에서 WDT Reset 이미 활성화된 전제 하에 사용 */</span>
+<span class="kw">void</span> <span class="fn">WDT_Init</span>(<span class="kw">void</span>)
+{
+    <span class="cm">/* WDT 타이머 설정 (CONFIG에서 Reset 활성화 전제) */</span>
+    <span class="fn">WDT_Open</span>(<span class="type">WDT_TIMEOUT_2POW14</span>,    <span class="cm">/* 2^14 / 10kHz(LIRC) ≈ 1.6초 */</span>
+             <span class="type">WDT_RESET_DELAY_1026CLK</span>,
+             <span class="val">TRUE</span>,                      <span class="cm">/* Reset enable (CONFIG 설정 전제) */</span>
+             <span class="val">FALSE</span>);                    <span class="cm">/* Wake-up disable */</span>
+}
+
+<span class="cm">/* 메인 루프 모든 경로에서 주기적으로 호출 필수 */</span>
+<span class="kw">void</span> <span class="fn">WDT_Feed</span>(<span class="kw">void</span>)
+{
+    <span class="fn">WDT_RESET_COUNTER</span>();  <span class="cm">/* 카운터 초기화 (Kick/Feed) */</span>
+}</pre>
+
+  <h3>// BOD (Brown-Out Detection)</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>BOD 레벨</th><th>전압</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>2.2V</code></td><td>2.2V</td><td>배터리 구동 시스템</td></tr>
+        <tr><td><code>2.7V</code></td><td>2.7V</td><td>3.3V 시스템 (일반 권장)</td></tr>
+        <tr><td><code>3.7V</code></td><td>3.7V</td><td>5V 계열 시스템</td></tr>
+        <tr><td><code>4.4V</code></td><td>4.4V</td><td>고전압 시스템</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call danger"><span class="ci">🔴</span>
+    <div>BOD와 WDT는 <strong>ICP(NuWriter) Config 탭에서 설정</strong>하는 것이 안전합니다. 코드로 활성화하면 Boot 구간(Reset 직후 ~ 코드 실행 전)에는 보호되지 않습니다.</div>
+  </div>
+</section>
+
+<!-- SECTION: POWER
+<!-- SECTION: POWER MANAGEMENT             -->
+<!-- ═══════════════════════════════════════ -->
+<section id="power">
+  <div class="sec-label">07 // 전력 관리</div>
+  <h2>Sleep / Idle / Power-Down 모드</h2>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>모드</th><th>코어</th><th>FOSC</th><th>주변장치</th><th>Wake-up</th><th>소비전류</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Normal</strong></td><td>동작</td><td>동작</td><td>동작</td><td>-</td><td>~수mA</td></tr>
+        <tr><td><strong>Idle</strong></td><td>정지</td><td>동작</td><td>동작</td><td>인터럽트</td><td>감소</td></tr>
+        <tr><td><strong>Power-Down</strong></td><td>정지</td><td>정지</td><td>정지</td><td>GPIO/WDT/RTC</td><td>~수μA</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>// Power-Down 진입 및 Wake-up</h3>
+  <pre><span class="cm">/* Power-Down 진입 전 준비 */</span>
+<span class="kw">void</span> <span class="fn">Enter_PowerDown</span>(<span class="kw">void</span>)
+{
+    <span class="cm">/* Wake-up 소스: GPIO 인터럽트 설정 */</span>
+    <span class="fn">GPIO_SetMode</span>(<span class="reg">P3</span>, <span class="val">BIT2</span>, <span class="type">GPIO_MODE_INPUT</span>);
+    <span class="fn">GPIO_EnableInt</span>(<span class="reg">P3</span>, <span class="num">2</span>, <span class="type">GPIO_INT_FALLING</span>);
+    EA = <span class="val">1</span>;
+
+    <span class="cm">/* 불필요한 주변장치 클럭 차단 */</span>
+    <span class="fn">CLK_DisableModuleClock</span>(<span class="type">UART0_MODULE</span>);
+    <span class="fn">CLK_DisableModuleClock</span>(<span class="type">ADC_MODULE</span>);
+
+    <span class="cm">/* Power-Down 진입 */</span>
+    <span class="fn">CLK_PowerDown</span>();   <span class="cm">// 이 줄에서 멈춤 → Wake-up 시 다음 줄 실행</span>
+
+    <span class="cm">/* Wake-up 후 클럭 재초기화 필수 */</span>
+    <span class="fn">System_Init</span>();
+    <span class="fn">CLK_EnableModuleClock</span>(<span class="type">UART0_MODULE</span>);
+}
+</pre>
+  <div class="call warn"><span class="ci">⚠️</span>
+    <div>Power-Down에서 깨어난 후 <strong>클럭이 초기 상태(HIRC 느린 모드 또는 LIRC)로 복귀</strong>할 수 있습니다. FOSC 재설정 없이 UART/SPI 사용 시 통신 오류 발생.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: INTERRUPT                     -->
+<!-- ═══════════════════════════════════════ -->
+<section id="isr">
+  <div class="sec-label">08 // 인터럽트</div>
+  <h2>인터럽트 벡터 & 우선순위</h2>
+  <p>ML51/56은 8051 기반 인터럽트 구조를 사용합니다. <strong>interrupt 번호</strong>가 벡터 테이블 주소를 결정하며, 정확한 번호는 <strong>반드시 해당 TRM의 인터럽트 벡터 표를 확인</strong>하십시오.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>인터럽트</th><th>번호(예시)</th><th>벡터 주소</th><th>클리어 방법</th></tr></thead>
+      <tbody>
+        <tr><td><strong>INT0 (P3.2)</strong></td><td>0</td><td>0x0003</td><td>HW 자동 (Edge)</td></tr>
+        <tr><td><strong>Timer0</strong></td><td>1</td><td>0x000B</td><td><code>TIMER_ClearIntFlag()</code></td></tr>
+        <tr><td><strong>INT1 (P3.3)</strong></td><td>2</td><td>0x0013</td><td>HW 자동 (Edge)</td></tr>
+        <tr><td><strong>Timer1</strong></td><td>3</td><td>0x001B</td><td><code>TIMER_ClearIntFlag()</code></td></tr>
+        <tr><td><strong>UART0</strong></td><td>4</td><td>0x0023</td><td>FSR 플래그 읽기</td></tr>
+        <tr><td><strong>SPI0</strong></td><td>6 (확인)</td><td>TRM</td><td><code>SPI_CLR_UNIT_TRANS_INT_FLAG()</code></td></tr>
+        <tr><td><strong>ADC</strong></td><td>11 (확인)</td><td>TRM</td><td><code>ADC_CLR_INT_FLAG()</code></td></tr>
+        <tr><td><strong>TK (Touch Key)</strong></td><td>TRM 확인 필수</td><td>TRM</td><td><code>TK_CLR_INT_FLAG(TK_INT_SCAN_COMPLETE)</code><br><small style="color:var(--text-dim)">Write-0 클리어 방식 (tk.h)</small></td></tr>
+        <tr><td><strong>Timer2</strong></td><td>5</td><td>TRM</td><td><code>TIMER_ClearIntFlag()</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="call danger"><span class="ci">🔴</span>
+    <div>위 인터럽트 번호는 <strong>참고용 예시</strong>입니다. Keil C51에서 <code>interrupt N</code> 번호가 틀리면 ISR이 호출되지 않거나 엉뚱한 벡터가 실행됩니다. <strong>반드시 ML51/ML56 TRM의 인터럽트 벡터 테이블 확인 후 사용.</strong></div>
+  </div>
+
+  <h3>// 우선순위 설정</h3>
+  <pre><span class="cm">/* 8051 기반: 두 단계 우선순위 (IP, IPH 레지스터) */</span>
+<span class="cm">/* Priority: 0(낮음) ~ 3(높음) */</span>
+
+<span class="cm">/* Timer0 우선순위 HIGH 설정 */</span>
+<span class="reg">IP</span>  |= <span class="val">0x02</span>;   <span class="cm">// PT0 = 1 (IP 레지스터)</span>
+<span class="reg">IPH</span> |= <span class="val">0x02</span>;   <span class="cm">// PT0H = 1 (IPH 레지스터) → Priority = 3</span>
+
+<span class="cm">/* UART0 우선순위 NORMAL */</span>
+<span class="reg">IP</span>  |= <span class="val">0x10</span>;   <span class="cm">// PS = 1</span>
+<span class="cm">// IPH 미설정 → Priority = 1</span></pre>
+
+  <h3>// ISR 구현 규칙 (필수 준수)</h3>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-t">✅ 반드시 해야 할 것</div>
+      <div class="card-b">
+        진입 즉시 <strong>인터럽트 플래그 클리어</strong><br>
+        ISR 내부는 <strong>짧게 (Flag + 버퍼만)</strong><br>
+        공유 변수는 <code>volatile</code> 선언<br>
+        전역 EA 건드리지 않음
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">❌ 절대 하지 말 것</div>
+      <div class="card-b">
+        ISR 내 <code>printf</code> / 긴 처리 금지<br>
+        ISR 내 Flash Write 금지<br>
+        ISR 내 무한 대기 루프 금지<br>
+        <code>Delay_ms()</code> 호출 금지
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: MEMORY MODEL                 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="mem">
+  <div class="sec-label">09 // 메모리 모델</div>
+  <h2>8051 메모리 모델 — C51 필수 이해</h2>
+  <p>ML51/56은 8051 코어이므로 C51 컴파일러의 <strong>메모리 영역 지정자</strong>를 올바르게 사용해야 합니다. 잘못 사용 시 RAM 초과 또는 성능 저하가 발생합니다.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>지정자</th><th>영역</th><th>크기</th><th>속도</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>data</code></td><td>Internal RAM (Direct)</td><td>128B</td><td>가장 빠름</td><td>자주 쓰는 변수</td></tr>
+        <tr><td><code>idata</code></td><td>Internal RAM (Indirect)</td><td>256B (upper)</td><td>빠름</td><td>스택, 지역 변수</td></tr>
+        <tr><td><code>xdata</code></td><td>External RAM (MOVX)</td><td>ML56 최대 4KB</td><td>느림</td><td>대용량 버퍼</td></tr>
+        <tr><td><code>code</code></td><td>ROM (Flash)</td><td>APROM</td><td>읽기전용</td><td>상수, 테이블</td></tr>
+        <tr><td><code>pdata</code></td><td>xdata 페이지 0</td><td>256B</td><td>중간</td><td>xdata 일부 접근</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>// 올바른 메모리 지정 예제</h3>
+  <pre><span class="cm">/* 자주 쓰는 작은 변수 → data (fast) */</span>
+<span class="kw">data</span>  <span class="type">uint8_t</span>  g_u8Flags;
+<span class="kw">data</span>  <span class="type">uint16_t</span> g_u16Counter;
+
+<span class="cm">/* 큰 버퍼 → xdata */</span>
+<span class="kw">xdata</span> <span class="type">uint8_t</span>  g_uart_rxBuf[<span class="num">256</span>];
+<span class="kw">xdata</span> <span class="type">uint16_t</span> g_adcBuffer[<span class="num">64</span>];
+
+<span class="cm">/* 상수 룩업 테이블 → code (ROM에 저장, RAM 절약) */</span>
+<span class="kw">code</span>  <span class="type">uint8_t</span>  c_sinTable[<span class="num">256</span>] = { <span class="cm">/* ... */</span> };
+<span class="kw">code</span>  <span class="type">uint8_t</span>  c_fontData[]   = { <span class="cm">/* ... */</span> };
+
+<span class="cm">/* ISR 공유 변수 → volatile + data */</span>
+<span class="kw">volatile</span> <span class="kw">data</span> <span class="type">uint8_t</span> g_rxReady;
+</pre>
+
+  <div class="call warn"><span class="ci">⚠️</span>
+    <div><code>data</code> 영역은 128B(실제 스택 제외 ~100B)이므로 크기 초과 시 링커 에러 또는 스택 충돌이 발생합니다. Keil Map 파일에서 <code>DATA</code>, <code>IDATA</code>, <code>XDATA</code> 사용량을 반드시 확인하십시오.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: ISP / IAP / CONFIG / SPROM                   -->
+<!-- 근거: UM_MS51_ML51_SPROM_EN_Rev1_01.pdf / TKLib.h      -->
+<!-- ═══════════════════════════════════════ -->
+<section id="isp">
+  <div class="sec-label">10 // ISP / IAP / CONFIG / SPROM</div>
+  <h2>Flash 프로그래밍 완전 정리</h2>
+
+  <h3>// ISP vs ICP vs IAP 차이</h3>
+  <div class="grid g3">
+    <div class="card">
+      <div class="card-t">ISP (In-System Programming)</div>
+      <div class="card-b">
+        <strong>LDROM 부트로더</strong>가 동작<br>
+        UART를 통해 외부에서 플래싱<br>
+        양산 라인에서 사용
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">ICP (In-Circuit Programming)</div>
+      <div class="card-b">
+        <strong>Nu-Link ICE</strong>를 통해 직접<br>
+        NuWriter / Keil / IAR에서 사용<br>
+        개발 단계에 사용
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">IAP (In-Application Programming)</div>
+      <div class="card-b">
+        <strong>APROM 내 코드</strong>가 Flash 업데이트<br>
+        TK 교정값 저장(0xEE80), OTA에 활용<br>
+        FMC 드라이버로 구현
+      </div>
+    </div>
+  </div>
+
+  <h3>// IAP — FMC 함수 시그니처 (TKLib.h 기준)</h3>
+  <div class="call warn"><span class="ci">⚠️</span>
+    <div>TKLib.h에 선언된 FMC 함수의 <strong>주소 파라미터는 16비트(unsigned int)</strong>이며 <strong>반환값은 signed char</strong>입니다. uint32_t 또는 void로 잘못 사용하면 링크 경고 또는 동작 오류가 발생합니다.</div>
+  </div>
+  <pre><span class="cm">/* TKLib.h 선언 — 반드시 이 시그니처로 사용 */</span>
+<span class="kw">void</span>        <span class="fn">FMC_Open</span>(<span class="kw">void</span>);
+<span class="kw">signed char</span> <span class="fn">FMC_Erase</span>(<span class="kw">unsigned int</span> u16Addr);               <span class="cm">/* 주소: 16비트 */</span>
+<span class="kw">signed char</span> <span class="fn">FMC_Write</span>(<span class="kw">unsigned int</span> u16Addr,
+                       <span class="kw">unsigned long</span> u32Data);             <span class="cm">/* 반환: signed char */</span>
+
+<span class="cm">/* IAP 쓰기 예 (Erase 선행 필수) */</span>
+<span class="kw">signed char</span> ret;
+<span class="fn">FMC_Open</span>();
+ret = <span class="fn">FMC_Erase</span>(<span class="num">0xEE80</span>);    <span class="cm">/* Page Erase (128 bytes) */</span>
+<span class="kw">if</span> (ret == <span class="num">0</span>)
+{
+    ret = <span class="fn">FMC_Write</span>(<span class="num">0xEE80</span>, u32Data);  <span class="cm">/* 4바이트씩 쓰기 */</span>
+}
+<span class="cm">/* TK 교정값 전체 저장은 TK_SavePara() 사용 권장 */</span></pre>
+
+  <h3>// SPROM (Security Protection Memory)</h3>
+  <p>MS51 / ML51 시리즈는 128바이트 크기의 특수 보안 메모리 SPROM을 내장합니다. 주소는 <code>FF80H ~ FFFFH</code>이며 "Whole Chip Erase" 명령에 영향받지 않습니다. 근거: UM_MS51_ML51_SPROM_EN_Rev1_01.pdf</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>항목</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td><strong>주소 범위</strong></td><td><code>FF80H ~ FFFFH</code> (128 bytes)</td></tr>
+        <tr><td><strong>Lock bit</strong></td><td><code>FFFFH</code> 마지막 바이트</td></tr>
+        <tr><td><strong>Non-secured 모드</strong></td><td>FFFFH = <code>0xFF</code> → IAP/ICP read/erase/program 모두 가능</td></tr>
+        <tr><td><strong>Secured 모드</strong></td><td>FFFFH ≠ <code>0xFF</code> → SPROM 영역 실행 중 CPU만 접근 가능</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>// SPROM Secured 모드 동작</h3>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-t">✅ 허용 (Secured 모드)</div>
+      <div class="card-b">
+        CPU가 SPROM 영역에서 실행 중일 때<br>
+        Instruction Fetch 및 데이터 읽기 가능<br>
+        SPROM 내 함수를 APROM에서 호출 가능
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">❌ 차단 (Secured 모드)</div>
+      <div class="card-b">
+        SPROM 외부에서 데이터 접근 → <code>0x00</code> 반환<br>
+        OCD(ICE) 연결 시 Instruction Fetch도 차단<br>
+        IAP/ICP 읽기·소거·쓰기 모두 불가
+      </div>
+    </div>
+  </div>
+
+  <h3>// Keil에서 SPROM 코드 배치 방법 (UM_MS51_ML51_SPROM 기준)</h3>
+  <pre><span class="cm">/* SPROM.c — SPROM 영역에 배치할 코드 */</span>
+<span class="cm">/* File: SPROM.c */</span>
+<span class="pp">#include</span> <span class="str">"MS51.h"</span>
+<span class="pp">#include</span> <span class="str">"SPROM.h"</span>
+
+<span class="kw">void</span> <span class="fn">SPROM_CODE</span>(<span class="kw">void</span>)
+{
+    <span class="cm">/* 보안이 필요한 핵심 코드 */</span>
+    P12 = ~P12;
+}
+
+<span class="cm">/* ProtectBit.c — Lock bit 설정 */</span>
+<span class="kw">unsigned char</span> <span class="kw">code</span> protect[] = {
+    <span class="num">0xFF</span>   <span class="cm">/* 0xFF: Non-secured (개발/디버깅 중) */</span>
+    <span class="cm">/* 0x00: Secured (양산 배포 시) */</span>
+};
+
+<span class="cm">/* Keil BL51 Locate 설정 (Options → BL51 Locate → Code) */</span>
+<span class="cm">/* ?PR?SPROM_CODE?SPROM(0xFF80), ?CO?PROTECTBIT(0xFFFF)  */</span></pre>
+
+  <div class="call danger"><span class="ci">🔴</span>
+    <div>Secured 모드 적용 후 SPROM은 Nu-Link로도 읽을 수 없습니다. <strong>양산 전 Non-secured 상태에서 기능 검증을 완전히 완료한 후 Lock bit를 0x00으로 변경</strong>하십시오. 잘못 설정하면 SPROM 내용을 복구할 수 없습니다.</div>
+  </div>
+
+  <h3>// CONFIG 주요 설정 항목</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Config 항목</th><th>설정 위치</th><th>중요도</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CBS (Boot Selection)</strong></td><td>LDROM 부트 / APROM 부트 선택</td><td>🔴 필수</td></tr>
+        <tr><td><strong>LDROM 크기</strong></td><td>0 / 1KB / 2KB / 4KB</td><td>🔴 필수</td></tr>
+        <tr><td><strong>WDTEN (WDT Reset)</strong></td><td>CONFIG4[7:4] — ICP에서 설정 필수</td><td>🔴 필수</td></tr>
+        <tr><td><strong>BOD 전압 / Enable</strong></td><td>BODLV, BODEN</td><td>🟡 안정성</td></tr>
+        <tr><td><strong>Code Protection</strong></td><td>Security Lock 비트</td><td>🟡 보안</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>// UART ISP 절차 (양산 라인)</h3>
+  <div class="flow">
+    <div class="fbox hi">ISP 모드 진입</div><span class="farr">→</span>
+    <div class="fbox">NuWriter UART 연결</div><span class="farr">→</span>
+    <div class="fbox">APROM Program</div><span class="farr">→</span>
+    <div class="fbox">Config 설정</div><span class="farr">→</span>
+    <div class="fbox ok">Verify → Reset</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: BSP 프로젝트 설정                           -->
+<!-- 근거: Nuvoton_8051_BSP_QuickStart.pdf / Readme.pdf   -->
+<!-- ═══════════════════════════════════════ -->
+<section id="bsp">
+  <div class="sec-label">10-A // BSP 프로젝트 설정</div>
+  <h2>Keil / IAR 프로젝트 필수 설정</h2>
+  <p>BSP를 처음 사용하는 경우 기존 프로젝트를 복사해서 시작하는 것이 권장됩니다. <code>SampleCode/Template/Project_temp</code> 폴더를 복사하고 <code>.uvproj</code> 파일 이름을 변경하는 방식입니다. 근거: Nuvoton_8051_BSP_QuickStart.pdf</p>
+
+  <h3>// BSP 폴더 구조 (Readme.pdf 기준)</h3>
+  <pre><span class="cm">ML51_BSP_Keil_C51_V2.00.001/</span>
+<span class="cm">├── Document/         Driver reference manual 및 revision history</span>
+<span class="cm">├── Library/          디바이스 드라이버 헤더 및 소스</span>
+<span class="cm">│   ├── Device/       ML51 시리즈 Flash 디바이스 헤더</span>
+<span class="cm">│   ├── Startup/      A51 스타트업 파일 및 실행 파일</span>
+<span class="cm">│   └── StdDriver/    모든 주변장치 드라이버 헤더·소스</span>
+<span class="cm">├── SampleCode/</span>
+<span class="cm">│   ├── NK_ML56SD/    NK-ML56SD 보드 기능 프로젝트</span>
+<span class="cm">│   ├── RegBased/     레지스터 직접 제어 예제</span>
+<span class="cm">│   ├── StdDriver/    StdDriver 기반 주변장치 예제</span>
+<span class="cm">│   └── Template/     새 프로젝트 시작 템플릿</span>
+<span class="cm">└── TK-Utility/       Touch Key 교정 툴 (NuSenadj.exe)</span></pre>
+
+  <h3>// Keil — Target 탭 필수 설정</h3>
+  <div class="call danger"><span class="ci">🔴</span>
+    <div><strong>Memory Model은 반드시 "Large: variables in XDATA"로 설정</strong>해야 합니다. BSP 드라이버 전체가 이 모델을 전제로 작성되어 있습니다. Compact 또는 Small로 설정 시 XRAM 접근 오류가 발생합니다.</div>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>설정 항목</th><th>설정값</th><th>위치</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Memory Model</strong></td><td>Large: variables in XDATA</td><td>Options → Target</td></tr>
+        <tr><td><strong>Code Rom Size</strong></td><td>Large: 64K program</td><td>Options → Target</td></tr>
+        <tr><td><strong>Xtal (MHz)</strong></td><td>24.0 (HIRC 기준)</td><td>Options → Target</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>// Keil — LX51 Misc 탭 (코드 사이즈 최적화)</h3>
+  <pre><span class="cm">/* LX51 Misc → Misc controls 필드에 입력 */</span>
+<span class="cm">REMOVEUNUSED</span>
+<span class="cm">/* 효과: 호출되지 않는 함수를 링크에서 제외 → bin 파일 크기 감소 */</span></pre>
+
+  <h3>// Keil — C51 탭 Include Paths</h3>
+  <pre><span class="cm">/* Options → C51 → Include Paths */</span>
+<span class="cm">..\..\..\Library\Device\Include</span>
+<span class="cm">..\..\..\Library\StdDriver\inc</span></pre>
+
+  <h3>// 컴파일러 판별 매크로</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>컴파일러</th><th>자동 정의 매크로</th><th>IDE</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Keil PK51</strong></td><td><code>__C51__</code></td><td>Keil uVision</td></tr>
+        <tr><td><strong>IAR 8051</strong></td><td><code>__ICC8051__</code></td><td>IAR Embedded Workbench</td></tr>
+        <tr><td><strong>SDCC</strong></td><td><code>__SDCC__</code></td><td>NuEclipse</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <pre><span class="cm">/* BSP 소스에서 컴파일러별 분기 — 예시 */</span>
+<span class="pp">#if defined</span> __C51__
+<span class="kw">data</span> <span class="type">uint8_t</span> TA_REG_TMP, BYTE_TMP, SFRS_TMP;
+<span class="pp">#elif defined</span> __ICC8051__
+<span class="kw">__data</span> <span class="type">uint8_t</span> TA_REG_TMP, BYTE_TMP, SFRS_TMP;
+<span class="pp">#elif defined</span> __SDCC__
+<span class="kw">__data</span> <span class="type">uint8_t</span> TA_REG_TMP, BYTE_TMP, SFRS_TMP;
+<span class="pp">#endif</span></pre>
+
+  <h3>// IAR — General Options 필수 설정</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>설정 항목</th><th>설정값</th><th>이유</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Data Model</strong></td><td>Large</td><td>변수 기본값을 XDATA에 배치</td></tr>
+        <tr><td><strong>Number of DPTRs</strong></td><td>1</td><td>ML51/56은 DPTR 1개 지원</td></tr>
+        <tr><td><strong>XDATA Stack size</strong></td><td>0x1FF 이상</td><td>printf 사용 시 XDATA Heap 필요</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>// ML56 전용 샘플 (Readme.pdf 호환성 테이블)</h3>
+  <div class="call info"><span class="ci">ℹ️</span>
+    <div><code>NK_ML56SD_LCD_TK</code> 예제는 <strong>ML56 전용</strong>입니다. ML54나 ML51에는 이식되지 않습니다. <code>TouchKey</code> 템플릿도 ML56 전용입니다. 나머지 GPIO, UART, ADC, SPI, I2C, PWM, Timer 예제들은 ML56 / ML54 / ML51 전 시리즈에 공통 사용 가능합니다.</div>
+  </div>
+</section>
+
+<!-- SECTION: PCB LAYOUT
+<!-- SECTION: PCB LAYOUT
+<!-- SECTION: PCB LAYOUT                   -->
+<!-- ═══════════════════════════════════════ -->
+<section id="pcblayout">
+  <div class="sec-label">11 // PCB 레이아웃</div>
+  <h2>PCB 설계 가이드라인</h2>
+
+  <h3>// Touch Key 전극 PCB 설계 (가장 중요)</h3>
+  <div class="pcb-grid">
+    <div class="pcb-card">
+      <div class="pcb-t">전극 형상</div>
+      <div class="pcb-b">
+        <strong>권장 크기:</strong> 10×10mm ~ 15×15mm<br>
+        <strong>형상:</strong> 원형 또는 정사각형 동박 패드<br>
+        <strong>표면:</strong> 솔더 레지스트로 덮기 (동박 노출 금지)<br>
+        <strong>커버 재질:</strong> 유리, 아크릴, ABS (3mm 이하)
+      </div>
+    </div>
+    <div class="pcb-card">
+      <div class="pcb-t">GND 가드 링</div>
+      <div class="pcb-b">
+        <strong>필수:</strong> 전극 주위를 GND 링이 둘러싸야 함<br>
+        <strong>간격:</strong> 전극 외곽에서 0.5mm 이상<br>
+        <strong>목적:</strong> 채널 간 크로스토크 차단<br>
+        <strong>Via:</strong> 가드링에 GND Via 다수 배치
+      </div>
+    </div>
+    <div class="pcb-card">
+      <div class="pcb-t">배선 주의</div>
+      <div class="pcb-b">
+        <strong>직렬 저항:</strong> 핀 근처에 1kΩ ~ 10kΩ 배치 (ESD)<br>
+        <strong>배선 길이:</strong> 짧게 유지 (기생 정전용량 감소)<br>
+        <strong>인접 배선:</strong> CTK 배선 옆에 고속 신호선 금지<br>
+        <strong>전원 배선:</strong> CTK 전극 하부 VDD/GND 배선 금지
+      </div>
+    </div>
+    <div class="pcb-card">
+      <div class="pcb-t">ADC 핀 배선</div>
+      <div class="pcb-b">
+        <strong>아날로그 GND:</strong> 디지털 GND와 단일점 연결<br>
+        <strong>AVDD:</strong> 100nF + 10μF 디커플링<br>
+        <strong>입력 보호:</strong> 100Ω 직렬 + TVS 다이오드<br>
+        <strong>배선:</strong> 디지털 신호선과 분리
+      </div>
+    </div>
+  </div>
+
+  <h3>// 전원 및 디커플링</h3>
+  <pre><span class="cm">/* VDD 핀별 디커플링 커패시터 권장값 */</span>
+<span class="cm">VDD (MCU)  → 100nF + 4.7μF (핀 근처 배치)</span>
+<span class="cm">AVDD (ADC) → 100nF + 10μF  (별도 배선)</span>
+<span class="cm">VREF (외부)→ 100nF + 1μF   (노이즈에 민감)</span>
+
+<span class="cm">/* RESET 핀 회로 */</span>
+<span class="cm">NRST ─┬─ 100nF ─ GND    (노이즈 방지)</span>
+<span class="cm">      └─ 10kΩ  ─ VDD    (풀업, 외부 Reset IC 없을 시)</span></pre>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: ADVANCED DEBUG               -->
+<!-- ═══════════════════════════════════════ -->
+<section id="debug2">
+  <div class="sec-label">12 // 고급 디버깅</div>
+  <h2>실무 디버깅 기법</h2>
+
+  <h3>// UART printf 디버그 출력 구성</h3>
+  <pre><span class="cm">/* Keil C51에서 printf → UART0 리다이렉트 */</span>
+<span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+
+<span class="cm">/* putchar 오버라이드 */</span>
+<span class="kw">char</span> <span class="fn">putchar</span>(<span class="kw">char</span> c)
+{
+    <span class="fn">UART_WRITE</span>(<span class="reg">UART0</span>, c);
+    <span class="kw">while</span> (!<span class="fn">UART_IS_TX_EMPTY</span>(<span class="reg">UART0</span>));
+    <span class="kw">return</span> c;
+}
+
+<span class="cm">/* 사용 예 */</span>
+<span class="fn">printf</span>(<span class="str">"[DBG] CTK CH0 delta=%d, state=%d\r\n"</span>,
+       delta, g_u8TouchState);
+</pre>
+
+  <h3>// 레지스터 덤프 (이슈 발생 시)</h3>
+  <pre><span class="cm">/* 주요 레지스터 상태를 UART로 출력 — 문제 재현 시 필수 */</span>
+<span class="kw">void</span> <span class="fn">Debug_DumpRegs</span>(<span class="kw">void</span>)
+{
+    <span class="fn">printf</span>(<span class="str">"=== REGISTER DUMP ===\r\n"</span>);
+    <span class="fn">printf</span>(<span class="str">"CKSEL  = 0x%02X\r\n"</span>, <span class="reg">CKSEL</span>);
+    <span class="fn">printf</span>(<span class="str">"CLKDIV = 0x%02X\r\n"</span>, <span class="reg">CLKDIV</span>);
+    <span class="fn">printf</span>(<span class="str">"P1MD   = 0x%02X\r\n"</span>, <span class="reg">P1MD</span>);
+    <span class="fn">printf</span>(<span class="str">"P2MD   = 0x%02X\r\n"</span>, <span class="reg">P2MD</span>);
+    <span class="fn">printf</span>(<span class="str">"TKCON0 = 0x%02X\r\n"</span>, <span class="reg">TKCON0</span>);  <span class="cm">/* TK 제어 레지스터 (tk.h: TK_TKCON0_*) */</span>
+    <span class="fn">printf</span>(<span class="str">"TKSTA0 = 0x%02X\r\n"</span>, <span class="reg">TKSTA0</span>);  <span class="cm">/* TK 상태/인터럽트 (tk.h: TK_TKSTA0_*) */</span>
+    <span class="fn">printf</span>(<span class="str">"=====================\r\n"</span>);
+}</pre>
+
+  <h3>// 일반적인 트러블슈팅 흐름</h3>
+  <div class="flow">
+    <div class="fbox warn">문제 발생</div><span class="farr">→</span>
+    <div class="fbox">레지스터 덤프</div><span class="farr">→</span>
+    <div class="fbox">클럭 설정 확인</div><span class="farr">→</span>
+    <div class="fbox">ISR 플래그 확인</div><span class="farr">→</span>
+    <div class="fbox">핀 모드 확인</div><span class="farr">→</span>
+    <div class="fbox ok">해결</div>
+  </div>
+
+  <div class="tw" style="margin-top:1rem">
+    <table>
+      <thead><tr><th>증상</th><th>1순위 확인</th><th>2순위 확인</th></tr></thead>
+      <tbody>
+        <tr><td>전혀 안 켜짐</td><td>전원 전압 / RESET 핀</td><td>Config CBS 설정</td></tr>
+        <tr><td>UART 깨짐</td><td>CKSEL / FOSC 설정</td><td>HIRC_TRIM 값</td></tr>
+        <tr><td>터치 오동작</td><td>Baseline vs Delta 값 출력</td><td>PCB GND 가드링</td></tr>
+        <tr><td>ADC 값 불안정</td><td>AVDD 디커플링</td><td>핀 Input-Only 설정 여부</td></tr>
+        <tr><td>시스템 주기적 리셋</td><td>WDT Feed 누락 여부</td><td>BOD 전압 레벨 설정</td></tr>
+        <tr><td>Flash 쓰기 실패</td><td>FMC_ENABLE_AP_UPDATE 호출</td><td>Erase 선행 여부</td></tr>
+        <tr><td>Nu-Link 연결 불가</td><td>드라이버 설치 여부</td><td>Config Code Protection 상태</td></tr>
+        <tr><td>ISR 미실행</td><td>interrupt 번호 (TRM 확인)</td><td>EA=1, 해당 IE 비트</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION: CHECKLIST                     -->
+<!-- ═══════════════════════════════════════ -->
+<section id="checklist2">
+  <div class="sec-label">13 // 최종 체크리스트</div>
+  <h2>양산 출하 전 최종 확인</h2>
+
+  <h3>// Touch Key 관련 (TKLib.h / main.c 기준)</h3>
+  <ul class="chk">
+    <li><strong>TK_LoadPara() 반환값 확인</strong> — -1이면 교정 데이터 없음. 출하 전 반드시 NuSenadj로 교정 완료</li>
+    <li><strong>교정값 저장 주소 0xEE80</strong> — NuWriter에서 APROM 0xEE80 번지에 데이터 존재 여부 확인</li>
+    <li><strong>Baseline/Threshold 자동 관리</strong> — TKLib이 담당(TRACK_SIGNAL_MIN_RANGE=30, DEBOUNCE_ENTRY=5). 별도 코딩 불필요</li>
+    <li><strong>Noise Immunity 레벨</strong> — NuSenadj 교정 시 Low/Medium/High 선택. 노이즈 환경에 맞게 설정</li>
+    <li><strong>PCB GND 가드링</strong> — 전극 주위 가드링 및 Via 배치 확인 (6mil trace, 50mil grid, 12% Filling 권장)</li>
+    <li><strong>커버 재질·두께</strong> — 실제 제품 커버 장착 상태에서 재교정 필수</li>
+    <li><strong>ESD 보호 직렬 저항</strong> — TK 핀과 전극 사이 1kΩ 이상 배치</li>
+    <li><strong>WDT CONFIG</strong> — ICP 프로그래밍 시 설정 완료 확인. 코드에서 수정 금지</li>
+  </ul>
+
+  <h3>// 시스템</h3>
+  <ul class="chk">
+    <li><strong>Keil Memory Model</strong> — Target 탭에서 Large(XDATA) 확인. BSP가 이 모델 전제로 작성됨</li>
+    <li><strong>REMOVEUNUSED</strong> — LX51 Misc 탭에 설정 여부 확인 (코드 사이즈 최적화)</li>
+    <li><strong>FOSC 클럭</strong> — HIRC stable 대기 → CKSEL 전환 → CLKDIV 순서</li>
+    <li><strong>모든 ISR</strong> — 플래그 클리어 코드 존재 확인</li>
+    <li><strong>WDT Feed</strong> — 메인 루프 모든 경로에서 WDT_RESET_COUNTER() 호출</li>
+    <li><strong>BOD 전압</strong> — Config 및 코드 양쪽 확인</li>
+    <li><strong>Power-Down 복귀</strong> — 클럭 재초기화 로직 포함</li>
+    <li><strong>SRAM 사용량</strong> — Keil Map 파일에서 DATA/IDATA/XDATA 체크</li>
+  </ul>
+
+  <h3>// 양산 플래싱</h3>
+  <ul class="chk">
+    <li><strong>Config (SPROM)</strong> — CBS, LDROM 크기, DF 주소, BOD, WDT 확정 및 문서화</li>
+    <li><strong>SPROM Lock bit</strong> — 개발 중 0xFF(비보호), 양산 시 0x00(보호) 확인. Secured 후 복구 불가</li>
+    <li><strong>Code Protection</strong> — Security Lock 비트 활성화 여부 결정 (보안 필요 시)</li>
+    <li><strong>최종 hex 버전</strong> — Git tag 또는 파일명 날짜·버전 관리</li>
+    <li><strong>Verify 단계</strong> — Program 후 반드시 Verify 통과 확인</li>
+    <li><strong>양산 지그</strong> — UART ISP 핀(TXD/RXD/GND/VDD/RESET) 접점 확인</li>
+  </ul>
+
+  <div class="call tip"><span class="ci">💡</span>
+    <div><strong>권장:</strong> 첫 양산 전 <strong>10개 샘플</strong>로 전수 Verify + 기능 테스트 수행. Config 오설정은 전체 재작업을 유발합니다.</div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  Nuvoton ML51/56 상세 교육자료 v3 &nbsp;·&nbsp;
+  근거: Nuvoton ML51/ML56 Datasheet / TRM / BSP SampleCode (OpenNuvoton) &nbsp;·&nbsp;
+  추측 포함 내용 없음 / 레지스터 번호·벡터 번호는 사용 Part Number TRM에서 반드시 재확인
+</footer>
+
+<script>
+// 사이드바 active 링크 하이라이트
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.sb-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.sb-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-52px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
