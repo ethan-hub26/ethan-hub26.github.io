@@ -3,569 +3,494 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuvoton Software and Tool Documents</title>
+<title>Nuvoton Development Guide</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
 :root{
-  --bg:#f5f8fb;
+  --bg:#f3f6f9;
   --panel:#ffffff;
-  --panel-2:#f0f6fb;
-  --text:#11263c;
-  --muted:#5f7388;
-  --border:#d8e3ee;
-  --brand:#0098d8;
-  --brand-dark:#006f9e;
-  --brand-soft:#e7f6fc;
-  --accent:#00b36b;
-  --red:#c8102e;
-  --shadow:0 10px 30px rgba(17,38,60,.08);
+  --panel-soft:#f8fafc;
+  --text:#152230;
+  --muted:#617384;
+  --line:#d9e1e8;
+  --brand:#cb2027;
+  --brand-soft:#fff1f1;
+  --link:#0b63c9;
+  --shadow:0 8px 24px rgba(21,34,48,.06);
   --radius:8px;
-  --max:1280px;
+  --sidebar:280px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  font-family:'Inter','Noto Sans KR',sans-serif;
-  background:linear-gradient(180deg,#eef5fb 0,#f7fafc 280px,var(--bg) 100%);
+  font-family:Arial,"Noto Sans KR","Malgun Gothic",sans-serif;
   color:var(--text);
+  background:var(--bg);
 }
-a{color:inherit}
-.topbar{
-  position:sticky;top:0;z-index:20;
-  backdrop-filter:blur(10px);
-  background:rgba(255,255,255,.88);
-  border-bottom:1px solid rgba(216,227,238,.9);
+a{
+  color:var(--link);
+  text-decoration:none;
 }
-.topbar-inner,.hero-inner,.section-inner,.footer-inner{
-  width:min(calc(100% - 32px),var(--max));
-  margin:0 auto;
+a:hover{text-decoration:underline}
+.layout{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:var(--sidebar) minmax(0,1fr);
 }
-.topbar-inner{
-  display:flex;align-items:center;justify-content:space-between;
-  min-height:64px;gap:16px;
+.sidebar{
+  position:sticky;
+  top:0;
+  height:100vh;
+  padding:20px 16px;
+  background:#f7f9fb;
+  border-right:1px solid var(--line);
+  overflow:auto;
 }
 .brand{
-  display:flex;align-items:center;gap:12px;text-decoration:none;
+  margin-bottom:18px;
 }
-.brand-mark{
-  width:38px;height:38px;border-radius:8px;
-  background:linear-gradient(135deg,var(--brand),#27c2ff);
-  color:#fff;font-weight:800;font-size:13px;
-  display:grid;place-items:center;
-  box-shadow:0 8px 20px rgba(0,152,216,.25);
+.brand small{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
 }
-.brand-text{display:flex;flex-direction:column}
-.brand-text strong{font-size:15px;line-height:1.1}
-.brand-text span{font-size:12px;color:var(--muted)}
-.top-links{display:flex;gap:10px;flex-wrap:wrap}
-.top-links a{
-  text-decoration:none;font-size:13px;font-weight:600;
-  color:var(--muted);padding:8px 12px;border-radius:999px;
+.brand strong{
+  display:block;
+  font-size:20px;
+  line-height:1.3;
 }
-.top-links a:hover{background:var(--brand-soft);color:var(--brand-dark)}
-.hero{padding:40px 0 28px}
-.hero-grid{
-  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.9fr);gap:20px;
+.search-wrap{
+  margin-bottom:18px;
 }
-.hero-card,.summary-card,.category-card,.doc-card{
+.search-wrap input{
+  width:100%;
+  height:42px;
+  padding:0 14px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  font:inherit;
+  color:var(--text);
+}
+.search-wrap input:focus{
+  outline:none;
+  border-color:#9eb8d7;
+}
+.side-group{
+  margin-bottom:16px;
+}
+.side-title{
+  margin:0 0 8px;
+  font-size:12px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.side-link,
+.side-filter{
+  display:flex;
+  align-items:center;
+  width:100%;
+  min-height:40px;
+  padding:10px 12px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--text);
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+.side-link:hover,
+.side-filter:hover,
+.side-filter.active{
+  background:var(--brand-soft);
+  color:var(--brand);
+  text-decoration:none;
+}
+.sidebar-note{
+  margin-top:18px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+.content{
+  padding:24px 28px 40px;
+}
+.breadcrumbs{
+  margin-bottom:12px;
+  font-size:12px;
+  color:var(--muted);
+}
+.hero{
+  margin-bottom:20px;
+  padding:20px 24px;
+  border:1px solid var(--line);
+  border-radius:8px;
   background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
   box-shadow:var(--shadow);
 }
-.hero-card{
-  padding:28px;
-  background:
-    linear-gradient(135deg,rgba(0,152,216,.10),rgba(255,255,255,0) 55%),
-    linear-gradient(180deg,#ffffff,#f7fbfe);
-}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 12px;border-radius:999px;
-  background:var(--brand-soft);color:var(--brand-dark);
-  font-size:12px;font-weight:700;letter-spacing:.02em;
-}
 .hero h1{
-  margin:16px 0 10px;
-  font-size:34px;line-height:1.15;font-weight:800;
+  margin:0 0 8px;
+  font-size:32px;
+  line-height:1.2;
+  color:var(--brand);
 }
 .hero p{
   margin:0;
-  color:var(--muted);font-size:15px;line-height:1.75;
+  max-width:900px;
+  color:var(--muted);
+  line-height:1.7;
 }
-.hero-meta{
-  display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;
+.top-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:16px;
+  margin-bottom:20px;
 }
-.hero-meta span{
-  padding:8px 12px;border-radius:999px;
-  background:#fff;border:1px solid var(--border);
-  color:var(--muted);font-size:13px;font-weight:600;
+.feature{
+  padding:18px 14px 14px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--panel);
+  text-align:center;
+  box-shadow:var(--shadow);
 }
-.summary-card{padding:24px}
-.summary-card h2{
-  margin:0 0 14px;font-size:18px;font-weight:800;
+.feature-icon{
+  width:76px;
+  height:76px;
+  margin:0 auto 12px;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(180deg,#f8fbff,#edf4fb);
+  border:1px solid #d6e4f2;
+  font-size:28px;
+  font-weight:700;
+  color:#365b84;
 }
-.summary-list{
-  display:grid;gap:12px;
+.feature strong{
+  display:block;
+  font-size:15px;
+  line-height:1.4;
 }
-.summary-item{
-  display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;
+.feature span{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  line-height:1.5;
+  color:var(--muted);
 }
-.summary-item b{
-  width:44px;height:44px;border-radius:8px;
-  display:grid;place-items:center;
-  background:var(--panel-2);color:var(--brand-dark);
+.results{
+  margin:0 0 16px;
+  font-size:13px;
+  color:var(--muted);
+}
+.board{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:16px;
+}
+.column{
+  padding:12px 14px 16px;
+  border-left:1px dashed #c8d2dc;
+}
+.column:first-child{
+  border-left:none;
+}
+.column h2{
+  margin:0 0 12px;
   font-size:16px;
+  line-height:1.4;
+  color:var(--text);
 }
-.summary-item strong{display:block;font-size:14px;margin-bottom:3px}
-.summary-item span{display:block;font-size:13px;color:var(--muted);line-height:1.6}
-.section{padding:12px 0 20px}
-.section-title{
-  display:flex;align-items:end;justify-content:space-between;gap:16px;
-  margin-bottom:16px;
+.link-list{
+  display:grid;
+  gap:8px;
 }
-.section-title h2{
-  margin:0;font-size:24px;font-weight:800;
+.doc-link{
+  display:block;
+  padding:6px 0;
+  font-size:14px;
+  line-height:1.5;
 }
-.section-title p{
-  margin:0;color:var(--muted);font-size:14px;
+.doc-link small{
+  display:block;
+  margin-top:2px;
+  color:var(--muted);
+  font-size:12px;
 }
-.category-grid{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;
-}
-.category-card{
-  text-decoration:none;padding:18px 18px 16px;
-  display:flex;flex-direction:column;gap:10px;
-  background:
-    linear-gradient(180deg,#ffffff,#f9fcfe);
-}
-.category-card:hover{
-  border-color:#b9d5e8;transform:translateY(-1px);
-}
-.category-icon{
-  width:44px;height:44px;border-radius:8px;
-  display:grid;place-items:center;
-  background:var(--brand-soft);color:var(--brand-dark);
-  font-weight:800;
-}
-.category-card strong{font-size:16px}
-.category-card span{font-size:13px;color:var(--muted);line-height:1.65}
-.toolbar{
-  display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
-  margin:20px 0 16px;
-}
-.search{
-  flex:1 1 320px;display:flex;align-items:center;gap:10px;
-  background:var(--panel);border:1px solid var(--border);
-  border-radius:999px;padding:0 14px;min-height:46px;
-}
-.search input{
-  border:0;outline:0;background:transparent;width:100%;
-  font:inherit;color:var(--text);
-}
-.search input::placeholder{color:#8ca0b3}
-.filters{display:flex;flex-wrap:wrap;gap:8px}
-.filter-btn{
-  border:1px solid var(--border);background:var(--panel);color:var(--muted);
-  border-radius:999px;padding:10px 14px;font:inherit;font-size:13px;font-weight:700;
-  cursor:pointer;
-}
-.filter-btn.active{background:var(--brand);border-color:var(--brand);color:#fff}
-.results-meta{margin:0 0 14px;color:var(--muted);font-size:13px}
-.doc-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;
-}
-.doc-card{
-  padding:20px;
-  display:flex;flex-direction:column;gap:14px;
-}
-.doc-top{display:flex;align-items:start;justify-content:space-between;gap:12px}
-.doc-badges{display:flex;flex-wrap:wrap;gap:8px}
-.badge{
-  display:inline-flex;align-items:center;
-  padding:6px 10px;border-radius:999px;
-  font-size:11px;font-weight:800;letter-spacing:.03em;
-  background:var(--panel-2);color:var(--brand-dark);
-}
-.badge.green{background:#e9f9f0;color:#12744d}
-.badge.red{background:#fdecef;color:#a51f35}
-.doc-card h3{
-  margin:0;font-size:18px;line-height:1.35;
-}
-.doc-card p{
-  margin:0;color:var(--muted);font-size:14px;line-height:1.7;
-}
-.doc-meta{
-  display:flex;flex-wrap:wrap;gap:10px;
-  color:var(--muted);font-size:12.5px;font-weight:600;
-}
-.doc-actions{
-  margin-top:auto;display:flex;gap:10px;flex-wrap:wrap;
-}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-height:40px;padding:0 14px;border-radius:8px;
-  text-decoration:none;font-size:13px;font-weight:800;
-  border:1px solid var(--border);background:#fff;color:var(--text);
-}
-.btn.primary{
-  background:var(--brand);border-color:var(--brand);color:#fff;
-}
-.btn:hover{filter:brightness(.98)}
 .empty{
   display:none;
-  padding:28px;border:1px dashed #bfd0dd;border-radius:var(--radius);
-  background:#fbfdfe;color:var(--muted);text-align:center;
+  margin-top:16px;
+  padding:20px;
+  border:1px dashed #c8d2dc;
+  border-radius:8px;
+  background:#fff;
+  color:var(--muted);
 }
-.footer{padding:28px 0 40px}
-.footer-inner{
-  border-top:1px solid var(--border);padding-top:18px;
-  color:var(--muted);font-size:13px;
+.footer{
+  margin-top:24px;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:12px;
 }
-@media (max-width:1100px){
-  .hero-grid,.doc-grid,.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:1200px){
+  .top-grid,
+  .board{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
 }
-@media (max-width:760px){
-  .topbar-inner{align-items:flex-start;padding:12px 0}
-  .top-links{display:none}
-  .hero h1{font-size:28px}
-  .hero-grid,.doc-grid,.category-grid{grid-template-columns:1fr}
-  .section-title{align-items:start;flex-direction:column}
+@media (max-width:900px){
+  .layout{
+    grid-template-columns:1fr;
+  }
+  .sidebar{
+    position:static;
+    height:auto;
+    border-right:none;
+    border-bottom:1px solid var(--line);
+  }
+  .content{
+    padding:20px 16px 32px;
+  }
+  .top-grid,
+  .board{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .column{
+    border-left:none;
+    border-top:1px dashed #c8d2dc;
+  }
+}
+@media (max-width:640px){
+  .hero h1{
+    font-size:26px;
+  }
+  .top-grid,
+  .board{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#top">
-        <div class="brand-mark">NU</div>
-        <div class="brand-text">
-          <strong>Software and Tool Documents</strong>
-          <span>Nuvoton 문서 인덱스</span>
-        </div>
-      </a>
-      <nav class="top-links">
-        <a href="#categories">카테고리</a>
-        <a href="#documents">문서 목록</a>
-      </nav>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <small>Home &gt; Software and Tool</small>
+      <strong>Nuvoton Development Guide</strong>
     </div>
-  </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-grid">
-          <div class="hero-card">
-            <span class="eyebrow">Software and Tool</span>
-            <h1>개발 문서와 가이드를 한 곳에서 바로 확인</h1>
-            <p>NuTool, BSP, 보드 실습, 개발 환경 구축, 드라이버, HMI 가이드를 문서별로 정리했습니다. 각 카드에서 바로 해당 HTML 문서로 이동할 수 있습니다.</p>
-            <div class="hero-meta">
-              <span>HTML 문서 11개</span>
-              <span>로컬 단일 파일 접근</span>
-              <span>카테고리 필터 지원</span>
-            </div>
-          </div>
-          <aside class="summary-card">
-            <h2>Quick Access</h2>
-            <div class="summary-list">
-              <div class="summary-item">
-                <b>01</b>
-                <div><strong>개발 환경</strong><span>Cortex-M0/M23, Keil, Nu-Link 설치와 초기 설정 문서</span></div>
-              </div>
-              <div class="summary-item">
-                <b>02</b>
-                <div><strong>HMI / emWin</strong><span>NK-N9H20, NK-N9H30, LCDView 관련 가이드</span></div>
-              </div>
-              <div class="summary-item">
-                <b>03</b>
-                <div><strong>8051 / ML51-56</strong><span>BSP, 고급 가이드, Touch Key 실습, 양산 절차</span></div>
-              </div>
-              <div class="summary-item">
-                <b>04</b>
-                <div><strong>유틸리티</strong><span>PinConfigure, ICP Tool, Nu-Link 드라이버 문서</span></div>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
+    <div class="search-wrap">
+      <input id="searchInput" type="search" placeholder="문서 검색">
+    </div>
+
+    <div class="side-group">
+      <p class="side-title">Category</p>
+      <button class="side-filter active" type="button" data-filter="all">전체 문서</button>
+      <button class="side-filter" type="button" data-filter="board">Evaluation Board</button>
+      <button class="side-filter" type="button" data-filter="debug">Debugger and Programmer</button>
+      <button class="side-filter" type="button" data-filter="tool">Software Tool</button>
+      <button class="side-filter" type="button" data-filter="bsp">Board Support Package</button>
+      <button class="side-filter" type="button" data-filter="driver">IDE and Nu-Link Driver</button>
+      <button class="side-filter" type="button" data-filter="hmi">HMI and emWin</button>
+    </div>
+
+    <div class="side-group">
+      <p class="side-title">Quick Link</p>
+      <a class="side-link" href="#overview">상단 개요</a>
+      <a class="side-link" href="#library">문서 링크 보드</a>
+    </div>
+
+    <div class="sidebar-note">
+      HTML 문서만 바로 열 수 있게 정리한 페이지입니다. 검색은 제목, 설명, 키워드 기준으로 동작합니다.
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="breadcrumbs">Home &gt; Software and Tool</div>
+
+    <section class="hero" id="overview">
+      <h1>Nuvoton Development Guide</h1>
+      <p>개발 환경 구성, Nu-Link, ICP, PinConfigure, LCDView, BSP, Touch Key, emWin 문서를 한 화면에서 바로 찾을 수 있도록 정리했습니다.</p>
     </section>
 
-    <section class="section" id="categories">
-      <div class="section-inner">
-        <div class="section-title">
-          <div>
-            <h2>Categories</h2>
-            <p>Nuvoton Software and Tool 페이지 구성처럼 범주별로 빠르게 이동할 수 있게 정리했습니다.</p>
-          </div>
-        </div>
-        <div class="category-grid">
-          <a class="category-card" href="#documents" data-filter-link="all">
-            <div class="category-icon">All</div>
-            <strong>전체 문서</strong>
-            <span>모든 HTML 문서를 한 번에 확인합니다.</span>
-          </a>
-          <a class="category-card" href="#documents" data-filter-link="env">
-            <div class="category-icon">ENV</div>
-            <strong>개발 환경</strong>
-            <span>Keil, Cortex-M0/M23, 드라이버, 개발 환경 구축 문서</span>
-          </a>
-          <a class="category-card" href="#documents" data-filter-link="hmi">
-            <div class="category-icon">HMI</div>
-            <strong>HMI / emWin</strong>
-            <span>LCDView, N9H20, N9H30, GUI 관련 문서</span>
-          </a>
-          <a class="category-card" href="#documents" data-filter-link="mcu8051">
-            <div class="category-icon">8051</div>
-            <strong>ML51 / 8051</strong>
-            <span>BSP, 실습, 양산 절차, 교육 자료 모음</span>
-          </a>
-        </div>
-      </div>
+    <section class="top-grid">
+      <article class="feature">
+        <div class="feature-icon">EV</div>
+        <strong>Evaluation Board</strong>
+        <span>ML56, N9H20, N9H30 문서</span>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">NL</div>
+        <strong>Debugger &amp; Programmer</strong>
+        <span>Nu-Link, ICP, Driver</span>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">ST</div>
+        <strong>Software Tool</strong>
+        <span>PinConfigure, LCDView</span>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">BP</div>
+        <strong>Board Support Package</strong>
+        <span>BSP, Advanced Guide</span>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">HM</div>
+        <strong>Embedded HMI</strong>
+        <span>emWin, Touch Key</span>
+      </article>
     </section>
 
-    <section class="section" id="documents">
-      <div class="section-inner">
-        <div class="section-title">
-          <div>
-            <h2>Document Library</h2>
-            <p>제목, 설명, 카테고리로 원하는 문서를 바로 찾을 수 있습니다.</p>
-          </div>
+    <p class="results"><span id="resultCount">11</span> documents</p>
+
+    <section class="board" id="library">
+      <section class="column" data-group="board bsp">
+        <h2>Evaluation Board</h2>
+        <div class="link-list">
+          <a class="doc-link" href="./ML51_56_Advanced_Guide.html" data-tags="ml51 ml56 advanced guide evaluation board 8051 board">
+            ML51 / ML56 Advanced Guide
+            <small>ML51, ML56 계열용 심화 가이드</small>
+          </a>
+          <a class="doc-link" href="./NK-ML56SD_v1_1_Touch_Key_Basic_Practice_Keil_C51.html" data-tags="ml56 touch key basic practice keil c51 board evaluation">
+            NK-ML56SD Touch Key Basic Practice
+            <small>Touch Key 보드 실습 문서</small>
+          </a>
+          <a class="doc-link" href="./Setting_Up_the_nuvoton_Cortex-M0_M23_Software_Development_Environment_(Keil_MDK-ARM).html" data-tags="cortex m0 m23 keil mdk arm environment setup board">
+            Cortex-M0 / M23 Development Environment
+            <small>Keil MDK-ARM 기반 환경 구성</small>
+          </a>
         </div>
+      </section>
 
-        <div class="toolbar">
-          <label class="search" aria-label="문서 검색">
-            <span>검색</span>
-            <input id="docSearch" type="search" placeholder="문서명, 보드명, 키워드로 검색">
-          </label>
-          <div class="filters">
-            <button class="filter-btn active" data-filter="all" type="button">전체</button>
-            <button class="filter-btn" data-filter="env" type="button">개발 환경</button>
-            <button class="filter-btn" data-filter="hmi" type="button">HMI / emWin</button>
-            <button class="filter-btn" data-filter="tool" type="button">툴 / 유틸리티</button>
-            <button class="filter-btn" data-filter="mcu8051" type="button">ML51 / 8051</button>
-          </div>
+      <section class="column" data-group="debug driver">
+        <h2>Debugger and Programmer</h2>
+        <div class="link-list">
+          <a class="doc-link" href="./ICP_Tool_User_Manual.html" data-tags="icp tool programmer debug utility">
+            ICP Tool User Manual
+            <small>ICP Tool 사용 방법과 절차</small>
+          </a>
+          <a class="doc-link" href="./UM_Nu-Link_Driver_for_Keil_8051_EN.html" data-tags="nu-link driver keil 8051 debug programmer">
+            UM Nu-Link Driver for Keil 8051 EN
+            <small>Nu-Link 드라이버와 Keil 8051 연동</small>
+          </a>
+          <a class="doc-link" href="./ML_TK Development &amp; Mass Production Procedure.html" data-tags="mass production procedure ml56 tk programmer production">
+            ML_TK Development &amp; Mass Production Procedure
+            <small>개발과 양산 절차 문서</small>
+          </a>
         </div>
+      </section>
 
-        <p class="results-meta"><span id="resultCount">11</span>개 문서</p>
-
-        <div class="doc-grid" id="docGrid">
-          <article class="doc-card" data-category="tool" data-search="nuvoton icp tool 사용자 매뉴얼 icp tool programmer utility">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">Tool</span>
-                <span class="badge green">Utility</span>
-              </div>
-            </div>
-            <h3>Nuvoton ICP Tool 사용자 매뉴얼</h3>
-            <p>ICP Tool 사용 방법과 기본 절차를 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>ICP</span><span>Programming Tool</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./ICP_Tool_User_Manual.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="mcu8051" data-search="ml51 ml56 advanced guide 상세 교육자료 8051">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">8051</span>
-                <span class="badge green">Guide</span>
-              </div>
-            </div>
-            <h3>Nuvoton ML51/56 상세 교육자료 v3</h3>
-            <p>ML51/56 시리즈를 중심으로 정리된 상세 교육 자료입니다.</p>
-            <div class="doc-meta"><span>ML51 / ML56</span><span>Advanced</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./ML51_56_Advanced_Guide.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="mcu8051" data-search="ml51 ml56 bsp guide numicro 8051 series">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">8051</span>
-                <span class="badge">BSP</span>
-              </div>
-            </div>
-            <h3>ML51 / ML56 BSP Guide</h3>
-            <p>NuMicro 8051 계열 BSP 구조와 활용 방법을 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>BSP</span><span>ML51 / ML56</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./ML51_56_BSP_Guide.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="mcu8051" data-search="ml56 tk 개발 양산 절차 mass production procedure">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">8051</span>
-                <span class="badge red">Production</span>
-              </div>
-            </div>
-            <h3>ML56 TK 개발 · 양산 절차</h3>
-            <p>ML56 TK 기반 개발과 양산 절차를 단계별로 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>Procedure</span><span>Mass Production</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./ML_TK Development &amp; Mass Production Procedure.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="mcu8051" data-search="nk-ml56sd touch key 기본 실습 keil c51">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">8051</span>
-                <span class="badge green">Practice</span>
-              </div>
-            </div>
-            <h3>NK-ML56SD Touch Key 기본 실습</h3>
-            <p>Touch Key 보드를 활용한 Keil C51 기본 실습 문서입니다.</p>
-            <div class="doc-meta"><span>Touch Key</span><span>Keil C51</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./NK-ML56SD_v1_1_Touch_Key_Basic_Practice_Keil_C51.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="hmi" data-search="nk-n9h20 nonos emwin 개발환경 keil hmi">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">HMI</span>
-                <span class="badge">emWin</span>
-              </div>
-            </div>
-            <h3>NK-N9H20 NonOS emWin 개발환경 Keil 가이드</h3>
-            <p>NK-N9H20 보드의 NonOS emWin 개발 환경과 Keil 설정 절차를 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>N9H20</span><span>Keil</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./NK-N9H20_NonOS_emWin_개발환경_Keil_가이드.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="hmi" data-search="nk-n9h30 nonos emwin 개발환경 keil hmi">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">HMI</span>
-                <span class="badge">emWin</span>
-              </div>
-            </div>
-            <h3>NK-N9H30 NonOS emWin 개발환경 Keil 가이드</h3>
-            <p>NK-N9H30 보드의 NonOS emWin 개발 환경과 Keil 설정 절차를 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>N9H30</span><span>Keil</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./NK-N9H30_NonOS_emWin_개발환경_Keil_가이드.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="tool" data-search="nutool pinconfigure 개발자 가이드 pin configure">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">Tool</span>
-                <span class="badge green">NuTool</span>
-              </div>
-            </div>
-            <h3>NuTool – PinConfigure 개발자 가이드</h3>
-            <p>PinConfigure의 사용 흐름과 주요 설정 방법을 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>PinConfigure</span><span>NuTool</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./NuTool-PinConfigure_Development_Guide.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="hmi" data-search="nutool lcdview 개발 가이드 lcdview hmi">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">HMI</span>
-                <span class="badge green">NuTool</span>
-              </div>
-            </div>
-            <h3>NuTool – LCDView 개발 가이드</h3>
-            <p>LCDView 도구 사용법과 HMI 관련 개발 흐름을 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>LCDView</span><span>GUI</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./NuTool–LCDView_Development_Guide.html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="env" data-search="cortex-m0 m23 software development environment keil mdk arm">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">Environment</span>
-                <span class="badge green">Keil</span>
-              </div>
-            </div>
-            <h3>Cortex-M0/M23 소프트웨어 개발 환경 구축</h3>
-            <p>Cortex-M0/M23 기반 보드의 Keil MDK-ARM 개발 환경 구축 절차를 정리한 문서입니다.</p>
-            <div class="doc-meta"><span>Cortex-M0 / M23</span><span>Keil MDK-ARM</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./Setting_Up_the_nuvoton_Cortex-M0_M23_Software_Development_Environment_(Keil_MDK-ARM).html">문서 열기</a>
-            </div>
-          </article>
-
-          <article class="doc-card" data-category="env tool" data-search="nu-link driver keil 8051 user manual en">
-            <div class="doc-top">
-              <div class="doc-badges">
-                <span class="badge">Driver</span>
-                <span class="badge">Nu-Link</span>
-              </div>
-            </div>
-            <h3>UM Nu-Link Driver for Keil 8051 EN</h3>
-            <p>Keil 8051용 Nu-Link 드라이버 사용과 디버깅 절차를 다루는 문서입니다.</p>
-            <div class="doc-meta"><span>Nu-Link</span><span>Keil 8051</span></div>
-            <div class="doc-actions">
-              <a class="btn primary" href="./UM_Nu-Link_Driver_for_Keil_8051_EN.html">문서 열기</a>
-            </div>
-          </article>
+      <section class="column" data-group="tool">
+        <h2>Software Tool</h2>
+        <div class="link-list">
+          <a class="doc-link" href="./NuTool-PinConfigure_Development_Guide.html" data-tags="nutool pinconfigure software tool pin config">
+            NuTool PinConfigure Development Guide
+            <small>PinConfigure 사용 가이드</small>
+          </a>
+          <a class="doc-link" href="./NuTool–LCDView_Development_Guide.html" data-tags="nutool lcdview software tool hmi gui">
+            NuTool LCDView Development Guide
+            <small>LCDView 기반 HMI 작성 가이드</small>
+          </a>
         </div>
+      </section>
 
-        <div class="empty" id="emptyState">조건에 맞는 문서를 찾지 못했습니다.</div>
-      </div>
+      <section class="column" data-group="bsp driver">
+        <h2>Board Support Package</h2>
+        <div class="link-list">
+          <a class="doc-link" href="./ML51_56_BSP_Guide.html" data-tags="ml51 ml56 bsp guide board support package">
+            ML51 / ML56 BSP Guide
+            <small>8051 BSP 구조와 사용 방법</small>
+          </a>
+          <a class="doc-link" href="./ML51_56_Advanced_Guide.html" data-tags="advanced guide bsp ml51 ml56">
+            ML51 / ML56 Advanced Guide
+            <small>드라이버와 예제 확인용 심화 자료</small>
+          </a>
+        </div>
+      </section>
+
+      <section class="column" data-group="hmi">
+        <h2>HMI and emWin</h2>
+        <div class="link-list">
+          <a class="doc-link" href="./NK-N9H20_NonOS_emWin_개발환경_Keil_가이드.html" data-tags="n9h20 nonos emwin keil hmi">
+            NK-N9H20 NonOS emWin Keil Guide
+            <small>N9H20용 emWin 개발 환경</small>
+          </a>
+          <a class="doc-link" href="./NK-N9H30_NonOS_emWin_개발환경_Keil_가이드.html" data-tags="n9h30 nonos emwin keil hmi">
+            NK-N9H30 NonOS emWin Keil Guide
+            <small>N9H30용 emWin 개발 환경</small>
+          </a>
+          <a class="doc-link" href="./NuTool–LCDView_Development_Guide.html" data-tags="lcdview hmi tool gui">
+            NuTool LCDView Development Guide
+            <small>LCDView 문서 바로가기</small>
+          </a>
+        </div>
+      </section>
     </section>
+
+    <div class="empty" id="emptyState">검색 조건에 맞는 문서를 찾지 못했습니다.</div>
+
+    <div class="footer">Local document index for Nuvoton Development guide</div>
   </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>Local document index for <code>Doc/Website</code></div>
-    </div>
-  </footer>
+</div>
 
 <script>
-const searchInput = document.getElementById('docSearch');
-const buttons = [...document.querySelectorAll('.filter-btn')];
-const cards = [...document.querySelectorAll('.doc-card')];
-const countEl = document.getElementById('resultCount');
-const emptyEl = document.getElementById('emptyState');
-const categoryLinks = [...document.querySelectorAll('[data-filter-link]')];
+const searchInput = document.getElementById('searchInput');
+const filters = Array.from(document.querySelectorAll('.side-filter'));
+const columns = Array.from(document.querySelectorAll('.column'));
+const resultCount = document.getElementById('resultCount');
+const emptyState = document.getElementById('emptyState');
 
 let activeFilter = 'all';
 
-function applyFilter(nextFilter) {
+function applyFilters(nextFilter = activeFilter) {
   activeFilter = nextFilter;
-  buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.filter === nextFilter));
-  const q = searchInput.value.trim().toLowerCase();
-  let visible = 0;
+  const query = searchInput.value.trim().toLowerCase();
+  let visibleLinks = 0;
+  let visibleColumns = 0;
 
-  cards.forEach(card => {
-    const categories = card.dataset.category.split(/\s+/);
-    const categoryMatch = nextFilter === 'all' || categories.includes(nextFilter);
-    const textMatch = !q || card.dataset.search.toLowerCase().includes(q);
-    const show = categoryMatch && textMatch;
-    card.style.display = show ? '' : 'none';
-    if (show) visible += 1;
+  filters.forEach((button) => {
+    button.classList.toggle('active', button.dataset.filter === activeFilter);
   });
 
-  countEl.textContent = visible;
-  emptyEl.style.display = visible ? 'none' : 'block';
+  columns.forEach((column) => {
+    const groups = (column.dataset.group || '').split(/\s+/);
+    const groupMatch = activeFilter === 'all' || groups.includes(activeFilter);
+    let columnVisible = false;
+
+    column.querySelectorAll('.doc-link').forEach((link) => {
+      const text = `${link.textContent} ${link.dataset.tags || ''}`.toLowerCase();
+      const queryMatch = !query || text.includes(query);
+      const show = groupMatch && queryMatch;
+      link.style.display = show ? '' : 'none';
+      if (show) {
+        columnVisible = true;
+        visibleLinks += 1;
+      }
+    });
+
+    column.style.display = columnVisible ? '' : 'none';
+    if (columnVisible) visibleColumns += 1;
+  });
+
+  resultCount.textContent = visibleLinks;
+  emptyState.style.display = visibleColumns ? 'none' : 'block';
 }
 
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+filters.forEach((button) => {
+  button.addEventListener('click', () => applyFilters(button.dataset.filter));
 });
 
-categoryLinks.forEach(link => {
-  link.addEventListener('click', () => applyFilter(link.dataset.filterLink));
-});
-
-searchInput.addEventListener('input', () => applyFilter(activeFilter));
-applyFilter('all');
+searchInput.addEventListener('input', () => applyFilters(activeFilter));
+applyFilters('all');
 </script>
 </body>
 </html>
