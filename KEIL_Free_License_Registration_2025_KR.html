@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KEIL 무료 라이센스 등록 2025</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
+:root{
+  --red:#c8102e; --red-dark:#8c0b1f; --red-light:#fdeaed;
+  --bg:#f4f5f7; --panel:#fff; --text:#1a1a1a; --muted:#6b7280; --border:#e2e4e9;
+  --accent:#0057a8; --green:#00875a; --orange:#d97706; --code-bg:#1e2030; --code-text:#c8d3f5;
+  --shadow:0 2px 12px rgba(0,0,0,.08); --shadow-lg:0 8px 32px rgba(0,0,0,.13); --r:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+.site-header{background:linear-gradient(135deg,var(--red-dark),var(--red) 60%,#e63050);color:#fff;padding:40px;position:relative;overflow:hidden;}
+.site-header::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.07);}
+.hdr-title{font-size:clamp(22px,4vw,38px);font-weight:900;line-height:1.2;position:relative;}
+.hdr-sub{font-size:15px;opacity:.9;margin-top:8px;position:relative;max-width:980px;}
+.hdr-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;position:relative;}
+.meta-chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:13px;}
+.layout{display:grid;grid-template-columns:260px 1fr;max-width:1280px;margin:0 auto;}
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-title{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--muted);padding:0 24px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-group-label{font-size:11px;font-weight:700;color:var(--red);padding:10px 24px 4px;letter-spacing:.8px;text-transform:uppercase;}
+.nav-link{display:block;padding:7px 24px 7px 32px;color:var(--text);text-decoration:none;font-size:13.5px;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover,.nav-link.active{background:var(--red-light);border-left-color:var(--red);color:var(--red-dark);font-weight:600;}
+.main{padding:36px 44px;min-width:0;}
+.section{margin-bottom:52px;}
+.scroll-anchor{scroll-margin-top:20px;}
+.h1{font-size:26px;font-weight:900;color:var(--red-dark);border-bottom:3px solid var(--red);padding-bottom:10px;margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+.h1 .num{background:var(--red);color:#fff;border-radius:6px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+.h2{font-size:19px;font-weight:700;color:var(--accent);margin:26px 0 12px;display:flex;align-items:center;gap:8px;}
+.h2::before{content:'';display:inline-block;width:4px;height:20px;background:var(--accent);border-radius:2px;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin:14px 0;box-shadow:var(--shadow);}
+.card-red{border-left:4px solid var(--red);background:var(--red-light);}
+.card-blue{border-left:4px solid var(--accent);background:#eef4ff;}
+.callout{border-radius:var(--r);padding:16px 20px;margin:14px 0;position:relative;overflow:hidden;}
+.callout::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;}
+.callout-warn{background:#fffbeb;}.callout-warn::before{background:var(--orange);}
+.callout-info{background:#eef4ff;}.callout-info::before{background:var(--accent);}
+.callout-success{background:#e6f7f1;}.callout-success::before{background:var(--green);}
+.callout-title{font-weight:700;margin-bottom:6px;font-size:15px;}
+.callout-warn .callout-title{color:var(--orange);}
+.callout-info .callout-title{color:var(--accent);}
+.callout-success .callout-title{color:var(--green);}
+.step-list{counter-reset:step;list-style:none;margin:14px 0;}
+.step-list li{counter-increment:step;display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{content:counter(step);background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.bullet-list{list-style:none;margin:8px 0;}
+.bullet-list li{padding:5px 0 5px 18px;position:relative;font-size:14.5px;}
+.bullet-list li::before{content:'◆';position:absolute;left:0;color:var(--red);font-size:11px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0;}
+.fig-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);margin:16px 0;}
+.fig-box img{width:100%;display:block;background:#fff;}
+.fig-cap{text-align:center;font-size:13px;color:var(--muted);padding:10px;font-style:italic;border-top:1px solid var(--border);background:#fafafa;}
+.filepath{display:inline-block;background:#1e2030;color:#a6e3a1;border-radius:4px;padding:2px 9px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+.table-wrap{overflow-x:auto;margin:14px 0;border-radius:var(--r);box-shadow:var(--shadow);}
+table{width:100%;border-collapse:collapse;background:var(--panel);}
+th{background:var(--red);color:#fff;font-size:13px;font-weight:600;padding:10px 15px;text-align:left;}
+td{padding:9px 15px;font-size:13.5px;border-bottom:1px solid var(--border);}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#fafafa;}
+code{font-family:'IBM Plex Mono',monospace;font-size:.95em;}
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}
+  .main{padding:28px 18px;}
+  .grid-2{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hdr-title">KEIL 무료 라이센스 등록 2025</div>
+  <div class="hdr-sub">공식 PDF <code>KEIL 무료 라이센스 등록-2025.pdf</code>를 기준으로 등록 절차를 정리하고, <code>Nuvoton_개발환경구축_통합가이드.pptx</code> Part 1의 관련 섹션을 함께 묶은 한국어 HTML 가이드입니다.</div>
+  <div class="hdr-meta">
+    <span class="meta-chip">Keil MDK Nuvoton Edition</span>
+    <span class="meta-chip">Cortex-M0 / M23</span>
+    <span class="meta-chip">2025 절차 정리</span>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">Quick Navigation</div>
+    <div class="nav-group-label">Overview</div>
+    <a class="nav-link" href="#overview">문서 개요</a>
+    <a class="nav-link" href="#pdf-flow">PDF 등록 절차</a>
+    <a class="nav-link" href="#pptx-flow">PPTX 연계 섹션</a>
+    <a class="nav-link" href="#faq">FAQ 정리</a>
+    <div class="nav-group-label">Steps</div>
+    <a class="nav-link" href="#step-1">1. License Management 열기</a>
+    <a class="nav-link" href="#step-2">2. User-Based License 이동</a>
+    <a class="nav-link" href="#step-3">3. License Server 등록</a>
+  </aside>
+
+  <main class="main">
+    <section class="section scroll-anchor" id="overview">
+      <div class="h1"><span class="num">0</span>문서 개요</div>
+      <div class="card card-red">
+        <p>이 문서는 <span class="filepath">Doc/Manual/KEIL 무료 라이센스 등록-2025.pdf</span> 의 3단계 등록 화면을 기준으로 작성했습니다.</p>
+        <p>추가로 <span class="filepath">Doc/Manual/Nuvoton_개발환경구축_통합가이드.pptx</span> Part 1의 개발환경, 설치 흐름, 도구, FAQ 내용을 연결해서 한 문서 안에 정리했습니다.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>구분</th><th>기반 자료</th><th>반영 내용</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>절차 본문</td><td>KEIL 무료 라이센스 등록-2025.pdf</td><td>License Management 진입, User-Based License, License Server 등록</td></tr>
+            <tr><td>연계 섹션</td><td>Nuvoton_개발환경구축_통합가이드.pptx Part 1</td><td>준비 사항, 설치 흐름, 관련 도구, 오프라인 FAQ</td></tr>
+            <tr><td>이미지</td><td>PDF page 2~4 추출 이미지</td><td>각 단계별 화면에 매핑</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section scroll-anchor" id="pdf-flow">
+      <div class="h1"><span class="num">1</span>PDF 등록 절차</div>
+      <div class="callout callout-info">
+        <div class="callout-title">절차 요약</div>
+        <p>Keil uVision 실행 → <code>File &gt; License Management</code> → <code>User-Based License</code> 탭 이동 → <code>Activate/Deactivate</code> → <code>License Server</code> 선택 → 서버 주소 입력 후 <code>Query</code> 와 <code>Activate</code> 순서로 진행합니다.</p>
+      </div>
+
+      <div class="h2" id="step-1">1. License Management 열기</div>
+      <ol class="step-list">
+        <li>Keil uVision을 실행합니다.</li>
+        <li>상단 메뉴에서 <code>File</code> 을 클릭합니다.</li>
+        <li><code>License Management</code> 메뉴를 선택합니다.</li>
+      </ol>
+      <div class="grid-2">
+        <div class="fig-box">
+          <img src="keil_license_figures/page02-img1.png" alt="License Management 화면">
+          <div class="fig-cap">Figure 1. File &gt; License Management 진입 화면</div>
+        </div>
+        <div class="fig-box">
+          <img src="keil_license_figures/page03-img1.png" alt="User-Based License 화면">
+          <div class="fig-cap">Figure 2. User-Based License 탭과 Activate/Deactivate 버튼</div>
+        </div>
+      </div>
+
+      <div class="h2" id="step-2">2. User-Based License 탭으로 이동</div>
+      <ol class="step-list">
+        <li><code>License Management</code> 창에서 상단 탭을 확인합니다.</li>
+        <li><code>User-Based License</code> 탭으로 이동합니다.</li>
+        <li><code>Activate/Deactivate</code> 버튼을 눌러 등록 절차를 시작합니다.</li>
+      </ol>
+      <div class="card card-blue">
+        <p>이 단계는 PDF 3페이지의 핵심 내용입니다.</p>
+        <p>기존 장치 기반 등록이 아니라, Nuvoton Edition의 무료 사용자 기반 라이센스를 등록하는 흐름으로 이해하면 됩니다.</p>
+      </div>
+
+      <div class="h2" id="step-3">3. License Server 등록</div>
+      <ol class="step-list">
+        <li><code>License Server</code> 항목을 선택합니다.</li>
+        <li>서버 주소에 아래 URL을 입력합니다.</li>
+        <li><code>Query</code> 버튼을 눌러 서버 응답을 확인합니다.</li>
+        <li><code>Activate</code> 버튼을 눌러 라이센스를 등록합니다.</li>
+        <li>Keil uVision을 다시 시작한 뒤 사용합니다.</li>
+      </ol>
+      <div class="card">
+        <p><strong>서버 주소</strong></p>
+        <p><span class="filepath">https://nuvoton-free.licensing.keil.arm.com</span></p>
+        <p><strong>공식 참고 페이지</strong></p>
+        <p><a href="https://www.nuvoton.com/tool-and-software/ide-and-compiler/keil-mdk-nuvoton-edition/" target="_blank" rel="noreferrer">https://www.nuvoton.com/tool-and-software/ide-and-compiler/keil-mdk-nuvoton-edition/</a></p>
+      </div>
+      <div class="fig-box">
+        <img src="keil_license_figures/page04-img1.png" alt="License Server 등록 화면">
+        <div class="fig-cap">Figure 3. License Server 주소 입력 후 Query / Activate 실행</div>
+      </div>
+      <div class="callout callout-success">
+        <div class="callout-title">등록 완료 후</div>
+        <p>Keil을 재시작하면 무료 라이센스가 적용된 상태로 Cortex-M0 / M23 개발을 계속할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <section class="section scroll-anchor" id="pptx-flow">
+      <div class="h1"><span class="num">2</span>PPTX 연계 섹션</div>
+      <div class="card card-red">
+        <p>아래 내용은 <code>Nuvoton_개발환경구축_통합가이드.pptx</code> 의 Part 1에서, 무료 라이센스 등록과 직접 연결되는 섹션만 추려서 줄 단위로 재구성한 것입니다.</p>
+      </div>
+
+      <div class="h2">2.1 개요 및 준비 사항</div>
+      <ul class="bullet-list">
+        <li>대상 MCU는 Nuvoton Cortex-M0 / M23 시리즈입니다.</li>
+        <li>IDE는 Keil MDK-ARM이며, M0 / M23 대상 무료 라이센스를 제공합니다.</li>
+        <li>디버거는 Nu-Link 또는 Nu-Link-Me를 사용합니다.</li>
+        <li>개발환경은 Keil MDK + Nu-Link + BSP 조합입니다.</li>
+        <li>양산환경은 ICP Tool / ISP Tool 중심으로 구성합니다.</li>
+        <li>준비물은 Windows PC, SDK 보드, 인터넷 연결, Nu-Link 디버거입니다.</li>
+      </ul>
+
+      <div class="h2">2.2 설치 절차 전체 흐름</div>
+      <div class="grid-2">
+        <div class="card">
+          <p><strong>설치 순서</strong></p>
+          <ul class="bullet-list">
+            <li>Keil 다운로드</li>
+            <li>설치 실행</li>
+            <li>라이센스 취득</li>
+            <li>라이센스 등록</li>
+            <li>SW Pack 설치</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p><strong>주의 사항</strong></p>
+          <ul class="bullet-list">
+            <li>기본 설치 경로 사용을 권장합니다.</li>
+            <li>한글/공백 경로는 가급적 피합니다.</li>
+            <li>Nu-Link 드라이버 설치 전에는 Keil을 종료합니다.</li>
+            <li>드라이버와 펌웨어 버전이 다르면 업데이트를 권장합니다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="h2">2.3 BSP 다운로드 및 컴파일 테스트</div>
+      <ul class="bullet-list">
+        <li>Nuvoton 홈페이지의 BSP and Sample Code에서 패키지를 받을 수 있습니다.</li>
+        <li>최신 BSP는 <a href="https://github.com/OpenNuvoton" target="_blank" rel="noreferrer">OpenNuvoton GitHub</a> 에서 MCU 모델명으로 찾을 수 있습니다.</li>
+        <li>ZIP 압축 해제 후 Sample 프로젝트의 <code>.uvproj</code> 파일을 열어 컴파일과 다운로드를 확인합니다.</li>
+      </ul>
+
+      <div class="h2">2.4 유용한 도구</div>
+      <div class="grid-2">
+        <div class="card">
+          <p><strong>Nu-Link / ICP / ISP</strong></p>
+          <ul class="bullet-list">
+            <li>다운로드, 디버그, VCOM 기능을 제공합니다.</li>
+            <li>배치 다운로드와 Chip Options 설정에 사용합니다.</li>
+            <li>부트로더 기반 ISP 다운로드에도 활용합니다.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p><strong>Pin / Clock Configure</strong></p>
+          <ul class="bullet-list">
+            <li>GUI에서 핀 설정을 구성합니다.</li>
+            <li>C 코드 자동 생성이 가능합니다.</li>
+            <li>ClockConfig 모듈과 연동해 초기화 코드를 빠르게 만듭니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section scroll-anchor" id="faq">
+      <div class="h1"><span class="num">3</span>FAQ 정리</div>
+      <div class="card">
+        <ul class="bullet-list">
+          <li>인터넷이 없는 PC는 해당 PC의 CID를 복사해 인터넷 가능한 PC에서 라이센스 코드를 취득한 뒤 다시 입력합니다.</li>
+          <li>SW Pack 설치가 안 되면 Legacy Support 패키지를 받아 수동 설치합니다.</li>
+          <li><code>Device not found</code> 오류가 뜨면 Pack / Device 설정과 프로젝트 대상 칩을 다시 확인합니다.</li>
+          <li>Nu-Link 펌웨어 버전 불일치 경고가 뜨면 업데이트 후 USB를 다시 연결합니다.</li>
+          <li>다운로드 실패 시 Debug / Utilities 탭의 Reset 설정을 점검합니다.</li>
+          <li>리셋 없이 디버그에 진입하려면 Debug와 Utilities 탭에서 Reset 옵션을 해제합니다.</li>
+        </ul>
+      </div>
+      <div class="callout callout-warn">
+        <div class="callout-title">범위 정리</div>
+        <p>이 문서는 무료 라이센스 등록을 중심으로 작성했습니다.</p>
+        <p>N9H20 / N9H30 개발환경과 emWin 절차는 별도 가이드에서 다루는 편이 더 적절합니다.</p>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
