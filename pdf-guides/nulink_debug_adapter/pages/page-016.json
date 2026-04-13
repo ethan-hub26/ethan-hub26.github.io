@@ -1,0 +1,34 @@
+{
+  "page_num": 16,
+  "title": "3.3 Wide Voltage Programming",
+  "figures": [],
+  "tables": [],
+  "headings": [
+    "3.3 Wide Voltage Programming",
+    "3.4 Installing the Nu-Link Adapter Driver"
+  ],
+  "lines": [
+    "Nuvoton Nu-Link Debug Adapter User Manual",
+    "3.3 Wide Voltage Programming",
+    "The Nu-Link-Pro supports the wide voltage programming function, by which the development software",
+    "tool can adjust the SWD port voltage as 1.8V, 2.5V, 3.3V, or 5.0V. As shown in Figure 4-2, the pins",
+    "that can be controlled include VCC, ICE_DAT, ICE_CLK, and /RESET.",
+    "Also, as shown in Figure 2-1, the Nu-Link-Pro provides a set of SWD I/O Voltage LEDs and SWD",
+    "Power Output LEDs for checking the SWD port voltage. Refer to Table 2-3 for more details about the",
+    "LED status,",
+    "The Nu-Link-Me supports the wide voltage programming function, by which the resistor JPR1 can",
+    "adjust the SWD port voltage as 3.3V or 5.0V. As shown in Figure 4-2, the pins that can be controlled",
+    "include VCC, ICE_DAT, ICE_CLK, /RESET, ICE_RX and ICE_TX.",
+    "The Nu-Link2-Me supports the wide voltage programming function, by which the resistor ICEJPR1 can",
+    "adjust the SWD port voltage as 1.8V, 3.3V or 5.0V. As shown in Figure 4-2, the pins that can be",
+    "controlled include VCC, ICE_DAT, ICE_CLK, /RESET, ICE_RX/PASS, ICE_TX/Fail, BUSY and",
+    "START.",
+    "3.4 Installing the Nu-Link Adapter Driver",
+    "The Nu-Link Adapter supports a variety of functions and third-party software tools (e.g. Keil MDK and",
+    "IAR EWARM). After the software programs are installed, the drivers are also required. You can use",
+    "the following links: Nu-Link Adapter Driver for Keil MDK and Nu-Link Adapter Driver for IAR EWARM",
+    "to install the latest version. For details about software setup, please refer to section 4.2.",
+    "Oct 24, 2019 - 16 - Revision V1.01"
+  ],
+  "image": "./assets/pages/page-016.bmp"
+}

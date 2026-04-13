@@ -1,0 +1,21 @@
+{
+  "page_num": 1,
+  "title": "Page 1",
+  "figures": [],
+  "tables": [],
+  "headings": [],
+  "lines": [
+    "Nuvoton Nu-Link Debug Adapter User Manual",
+    "Nuvoton Nu-Link",
+    "Debug Adapter User Manual",
+    "The information described in this document is the exclusive intellectual property of",
+    "Nuvoton Technology Corporation and shall not be reproduced without permission from Nuvoton.",
+    "Nuvoton is providing this document only for reference purposes of NuMicro microcontroller based system",
+    "design. Nuvoton assumes no responsibility for errors or omissions.",
+    "All data and specifications are subject to change without notice.",
+    "For additional information or questions, please contact: Nuvoton Technology Corporation.",
+    "www.nuvoton.com",
+    "Oct 24, 2019 - 1 - Revision V1.01"
+  ],
+  "image": "./assets/pages/page-001.bmp"
+}

@@ -1,0 +1,19 @@
+{
+  "page_num": 23,
+  "title": "Page 23",
+  "figures": [
+    "Figure 4-12 Keil MDK Programmer Selection",
+    "Figure 4-13 Nu-Link Adapter Programming Settings"
+  ],
+  "tables": [],
+  "headings": [],
+  "lines": [
+    "Nuvoton Nu-Link Debug Adapter User Manual",
+    "Figure 4-12 Keil MDK Programmer Selection",
+    "Step 7: Click the Settings button to open the Flash Download form, as shown in Figure 4-13 where",
+    "the user can specify the options before or after programming with the Nu-Link Adapter.",
+    "Figure 4-13 Nu-Link Adapter Programming Settings",
+    "Oct 24, 2019 - 23 - Revision V1.01"
+  ],
+  "image": "./assets/pages/page-023.bmp"
+}

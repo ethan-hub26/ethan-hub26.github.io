@@ -1,0 +1,51 @@
+{
+  "page_num": 10,
+  "title": "3 Main Functions",
+  "figures": [],
+  "tables": [
+    "Table 3-1.",
+    "Table 3-1Nu-Link Adapter Functions"
+  ],
+  "headings": [
+    "3 Main Functions"
+  ],
+  "lines": [
+    "Nuvoton Nu-Link Debug Adapter User Manual",
+    "3 Main Functions",
+    "NuMicro®",
+    "The Nu-Link Adapter provides complete debugging and programming functions for Family",
+    "and supports a number of third-party development tools. The detailed function support is listed in",
+    "Table 3-1.",
+    "Table 3-1Nu-Link Adapter Functions",
+    "Software",
+    "Keil IAR NuEclipse",
+    "ICP Tool",
+    "MDK EWARM GCC",
+    "Function",
+    "Debugging ✔ ✔ ✔",
+    "Breakpoints ✔ ✔ ✔",
+    "Direct Register Control Interface",
+    "✔ ✔ ✔*1",
+    "Semihost ✔ ✔ ✔",
+    "Online Programming",
+    "✔ ✔ ✔ ✔",
+    "Programming*2",
+    "Offline ✔",
+    "Software Serial Number",
+    "✔",
+    "Programming*3",
+    "Wide Voltage",
+    "✔ ✔ ✔",
+    "Multi Nu-Link Adapter Support",
+    "✔ ✔ ✔",
+    "Nu-Link Adapter Driver Installation ✔ ✔",
+    "*1",
+    "Core registers view is supported; peripherals view is not supported.",
+    "*2",
+    "Supported for Nu-Link, Nu-Link-Pro and Nu-Link2-Me.",
+    "*3",
+    "Supported for Nu-Link-Pro.",
+    "Oct 24, 2019 - 10 - Revision V1.01"
+  ],
+  "image": "./assets/pages/page-010.bmp"
+}

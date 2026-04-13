@@ -1,0 +1,19 @@
+{
+  "page_num": 33,
+  "title": "6 Revision History",
+  "figures": [],
+  "tables": [],
+  "headings": [
+    "6 Revision History"
+  ],
+  "lines": [
+    "Nuvoton Nu-Link Debug Adapter User Manual",
+    "6 Revision History",
+    "Revision Description",
+    "Date",
+    "V1.00 Preliminary version 2012/07/16",
+    "V1.01 Delete Nu-Link-Me (On-board Version), Add Nu-Link2-Me. 2019/10/24",
+    "Oct 24, 2019 - 33 - Revision V1.01"
+  ],
+  "image": "./assets/pages/page-033.bmp"
+}

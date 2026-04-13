@@ -1,0 +1,39 @@
+{
+  "page_num": 3,
+  "title": "1 Introduction",
+  "figures": [],
+  "tables": [],
+  "headings": [
+    "1 Introduction"
+  ],
+  "lines": [
+    "Nuvoton Nu-Link Debug Adapter User Manual",
+    "1 Introduction",
+    "Nuvoton’s Nu-Link Debug Adapter is an USB debugger and programmer based on the SWD (Serial",
+    "NuMicro®",
+    "Wire Debug) signal interface and can be applied to the development of Nuvoton Family",
+    "chips. As shown in Table 2-1, there are four types of the Nu-Link Debug Adapter in accordance with",
+    "different specifications, including Nu-Link-Pro, Nu-Link, Nu-Link-Me and Nu-Link2-Me. The four types",
+    "are called “Nu-Link Adapter” in general if no specific conditions are mentioned.",
+    "The Nu-Link Adapter supports ICP (In-Circuit Programming) based on the SWD (Serial Wire Debug)",
+    "NuMicro®",
+    "signal interface. The user can employ the ICP Programming Tool to update chip firmware",
+    "for mass production. The Nu-Link Adapter also supports the third-party development tools, such as",
+    "Keil MDK, IAR EWARM, and NuEclipse GCC.",
+    "For simplicity and clarity, parts of specific terms in this user manual are contracted or abbreviated, as",
+    "listed in the following table.",
+    "Short Name Full Name",
+    "Nu-Link Adapter Nuvoton Nu-Link Debug Adapter",
+    "NuMicro® NuMicro®",
+    "Family Nuvoton Family",
+    "NuMicro®",
+    "ICP Tool Nuvoton ICP Programming Tool",
+    "Keil MDK Keil ARM RealView Microcontroller Development Kit (MDK-ARM® )",
+    "IAR EWARM IAR Embedded Workbench for ARM",
+    "NuEclipse GCC NuEclipse Integrated Development Environment",
+    "SWD Serial Wire Debug",
+    "ICP In-Circuit Programming",
+    "Oct 24, 2019 - 3 - Revision V1.01"
+  ],
+  "image": "./assets/pages/page-003.bmp"
+}

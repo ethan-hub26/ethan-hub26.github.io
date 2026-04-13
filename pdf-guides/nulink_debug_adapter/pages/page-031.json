@@ -1,0 +1,44 @@
+{
+  "page_num": 31,
+  "title": "5 +Appendix",
+  "figures": [],
+  "tables": [
+    "Table 5-1 Nu-Link Adapter Operating Current (Online Programming)",
+    "Table 5-2 Nu-Link Adapter Operating Current (Offline Programming)"
+  ],
+  "headings": [
+    "5 +Appendix",
+    "5.1 Nu-Link Adapter Operating Current",
+    "5.2 Automatic IC Programming System"
+  ],
+  "lines": [
+    "Nuvoton Nu-Link Debug Adapter User Manual",
+    "5 +Appendix",
+    "5.1 Nu-Link Adapter Operating Current",
+    "When power is supplied via an USB during online programming, the operating current of Nu-Link",
+    "Adapter is shown in the table below.",
+    ".",
+    "Table 5-1 Nu-Link Adapter Operating Current (Online Programming)",
+    "Type",
+    "Nu-Link-Pro Nu-Link Nu-Link-Me Nu-Link2-Me",
+    "Parameter",
+    "SWD I/O Mode Settings 5.0V 3.3V 2.5V 1.8V - 5.0V 3.3V 5.0V 3.3V 1.8V",
+    "USB Input Voltage (V) 5.0 5.0 5.0 5.0 5.0 5.0 5.0 5.0 5.0 5.0",
+    "SWD I/O Voltage (V) 5.06 3.34 2.54 1.83 4.77 4.79 3.37 5.06 3.34 1.8",
+    "USB Input Current (mA) 101 92 88 84 110 74 60 101 99 91",
+    "When power is supplied from a target board (SWD VCC pin) during offline programming, the operating",
+    "current of Nu-Link Adapter is shown in the table below.",
+    "Table 5-2 Nu-Link Adapter Operating Current (Offline Programming)",
+    "Type",
+    "Nu-Link-Pro Nu-Link",
+    "Parameter",
+    "Power Supplied from a Target Board 5.0V 3.3V 2.5V 1.8V 5.0V 3.3V 2.5V",
+    "Power Supplied via an USB Off Off Off Off Off Off Off",
+    "SWD VCC Input Voltage (V) 5.00 3.30 2.50 1.80 5.00 3.30 2.50",
+    "SWD VCC Input Current (mA) 64 86 117 171 100 77 62",
+    "5.2 Automatic IC Programming System",
+    "The automatic IC programming system through individual slot and the control bus as Figure 5-1.",
+    "Oct 24, 2019 - 31 - Revision V1.01"
+  ],
+  "image": "./assets/pages/page-031.bmp"
+}
