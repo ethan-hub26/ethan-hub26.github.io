@@ -163,6 +163,7 @@ const DATA = [{"Part No.":"MA35D16F787C","Package":"LQFP216","MCP DDR":"128 MB",
 DATA.forEach(row => {
   const coreVal = String(row.Core || '').trim();
   const cpuVal = String(row.CPU || '').trim();
+  const pnVal = String(row['Part No.'] || '').trim().toUpperCase();
 
   // Prefer one canonical field for display/search in MCU tables.
   if (!coreVal && cpuVal) row.Core = cpuVal;
@@ -175,6 +176,12 @@ DATA.forEach(row => {
     const mSer = ser.match(/Cortex-[A-Za-z0-9+]+/i);
     if (mSub) row.Core = mSub[0];
     else if (mSer) row.Core = mSer[0];
+  }
+
+  // Final fallback for known part-number families when metadata is generic
+  // (e.g., _subcategory='Automotive' with missing Core/CPU fields).
+  if (!String(row.Core || '').trim()) {
+    if (pnVal.startsWith('M2A23')) row.Core = 'Cortex-M23';
   }
 });
 
