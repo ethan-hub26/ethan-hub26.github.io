@@ -43,6 +43,17 @@
   /* 스마트 검색 */
   .search-hint { font-size:0.75rem; color:#94a3b8; margin-top:6px; padding:0 2px; }
   .search-hint code { background:#f1f5f9; padding:1px 5px; border-radius:4px; color:#475569; font-size:0.74rem; }
+  .kw-btn {
+    border: 1px solid #cbd5e1;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.74rem;
+    border-radius: 4px;
+    padding: 1px 6px;
+    cursor: pointer;
+    margin-right: 4px;
+  }
+  .kw-btn:hover { border-color: #3b82f6; color: #1e40af; background: #eff6ff; }
   .filter-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
   .filter-tag { display:flex; align-items:center; gap:4px; background:#dbeafe; color:#1e40af;
                 border:1px solid #93c5fd; border-radius:12px; padding:3px 10px; font-size:0.78rem; }
@@ -450,11 +461,14 @@ function renderCategory(catId) {
     : '';
 
   const favChip = `<span class="chip ${state.showFav?'active':''}" onclick="toggleShowFav()" style="border-color:#ef4444;color:${state.showFav?'#fff':'#ef4444'};background:${state.showFav?'#ef4444':'#fff'}">❤ 즐겨찾기</span>`;
-  const hintKeys = SEARCH_HINT_KEYS.filter(k => SEARCH_ALIASES[k]).map(k=>`<code>${k}≥N</code>`).join(' ');
+  const hintKeys = SEARCH_HINT_KEYS
+    .filter(k => SEARCH_ALIASES[k])
+    .map(k => `<button type="button" class="kw-btn" onclick='insertHintKeyword(${JSON.stringify(k)})'>${esc(k)}≥N</button>`)
+    .join('');
   document.getElementById('app').innerHTML = `
     <div class="toolbar">
       <div class="row">
-        <input type="search" id="q" placeholder="검색: MA35D16, ADC>=8, Flash>=128 UART>=2 …" value="${esc(state.q)}">
+        <input type="search" id="q" placeholder="검색: MA35D16 ADC>=8 Flash>=128 UART>=2 …" value="${esc(state.q)}">
         ${favChip}
       </div>
       <div class="search-hint">키워드: ${hintKeys} &nbsp;·&nbsp; 조합 가능: <code>ADC>=8 Flash>=128 UART>=2</code></div>
@@ -465,6 +479,22 @@ function renderCategory(catId) {
     <div id="results"></div>
   `;
   document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; renderFilterTags(); renderResults(); });
+  renderFilterTags();
+  renderResults();
+}
+
+function insertHintKeyword(keyword) {
+  const token = String(keyword || '').trim();
+  if (!token) return;
+  const hasToken = new RegExp(`(^|\\s)${token.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}(\\s|$)`, 'i').test(state.q);
+  state.q = hasToken ? state.q : (state.q.trim() ? `${state.q.trim()} ${token}` : token);
+  const q = document.getElementById('q');
+  if (q) {
+    q.value = state.q;
+    q.focus();
+    const n = q.value.length;
+    q.setSelectionRange(n, n);
+  }
   renderFilterTags();
   renderResults();
 }
