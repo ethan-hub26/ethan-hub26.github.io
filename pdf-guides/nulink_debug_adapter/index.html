@@ -1,248 +1,549 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nu-Link Debug Adapter 한국어 가이드</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
-    :root {
-      --red:#c8102e; --red-dark:#8c0b1f; --red-light:#fdeaed; --bg:#f4f5f7; --panel:#fff;
-      --text:#1a1a1a; --muted:#6b7280; --border:#e2e4e9; --accent:#0057a8; --green:#00875a;
-      --shadow:0 2px 12px rgba(0,0,0,.08); --shadow-lg:0 8px 24px rgba(0,0,0,.12); --r:10px;
-    }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text); font-size:15px; line-height:1.75; }
-    .site-header { background:linear-gradient(135deg,var(--red-dark),var(--red) 60%,#e63050); color:#fff; padding:38px 40px; position:relative; overflow:hidden; }
-    .site-header::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; background:rgba(255,255,255,.08); }
-    .hdr-title { font-size:clamp(24px,4vw,40px); font-weight:900; line-height:1.2; position:relative; }
-    .hdr-sub { margin-top:10px; opacity:.88; max-width:920px; position:relative; }
-    .hdr-meta { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; position:relative; }
-    .meta-chip { background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.26); border-radius:999px; padding:5px 13px; font-size:13px; }
-    .layout { display:grid; grid-template-columns:260px 1fr; max-width:1340px; margin:0 auto; }
-    .sidebar { background:var(--panel); border-right:1px solid var(--border); padding:24px 0; position:sticky; top:0; height:100vh; overflow-y:auto; }
-    .sidebar-title { font-size:11px; font-weight:700; letter-spacing:1.5px; color:var(--muted); padding:0 24px 10px; border-bottom:1px solid var(--border); margin-bottom:8px; text-transform:uppercase; }
-    .nav-link { display:block; padding:7px 24px 7px 32px; color:var(--text); text-decoration:none; font-size:13.5px; border-left:3px solid transparent; }
-    .nav-link:hover { background:var(--red-light); border-left-color:var(--red); color:var(--red-dark); }
-    .main { padding:36px 44px; min-width:0; }
-    .section { margin-bottom:56px; }
-    .scroll-anchor { scroll-margin-top:18px; }
-    .h1 { font-size:26px; font-weight:900; color:var(--red-dark); border-bottom:3px solid var(--red); padding-bottom:10px; margin-bottom:22px; display:flex; align-items:center; gap:12px; }
-    .h1 .num { background:var(--red); color:#fff; border-radius:6px; width:34px; height:34px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; flex-shrink:0; }
-    .h2 { font-size:19px; font-weight:700; color:var(--accent); margin:26px 0 12px; display:flex; align-items:center; gap:8px; }
-    .h2::before { content:''; display:inline-block; width:4px; height:20px; background:var(--accent); border-radius:2px; }
-    .h3 { font-size:15.5px; font-weight:700; margin:18px 0 10px; padding-left:10px; border-left:3px solid #d97706; }
-    .card { background:var(--panel); border:1px solid var(--border); border-radius:var(--r); padding:20px 24px; margin:14px 0; box-shadow:var(--shadow); }
-    .card-red { border-left:4px solid var(--red); background:var(--red-light); }
-    .card-blue { border-left:4px solid var(--accent); background:#eef4ff; }
-    .card-green { border-left:4px solid var(--green); background:#e6f7f1; }
-    .bullet-list, .step-list { margin:10px 0 4px; }
-    .bullet-list { list-style:none; }
-    .bullet-list li { position:relative; padding:5px 0 5px 18px; }
-    .bullet-list li::before { content:'◆'; position:absolute; left:0; color:var(--red); font-size:11px; }
-    .step-list { counter-reset:step; list-style:none; }
-    .step-list li { counter-increment:step; display:flex; gap:14px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--border); }
-    .step-list li:last-child { border-bottom:none; }
-    .step-list li::before { content:counter(step); background:var(--red); color:#fff; border-radius:50%; width:26px; height:26px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
-    .table-wrap { overflow-x:auto; margin:14px 0; border-radius:var(--r); box-shadow:var(--shadow); }
-    table { width:100%; border-collapse:collapse; background:var(--panel); }
-    th { background:var(--red); color:#fff; font-size:13px; font-weight:600; padding:10px 14px; text-align:left; }
-    td { padding:9px 14px; font-size:13.5px; border-bottom:1px solid var(--border); vertical-align:top; }
-    tr:last-child td { border-bottom:none; }
-    tr:nth-child(even) td { background:#fafafa; }
-    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:12px 0; align-items:start; }
-    .fig-box { background:var(--panel); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow-lg); }
-    .fig-note { padding:14px 16px 4px; font-size:14px; line-height:1.7; color:var(--text); }
-    .fig-image { width:100%; height:auto; max-height:440px; display:block; background:#fff; padding:10px; }
-    .fig-image-wide { max-height:560px; padding:4px; }
-    .fig-image-table { max-height:none; padding:10px; }
-    .fig-frame { margin:10px 14px 0; background:#fff; border:1px solid #222; display:flex; justify-content:center; align-items:center; overflow:hidden; }
-    .fig-frame .fig-image { padding:0; }
-    .fig-frame-fig-2-3, .fig-frame-fig-2-4, .fig-frame-fig-2-5 { min-height:245px; }
-    .img-fig-2-1, .img-fig-2-2, .img-fig-2-3, .img-fig-2-4, .img-fig-2-5 { width:auto; height:320px; max-width:100%; margin:0 auto; }
-    .fig-cap { text-align:center; font-size:13px; color:var(--muted); padding:10px; font-style:italic; border-top:1px solid var(--border); background:#fafafa; }
-    p { margin-bottom:10px; }
-    .back-top { position:fixed; right:24px; bottom:24px; background:var(--red); color:#fff; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; font-size:20px; text-decoration:none; box-shadow:0 4px 16px rgba(200,16,46,.4); }
-    @media (max-width:900px) { .layout { grid-template-columns:1fr; } .sidebar { position:static; height:auto; } .main { padding:20px 16px; } .grid-2 { grid-template-columns:1fr; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nu-Link Debug Adapter 사용자 가이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+:root{--red:#c8102e;--red-dark:#8c0b1f;--red-light:#fdeaed;--bg:#f5f6f8;--panel:#fff;--text:#171717;--muted:#6b7280;--border:#e3e5ea;--shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 28px rgba(0,0,0,.12);--r:8px;}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:'Noto Sans KR',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+.site-header{background:linear-gradient(135deg,var(--red-dark),var(--red) 62%,#e33b58);color:#fff;padding:34px 42px;}
+.hdr-kicker{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;opacity:.82;margin-bottom:8px;}
+.hdr-title{font-size:clamp(22px,4vw,36px);font-weight:900;line-height:1.25;}
+.layout{display:grid;grid-template-columns:292px minmax(0,1fr);max-width:1420px;margin:0 auto;}
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:22px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-title{font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--muted);padding:0 24px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-link{display:block;padding:7px 22px 7px 28px;color:var(--text);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover{background:var(--red-light);border-left-color:var(--red);color:var(--red-dark);font-weight:700;}
+.main{padding:36px 44px;min-width:0;}
+.section{margin-bottom:42px;}
+.scroll-anchor{scroll-margin-top:18px;}
+h2{font-size:22px;font-weight:900;color:var(--red-dark);border-bottom:3px solid var(--red);padding-bottom:10px;margin:0 0 16px;line-height:1.35;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin:12px 0;box-shadow:var(--shadow);}
+.line-list p{margin:0 0 8px;}
+.line-list p:last-child{margin-bottom:0;}
+.line-list ul{margin:4px 0 8px 20px;padding:0;}
+.line-list li{margin:3px 0;}
+.figure-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;align-items:start;}
+.fig-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);margin:16px 0;}
+.figure-grid .fig-box{margin:0;}
+.fig-box img{width:100%;display:block;background:#fff;}
+.fig-cap{text-align:center;font-size:13px;color:var(--muted);padding:10px;font-style:italic;border-top:1px solid var(--border);background:#fafafa;}
+@media (max-width:980px){.layout{grid-template-columns:1fr;}.sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}.main{padding:26px 16px;}.figure-grid{grid-template-columns:1fr;}.site-header{padding:28px 20px;}}
+</style>
 </head>
 <body>
-  <div class="site-header" id="top">
-    <div class="hdr-title">Nuvoton Nu-Link Debug Adapter 한국어 가이드</div>
-    <div class="hdr-sub">UM_Nuvoton_Nu-Link_Debug_Adapter_EN_Rev1.01.pdf 기반 문서를 기존 NuTool-LCDView 스타일의 좌측 내비게이션형 HTML로 재구성했습니다.</div>
-    <div class="hdr-meta">
-      <span class="meta-chip">PDF 기반</span>
-      <span class="meta-chip">Quick Start 반영</span>
-      <span class="meta-chip">Figure별 이미지 추출</span>
-      <span class="meta-chip">2열 이미지 배치</span>
-      <span class="meta-chip"><a href="./pages/index.html" style="color:#fff;text-decoration:none;">Page Manager</a></span>
-    </div>
-  </div>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-title">Contents</div>
-      <a class="nav-link" href="#quickstart">0. Quick Start</a>
-      <a class="nav-link" href="#intro">1. 소개</a>
-      <a class="nav-link" href="#hardware">2. 하드웨어 사양</a>
-      <a class="nav-link" href="#functions">3. 주요 기능</a>
-      <a class="nav-link" href="#setup">4. 설치와 설정</a>
-      <a class="nav-link" href="#appendix">5. 부록</a>
-      <a class="nav-link" href="#revision">6. 개정 이력</a>
-    </aside>
-    <main class="main">
-      
-    <section class="section">
-      <div class="h1 scroll-anchor" id="quickstart"><span class="num">0</span><span>Quick Start PPTX 정리</span></div>
-      <div class="card card-blue">
-        <ul class="bullet-list"><li>핵심 주제: 개발환경 구축, 디버깅, 기능 구현과 테스트, Flash 업로드</li><li>필수 도구: Keil MDK-ARM, Nu-Link 드라이버, SW Pack, BSP, ICP Tool</li><li>권장 흐름: 설치 → 디버그 설정 → 샘플 빌드 → 최종 다운로드</li></ul>
-      </div>
-      <div class="h2">개발환경 구축</div>
-      <div class="card">
-        <ol class="step-list"><li>Keil MDK-ARM을 설치하고 라이선스를 등록합니다.</li><li>Pack Installer에서 Nuvoton 장치 팩을 설치합니다.</li><li>Nu-Link 드라이버를 설치하고 BSP를 내려받아 샘플 프로젝트를 빌드합니다.</li></ol>
-      </div>
-      <div class="h2">디버깅과 Flash 업로드</div>
-      <div class="card">
-        <ul class="bullet-list"><li>Debug 탭에서 Nu-Link Debugger를 선택합니다.</li><li>Utilities에서 다운로드 전후 동작과 Reset 정책을 점검합니다.</li><li>최종 이미지는 ICP Tool에서 APROM에 기록하고 보존 옵션을 확인합니다.</li></ul>
-      </div>
-    </section>
-    
-      
-    <section class="section">
-      <div class="h1 scroll-anchor" id="intro"><span class="num">1</span><span>소개</span></div>
-      <div class="card card-red">
-        <p>Nu-Link Debug Adapter는 USB와 SWD를 기반으로 NuMicro 타깃을 디버깅하고 프로그램하는 범용 디버거/프로그래머입니다.</p>
-        <p>본 가이드는 PDF 원문 장 구성을 유지하면서 문장을 한국어 줄 단위로 정리하고, 절차는 단계 목록으로 재구성했습니다.</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>약어</th><th>의미</th></tr></thead>
-          <tbody>
-            <tr><td>Nu-Link Adapter</td><td>Nuvoton Nu-Link Debug Adapter 계열 전체</td></tr>
-            <tr><td>ICP Tool</td><td>Nuvoton NuMicro ICP Programming Tool</td></tr>
-            <tr><td>Keil MDK</td><td>Keil ARM RealView MDK</td></tr>
-            <tr><td>IAR EWARM</td><td>IAR Embedded Workbench for ARM</td></tr>
-            <tr><td>NuEclipse GCC</td><td>Nuvoton용 Eclipse 기반 GCC 환경</td></tr>
-            <tr><td>SWD</td><td>Serial Wire Debug</td></tr>
-            <tr><td>ICP</td><td>In-Circuit Programming</td></tr>
-          </tbody>
-        </table>
+<header class="site-header">
+  <div class="hdr-kicker">Nuvoton Guide</div>
+  <div class="hdr-title">Nu-Link Debug Adapter 사용자 가이드</div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">바로가기</div>
+    <a class="nav-link" href="#p3-s1">1 Introduction</a>
+    <a class="nav-link" href="#p4-s2">2 Hardware Specifications</a>
+    <a class="nav-link" href="#p4-s3">2.1 Nu-Link-Pro</a>
+    <a class="nav-link" href="#p5-s4">2.2 Nu-Link</a>
+    <a class="nav-link" href="#p5-s5">2.3 Nu-Link-Me</a>
+    <a class="nav-link" href="#p6-s6">2.4 Nu-Link2-Me</a>
+    <a class="nav-link" href="#p7-s7">2.5 Nu-Link Adapter Hardware Specifications</a>
+    <a class="nav-link" href="#p10-s8">3 Main Functions</a>
+    <a class="nav-link" href="#p11-s9">3.1 Debugging</a>
+    <a class="nav-link" href="#p11-s10">3.1.1 Debug Mode</a>
+    <a class="nav-link" href="#p11-s11">3.1.2 Breakpoints</a>
+    <a class="nav-link" href="#p11-s12">3.1.3 Direct Register Control Interface</a>    
+    <a class="nav-link" href="#p13-s14">3.1.4 Semihost</a>
+    <a class="nav-link" href="#p14-s15">3.2 Programming</a>
+    <a class="nav-link" href="#p14-s16">3.2.1 Online Programming</a>
+    <a class="nav-link" href="#p14-s17">3.2.2 Offline Programming</a>
+    <a class="nav-link" href="#p15-s18">3.2.3 Software Serial Number (SN)</a>
+    <a class="nav-link" href="#p16-s19">3.3 Wide Voltage Programming</a>
+    <a class="nav-link" href="#p16-s20">3.4 Nu-Link 어댑터 드라이버 설치</a>
+    <a class="nav-link" href="#p17-s21">4 설치 및 설정</a>
+    <a class="nav-link" href="#p17-s22">4.1 Nu-Link 어댑터에 연결하기</a>
+    <a class="nav-link" href="#p18-s23">4.2 Software Setup</a>
+    <a class="nav-link" href="#p18-s24">4.2.1 ICP 도구</a>
+    <a class="nav-link" href="#p19-s25">4.2 Software Setup</a>
+    <a class="nav-link" href="#p20-s25b">4.2 Software Setup</a>
+    <a class="nav-link" href="#p21-s26">4.2.2 Keil MDK</a>
+    <a class="nav-link" href="#p24-s27">4.2.3 IAR EWARM</a>
+    <a class="nav-link" href="#p28-s28">4.2.4 NuEclipse GCC</a>
+    <a class="nav-link" href="#p29-s29">4.2.4 GCC</a>
+    <a class="nav-link" href="#p31-s31">5.1 Nu-Link Adapter Operating Current</a>
+    <a class="nav-link" href="#p31-s32">5.2 Automatic IC Programming System</a>
+    <a class="nav-link" href="#p32-s33">5.2.1 및 파형</a>
+  </aside>
+  <main class="main">
+    <section class="section scroll-anchor" id="p3-s1">
+      <h2>1 Introduction</h2>
+      <div class="card line-list">
+        <p>Nuvoton의 Nu-Link 디버그 어댑터는 SWD(Serial NuMicro® Wire Debug) 신호 인터페이스를 기반으로 하는 USB 디버거 및 프로그래머이며 Nuvoton 제품군 칩 개발에 적용할 수 있습니다. 표 2-1에서 볼 수 있듯이 Nu-Link-Pro, Nu-Link, Nu-Link-Me 및 Nu-Link2-Me를 ​​포함하여 다양한 사양에 따라 Nu-Link 디버그 어댑터에는 4가지 유형이 있습니다. 특별한 조건이 언급되지 않는 한 일반적으로 4가지 유형을 &quot;Nu-Link 어댑터&quot;라고 합니다.</p>
+        <p>Nu-Link 어댑터는 SWD(직렬 와이어 디버그) NuMicro® 신호 인터페이스를 기반으로 하는 ICP(회로 내 프로그래밍)를 지원합니다. 사용자는 대량 생산을 위해 칩 펌웨어를 업데이트하기 위해 ICP 프로그래밍 도구를 사용할 수 있습니다. Nu-Link 어댑터는 Keil MDK, IAR EWARM 및 NuEclipse GCC와 같은 타사 개발 도구도 지원합니다.</p>
+        <p>단순성과 명확성을 위해 본 사용 설명서의 특정 용어의 일부는 다음 표에 나열된 대로 축약되거나 축약되었습니다.</p>
+        <p>짧은 이름 Nu-Link 어댑터 Nuvoton Nu-Link 디버그 어댑터 NuMicro® NuMicro® 제품군 Nuvoton 제품군 NuMicro® ICP 도구 Nuvoton ICP 프로그래밍 도구 Keil MDK Keil ARM RealView 마이크로컨트롤러 개발 키트(MDK-ARM®) IAR EWARM IAR ARM용 임베디드 워크벤치 NuEclipse GCC NuEclipse 통합 개발 환경 SWD 직렬 와이어 디버그 ICP 회로 내 프로그래밍</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-003-table-001.png" alt="page-003-table-001.png">
+          <figcaption class="fig-cap">page-003-table-001.png</figcaption>
+        </figure>
       </div>
     </section>
-    
-      
-    <section class="section">
-      <div class="h1 scroll-anchor" id="hardware"><span class="num">2</span><span>하드웨어 사양</span></div>
-      <div class="card">
-        <p>Nu-Link 계열은 USB 포트와 SWD 인터페이스를 통해 PC와 타깃 보드를 연결합니다.</p>
-        <p>모델에 따라 디버그, 온라인/오프라인 프로그래밍, 전압 설정, VCOM, Control Bus 지원 범위가 달라집니다.</p>
-      </div>
-      <div class="fig-box">
-        <img class="fig-image fig-image-table" src="assets/nulink_debug_adapter/table-2-1.bmp" alt="Table 2-1 Nu-Link Adapter Function Comparison"/>
-        <div class="fig-cap">Table 2-1 Nu-Link Adapter Function Comparison</div>
-      </div>
-      <div class="card">
-        <div class="h3">Nu-Link-Pro</div>
-        <p>풀기능 모델. 오프라인 버튼과 전압 LED를 제공하며 SWD 전압을 소프트웨어로 바꿀 수 있습니다.</p>
-        <div class="h3">Nu-Link</div>
-        <p>기본형 모델. 디버깅과 온라인/오프라인 프로그래밍을 지원하며 SWD 기본 전압은 5.0V입니다.</p>
-        <div class="h3">Nu-Link-Me</div>
-        <p>보드 내장형 모델. VCOM을 제공하고 저항 설정으로 전압을 전환합니다.</p>
-        <div class="h3">Nu-Link2-Me</div>
-        <p>NuMaker 동봉형 모델. 온보드 SPI Flash 기반 오프라인 프로그래밍과 BUSY/START/PASS/FAIL 신호를 지원합니다.</p>
-      </div>
-      <div class="grid-2"><div class="fig-box"><div class="fig-note">Nu-Link-Pro는 USB 포트, 상태 LED, 오프라인 프로그래밍 버튼, SWD 포트, SWD I/O 전압 LED, SWD 전원 출력 LED를 포함하는 풀기능 모델입니다.</div><img class="fig-image fig-image-wide img-fig-2-1" src="assets/nulink_debug_adapter/fig-2-1.bmp" alt="Figure 2-1 Nu-Link-Pro 구성"/><div class="fig-cap">Figure 2-1 Nu-Link-Pro 구성</div></div><div class="fig-box"><div class="fig-note">Nu-Link는 기본형 디버거와 프로그래머로서 USB 포트, 상태 LED, 오프라인 프로그래밍 버튼, SWD 포트를 제공합니다.</div><img class="fig-image fig-image-wide img-fig-2-2" src="assets/nulink_debug_adapter/fig-2-2.bmp" alt="Figure 2-2 Nu-Link 구성"/><div class="fig-cap">Figure 2-2 Nu-Link 구성</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Nu-Link-Me는 보드 내장형 활용을 고려한 모델이며 VCOM 스위치와 SWD 신호 구성을 함께 제공합니다.</div><div class="fig-frame fig-frame-fig-2-3"><img class="fig-image fig-image-wide img-fig-2-3" src="assets/nulink_debug_adapter/fig-2-3.bmp" alt="Figure 2-3 Nu-Link-Me 구성"/></div><div class="fig-cap">Figure 2-3 Nu-Link-Me 구성</div></div><div class="fig-box"><div class="fig-note">Nu-Link2-Me 전면에는 VCOM 스위치, SWD 헤더, BUSY, START, PASS, FAIL 신호와 USB, 상태 LED가 배치됩니다.</div><div class="fig-frame fig-frame-fig-2-4"><img class="fig-image fig-image-wide img-fig-2-4" src="assets/nulink_debug_adapter/fig-2-4.bmp" alt="Figure 2-4 Nu-Link2-Me 전면"/></div><div class="fig-cap">Figure 2-4 Nu-Link2-Me 전면</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Nu-Link2-Me 후면에는 MCU 전원과 ICE 전원 스위치가 배치되어 실제 양산 지그 구성 시 확인 포인트가 됩니다.</div><div class="fig-frame fig-frame-fig-2-5"><img class="fig-image fig-image-wide img-fig-2-5" src="assets/nulink_debug_adapter/fig-2-5.bmp" alt="Figure 2-5 Nu-Link2-Me 후면"/></div><div class="fig-cap">Figure 2-5 Nu-Link2-Me 후면</div></div></div>
-      <div class="h2">2.5 Nu-Link Adapter Hardware Specifications</div>
-      <div class="fig-box"><img class="fig-image fig-image-table" src="assets/nulink_debug_adapter/table-2-2.bmp" alt="Table 2-2 Nu-Link Adapter Hardware Comparison"/><div class="fig-cap">Table 2-2 Nu-Link Adapter Hardware Comparison</div></div>
-      <div class="grid-2">
-        <div class="fig-box"><img class="fig-image fig-image-table" src="assets/nulink_debug_adapter/table-2-3.bmp" alt="Table 2-3 SWD I/O Voltage LEDs and SWD Power Output LEDs Status List"/><div class="fig-cap">Table 2-3 SWD I/O Voltage LEDs and SWD Power Output LEDs Status List</div></div>
-        <div class="fig-box"><img class="fig-image fig-image-table" src="assets/nulink_debug_adapter/table-2-4.bmp" alt="Table 2-4 Status LEDs Difference List"/><div class="fig-cap">Table 2-4 Status LEDs Difference List</div></div>
+    <section class="section scroll-anchor" id="p4-s2">
+      <h2>2 Hardware Specifications</h2>
+      <div class="card line-list">
+        <p>Nu-Link 어댑터는 대상 칩에 연결하기 위한 USB 커넥터와 SWD 신호 인터페이스를 제공합니다. 사용자는 Nu-Link 어댑터를 PC의 USB 포트에 연결하여 개발 소프트웨어 도구를 통해 대상 칩을 디버깅하고 프로그래밍할 수 있습니다. 표 2-1과 같이 Nu-Link 어댑터에는 3가지 사양이 있으며, 사양에 따라 디버깅, 온라인/오프라인 프로그래밍, SWD I/O 전압 설정이 지원될 수 있습니다. (자세한 내용은 +부록 참조)</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-004-table-001.png" alt="Nu-Link Adapter Function Comparison">
+          <figcaption class="fig-cap">Table 2-1 Nu-Link Adapter Function Comparison</figcaption>
+        </figure>
+        <p>*1 저항 JPR1로 조정됩니다.</p>
+        <p>*2 저항 ICEJPR1로 조정됩니다.</p>
+        <p>*3 입력은 1.8V~5V를 지원하고, 출력은 1.8V~3.3V만 지원합니다.</p>
+        <p>*4 Nu-Link2-Me는 제어 버스를 통해 자동 IC 프로그래밍 시스템에 연결할 수 있습니다.</p>
+        <p>IC 프로그래머를 위한 제어 버스(Start, Busy, Pass, Fail) .</p>
+        <p>*5 Virtual COM은 V3.0 이후 버전에서 지원됩니다.</p>
       </div>
     </section>
-    
-      
-    <section class="section">
-      <div class="h1 scroll-anchor" id="functions"><span class="num">3</span><span>주요 기능</span></div>
-      <div class="card card-green">
-        <p>Nu-Link는 디버그와 프로그래밍을 한 장치에 묶어 브레이크포인트, 레지스터 접근, Semihost, 온라인/오프라인 다운로드를 연속으로 처리합니다.</p>
-      </div>
-      <div class="fig-box"><img class="fig-image fig-image-table" src="assets/nulink_debug_adapter/table-3-1.bmp" alt="Table 3-1 Nu-Link Adapter Functions"/><div class="fig-cap">Table 3-1 Nu-Link Adapter Functions</div></div>
-      <div class="h2">디버깅</div>
-      <div class="card">
-        <ul class="bullet-list"><li>Keil MDK에서 브레이크포인트를 설정해 코드 흐름과 변수 상태를 점검합니다.</li><li>직접 레지스터 제어 인터페이스로 레지스터 값을 읽고 써서 주변장치를 검증합니다.</li><li>Semihost를 사용하면 UART 배선 없이 호스트 로그를 확인할 수 있습니다.</li></ul>
-      </div>
-      <div class="h2">프로그래밍</div>
-      <div class="card">
-        <div class="h3">온라인 프로그래밍</div>
-        <ol class="step-list"><li>호스트와 Nu-Link를 연결합니다.</li><li>SWD로 타깃 보드를 연결합니다.</li><li>툴에서 Connect 후 타깃 칩 감지를 확인합니다.</li><li>감지 후 바로 다운로드를 시작합니다.</li></ol>
-        <div class="h3">오프라인 프로그래밍</div>
-        <ol class="step-list"><li>PC에서 오프라인 이미지와 옵션을 Nu-Link에 저장합니다.</li><li>현장에서는 타깃만 연결하고 버튼으로 기록을 시작합니다.</li><li>PASS/FAIL 상태를 LED 또는 제어 버스로 확인합니다.</li></ol>
-        <div class="h3">소프트웨어 시리얼 번호</div>
-        <p>소프트웨어 시리얼 번호 기능으로 각 디바이스에 개별 식별값을 주입할 수 있습니다.</p>
-      </div>
-      <div class="h2">넓은 전압 범위와 드라이버</div>
-      <div class="card">
-        <ul class="bullet-list"><li>Nu-Link-Pro는 1.8V, 2.5V, 3.3V, 5.0V를 소프트웨어에서 선택합니다.</li><li>Nu-Link-Me와 Nu-Link2-Me는 점퍼/저항으로 전압 범위를 전환합니다.</li><li>Keil MDK와 IAR EWARM용 드라이버는 별도로 설치해야 합니다.</li></ul>
-      </div>
-      <div class="grid-2"><div class="fig-box"><div class="fig-note">빨간 표식은 삽입된 브레이크포인트를 의미하고, 노란 화살표는 다음에 실행될 명령 위치와 PC 값을 보여줍니다.</div><img class="fig-image img-fig-3-1" src="assets/nulink_debug_adapter/fig-3-1.bmp" alt="Figure 3-1 Keil MDK 브레이크포인트"/><div class="fig-cap">Figure 3-1 Keil MDK 브레이크포인트</div></div><div class="fig-box"><div class="fig-note">Keil MDK 디버그 모드에서 기능 레지스터 목록을 열어 ADC, CAN, CLK 같은 주변장치 레지스터 화면으로 진입할 수 있습니다.</div><img class="fig-image img-fig-3-2" src="assets/nulink_debug_adapter/fig-3-2.bmp" alt="Figure 3-2 직접 레지스터 제어 옵션"/><div class="fig-cap">Figure 3-2 직접 레지스터 제어 옵션</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">왼쪽 열은 주소, 가운데는 레지스터 또는 기능명, 오른쪽은 현재 값을 나타내며 값을 직접 수정할 수 있습니다.</div><img class="fig-image img-fig-3-3" src="assets/nulink_debug_adapter/fig-3-3.bmp" alt="Figure 3-3 직접 레지스터 제어 인터페이스"/><div class="fig-cap">Figure 3-3 직접 레지스터 제어 인터페이스</div></div><div class="fig-box"><div class="fig-note">Semihost를 활성화하면 GPIO UART 배선 없이도 디버그 창의 UART #1 창으로 메시지를 출력할 수 있습니다.</div><img class="fig-image img-fig-3-4" src="assets/nulink_debug_adapter/fig-3-4.bmp" alt="Figure 3-4 Semihost 옵션"/><div class="fig-cap">Figure 3-4 Semihost 옵션</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">온라인 프로그래밍에서는 ICP Tool과 PC를 통해 Nu-Link가 SWD로 타깃 MCU에 펌웨어를 바로 내려보냅니다.</div><img class="fig-image img-fig-3-5" src="assets/nulink_debug_adapter/fig-3-5.bmp" alt="Figure 3-5 온라인 프로그래밍 흐름"/><div class="fig-cap">Figure 3-5 온라인 프로그래밍 흐름</div></div><div class="fig-box"><div class="fig-note">오프라인 프로그래밍에서는 미리 저장된 바이너리를 Nu-Link 내부에 보관한 뒤 현장에서는 소프트웨어 없이 기록을 수행합니다.</div><img class="fig-image img-fig-3-6" src="assets/nulink_debug_adapter/fig-3-6.bmp" alt="Figure 3-6 오프라인 프로그래밍 흐름"/><div class="fig-cap">Figure 3-6 오프라인 프로그래밍 흐름</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">소프트웨어 시리얼 번호를 함께 설정하면 양산된 각 타깃에 식별값을 순차적으로 기록할 수 있습니다.</div><img class="fig-image img-fig-3-7" src="assets/nulink_debug_adapter/fig-3-7.bmp" alt="Figure 3-7 소프트웨어 SN 설정"/><div class="fig-cap">Figure 3-7 소프트웨어 SN 설정</div></div></div>
-    </section>
-    
-      
-    <section class="section">
-      <div class="h1 scroll-anchor" id="setup"><span class="num">4</span><span>설치와 설정</span></div>
-      <div class="card card-blue">
-        <p>Nu-Link는 USB와 SWD 사이의 브리지 역할을 하며, SWD 포트로 타깃 보드에 최대 5V / 500mA를 공급할 수 있습니다.</p>
-        <p>연결이 끝나면 ICP Tool, Keil MDK, IAR EWARM, NuEclipse GCC에서 같은 어댑터를 디버거/프로그래머로 사용할 수 있습니다.</p>
-      </div>
-      <div class="h2">ICP Tool</div>
-      <div class="card">
-        <ol class="step-list"><li>ICP Tool을 설치하고 UI 언어와 타깃 칩을 선택합니다.</li><li>Option 창에서 전압과 Offline Programming mode를 설정합니다.</li><li>Connect를 눌러 Nu-Link와 연결합니다.</li><li>어댑터가 둘 이상이면 연결할 장치를 선택합니다.</li><li>칩이 감지되면 프로그래밍을 진행하고, 필요 없으면 Disconnect 또는 Stop Check로 해제합니다.</li></ol>
-      </div>
-      <div class="h2">Keil MDK</div>
-      <div class="card">
-        <ol class="step-list"><li>Keil MDK와 Keil용 Nu-Link 드라이버를 설치합니다.</li><li>Project &gt; Options for Target &gt; Output에서 Debug Information을 켭니다.</li><li>Debug 탭에서 Nuvoton Nu-Link M0 Debugger를 선택합니다.</li><li>Settings에서 칩, Reset, IO Voltage를 점검합니다.</li><li>Utilities에서 Use Target Driver for Flash Programming과 Update Target before Debugging을 활성화합니다.</li></ol>
-      </div>
-      <div class="h2">IAR EWARM</div>
-      <div class="card">
-        <ol class="step-list"><li>IAR EWARM과 IAR용 Nu-Link 드라이버를 설치합니다.</li><li>Project &gt; Options &gt; General Options &gt; Target에서 Nuvoton 디바이스를 선택합니다.</li><li>Debugger &gt; Setup에서 Third-Party Driver를 사용합니다.</li><li>Download에서 flash loader와 .board 파일을 프로젝트 목적에 맞게 지정합니다.</li><li>Third-Party Driver 페이지에서 Nu-Link_IAR.dll 경로를 지정하고 Port를 SWD로 설정합니다.</li></ol>
-      </div>
-      <div class="h2">NuEclipse GCC</div>
-      <div class="card">
-        <ol class="step-list"><li>Run &gt; Debug Configuration에서 GDB Nuvoton NuLink Debugging 구성을 생성합니다.</li><li>Main 탭에서 프로젝트명과 .elf 경로를 확인합니다.</li><li>Debugger 탭에 nulink.cfg와 MCU 계열용 target cfg를 지정합니다.</li><li>Startup 탭에서 Chip Series를 고르고 flash 또는 SRAM 로드 옵션을 선택합니다.</li><li>Apply 후 Debug를 실행합니다.</li></ol>
-      </div>
-      <div class="grid-2"><div class="fig-box"><div class="fig-note">Nu-Link는 USB와 SWD 사이의 브리지로 동작하며, 호스트 도구는 USB를 통해 타깃 칩을 디버그하고 프로그램합니다.</div><img class="fig-image img-fig-4-1" src="assets/nulink_debug_adapter/fig-4-1.bmp" alt="Figure 4-1 Nu-Link 연결도"/><div class="fig-cap">Figure 4-1 Nu-Link 연결도</div></div><div class="fig-box"><div class="fig-note">SWD 커넥터는 NuMicro 개발도구와 평가보드에 공통으로 사용하는 100 mil 2x5 female header 규격입니다.</div><img class="fig-image img-fig-4-2" src="assets/nulink_debug_adapter/fig-4-2.bmp" alt="Figure 4-2 SWD 핀 배치"/><div class="fig-cap">Figure 4-2 SWD 핀 배치</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">ICP Tool을 시작하면 UI 언어와 타깃 칩을 먼저 선택한 뒤 Continue로 진입합니다.</div><img class="fig-image img-fig-4-3" src="assets/nulink_debug_adapter/fig-4-3.bmp" alt="Figure 4-3 ICP Tool 시작 화면"/><div class="fig-cap">Figure 4-3 ICP Tool 시작 화면</div></div><div class="fig-box"><div class="fig-note">초기 메인 창에서는 Nu-Link가 아직 연결되지 않았기 때문에 상태가 Disconnected로 표시됩니다.</div><img class="fig-image img-fig-4-4" src="assets/nulink_debug_adapter/fig-4-4.bmp" alt="Figure 4-4 ICP Tool 메인 창"/><div class="fig-cap">Figure 4-4 ICP Tool 메인 창</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Program Option 창에서 Nu-Link Pro IO 전압과 Offline Programming mode를 지정할 수 있습니다.</div><img class="fig-image img-fig-4-5" src="assets/nulink_debug_adapter/fig-4-5.bmp" alt="Figure 4-5 ICP 옵션"/><div class="fig-cap">Figure 4-5 ICP 옵션</div></div><div class="fig-box"><div class="fig-note">호스트에 Nu-Link가 둘 이상 연결되면 연결 대상 장치를 선택하는 창이 나타나며, 선택된 장치는 상태 LED가 점멸합니다.</div><img class="fig-image img-fig-4-6" src="assets/nulink_debug_adapter/fig-4-6.bmp" alt="Figure 4-6 Nu-Link 선택"/><div class="fig-cap">Figure 4-6 Nu-Link 선택</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Connect 이후 SWD 포트와 타깃 칩이 정상 감지되면 바로 프로그래밍을 시작할 수 있습니다.</div><img class="fig-image img-fig-4-7" src="assets/nulink_debug_adapter/fig-4-7.bmp" alt="Figure 4-7 칩 감지 성공"/><div class="fig-cap">Figure 4-7 칩 감지 성공</div></div><div class="fig-box"><div class="fig-note">칩이 감지되지 않으면 Stop Check를 누를 때까지 탐색을 계속하며, 이 상태에서도 오프라인 이미지 저장은 가능합니다.</div><img class="fig-image img-fig-4-8" src="assets/nulink_debug_adapter/fig-4-8.bmp" alt="Figure 4-8 칩 미감지 상태"/><div class="fig-cap">Figure 4-8 칩 미감지 상태</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Keil에서 먼저 Output 탭의 Debug Information을 켜야 디버그 세션 진입이 정상 동작합니다.</div><img class="fig-image img-fig-4-9" src="assets/nulink_debug_adapter/fig-4-9.bmp" alt="Figure 4-9 Keil 디버그 정보"/><div class="fig-cap">Figure 4-9 Keil 디버그 정보</div></div><div class="fig-box"><div class="fig-note">Debug 탭에서는 Nuvoton Nu-Link M0 Debugger 항목이 선택되어 있어야 합니다.</div><img class="fig-image img-fig-4-10" src="assets/nulink_debug_adapter/fig-4-10.bmp" alt="Figure 4-10 Keil 디버거 선택"/><div class="fig-cap">Figure 4-10 Keil 디버거 선택</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Debug Settings 창에서는 드라이버 버전, 칩 종류, Reset 방식, IO Voltage를 모델별로 점검할 수 있습니다.</div><img class="fig-image img-fig-4-11" src="assets/nulink_debug_adapter/fig-4-11.bmp" alt="Figure 4-11 Nu-Link 파라미터"/><div class="fig-cap">Figure 4-11 Nu-Link 파라미터</div></div><div class="fig-box"><div class="fig-note">Utilities 탭에서는 Flash Programming에 Nu-Link 드라이버를 사용하고 Update Target before Debugging을 함께 설정합니다.</div><img class="fig-image img-fig-4-12" src="assets/nulink_debug_adapter/fig-4-12.bmp" alt="Figure 4-12 Keil 프로그래머 선택"/><div class="fig-cap">Figure 4-12 Keil 프로그래머 선택</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Flash Download 설정 창에서는 프로그래밍 전후 실행할 옵션을 상세하게 지정합니다.</div><img class="fig-image img-fig-4-13" src="assets/nulink_debug_adapter/fig-4-13.bmp" alt="Figure 4-13 Keil 프로그래밍 설정"/><div class="fig-cap">Figure 4-13 Keil 프로그래밍 설정</div></div><div class="fig-box"><div class="fig-note">IAR EWARM에서는 Project &gt; Options에서 Target 탭과 Device 버튼을 통해 타깃 장치를 먼저 선택합니다.</div><img class="fig-image img-fig-4-14" src="assets/nulink_debug_adapter/fig-4-14.bmp" alt="Figure 4-14 IAR 옵션"/><div class="fig-cap">Figure 4-14 IAR 옵션</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">예시에서는 Nuvoton M031AE series를 타깃 칩으로 지정합니다.</div><img class="fig-image img-fig-4-15" src="assets/nulink_debug_adapter/fig-4-15.bmp" alt="Figure 4-15 IAR 타깃 칩"/><div class="fig-cap">Figure 4-15 IAR 타깃 칩</div></div><div class="fig-box"><div class="fig-note">Debugger &gt; Setup 탭에서 드라이버를 Third-Party Driver로 설정해야 Nu-Link 플러그인을 사용할 수 있습니다.</div><img class="fig-image img-fig-4-16" src="assets/nulink_debug_adapter/fig-4-16.bmp" alt="Figure 4-16 IAR Third-Party Driver"/><div class="fig-cap">Figure 4-16 IAR Third-Party Driver</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Download 탭에서는 Use flash loader(s)를 활성화하고 다운로드 방식을 점검합니다.</div><img class="fig-image img-fig-4-17" src="assets/nulink_debug_adapter/fig-4-17.bmp" alt="Figure 4-17 IAR 프로그래밍 설정"/><div class="fig-cap">Figure 4-17 IAR 프로그래밍 설정</div></div><div class="fig-box"><div class="fig-note">APROM 또는 LDROM 다운로드가 필요하면 Override default .board file을 켜고 적절한 board 파일을 지정합니다.</div><img class="fig-image img-fig-4-18" src="assets/nulink_debug_adapter/fig-4-18.bmp" alt="Figure 4-18 .board 파일 선택"/><div class="fig-cap">Figure 4-18 .board 파일 선택</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Third-Party Driver 페이지에서는 Nu-Link_IAR.dll의 설치 경로를 정확히 입력해야 합니다.</div><img class="fig-image img-fig-4-19" src="assets/nulink_debug_adapter/fig-4-19.bmp" alt="Figure 4-19 IAR 플러그인 경로"/><div class="fig-cap">Figure 4-19 IAR 플러그인 경로</div></div><div class="fig-box"><div class="fig-note">Nu-Link 창에서 Port를 SWD로 선택하고 Target power control 섹션에서 전압을 지정합니다.</div><img class="fig-image img-fig-4-20" src="assets/nulink_debug_adapter/fig-4-20.bmp" alt="Figure 4-20 포트와 전압 지정"/><div class="fig-cap">Figure 4-20 포트와 전압 지정</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Main 탭에서는 프로젝트명과 빌드 산출물인 .elf 파일 경로가 정확히 맞아야 합니다.</div><img class="fig-image img-fig-4-21" src="assets/nulink_debug_adapter/fig-4-21.bmp" alt="Figure 4-21 NuEclipse 디버그 설정"/><div class="fig-cap">Figure 4-21 NuEclipse 디버그 설정</div></div><div class="fig-box"><div class="fig-note">Debugger 탭에서는 nulink.cfg와 ARM 계열별 target cfg 파일을 Config options에 지정합니다.</div><img class="fig-image img-fig-4-22" src="assets/nulink_debug_adapter/fig-4-22.bmp" alt="Figure 4-22 Debugger 탭"/><div class="fig-cap">Figure 4-22 Debugger 탭</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">Startup 탭에서는 Chip Series를 고르고 flash 또는 SRAM 로드 옵션을 설정한 뒤 Apply로 반영합니다.</div><img class="fig-image img-fig-4-23" src="assets/nulink_debug_adapter/fig-4-23.bmp" alt="Figure 4-23 Startup 탭"/><div class="fig-cap">Figure 4-23 Startup 탭</div></div></div>
-    </section>
-    
-      
-    <section class="section">
-      <div class="h1 scroll-anchor" id="appendix"><span class="num">5</span><span>부록</span></div>
-      <div class="card">
-        <p>온라인 모드에서는 USB 전원을 사용하고, 오프라인 모드에서는 타깃 보드의 SWD VCC에서 전원을 받아 동작합니다. 전류는 모델과 전압 설정에 따라 달라집니다.</p>
-        <ul class="bullet-list"><li>온라인 예: Nu-Link-Pro 5.0V 101mA, Nu-Link 5.0V 110mA, Nu-Link-Me 3.3V 60mA</li><li>오프라인 예: Nu-Link-Pro 5.0V 64mA, Nu-Link-Pro 1.8V 171mA, Nu-Link 5.0V 100mA</li></ul>
-      </div>
-      <div class="h2">자동 IC 프로그래밍 시스템</div>
-      <div class="card">
-        <ol class="step-list"><li>Nu-Link2-Me 전원을 켜면 START, BUSY, PASS, FAIL 신호가 초기화됩니다.</li><li>START를 논리 0으로 내리면 프로그래밍이 시작됩니다.</li><li>작업 중 BUSY는 논리 0이며 토글될 수 있습니다.</li><li>종료 시 BUSY는 논리 1이 되고 PASS 또는 FAIL 중 하나가 논리 0이 됩니다.</li></ol>
-      </div>
-      <div class="grid-2"><div class="fig-box"><div class="fig-note">자동 IC 프로그래밍 시스템에서는 SWD 핀과 함께 BUSY, START, PASS, FAIL 신호를 사용합니다.</div><img class="fig-image img-fig-5-1" src="assets/nulink_debug_adapter/fig-5-1.bmp" alt="Figure 5-1 자동 프로그래밍 SWD 핀 배치"/><div class="fig-cap">Figure 5-1 자동 프로그래밍 SWD 핀 배치</div></div><div class="fig-box"><div class="fig-note">BUSY가 1로 돌아오고 PASS가 0이 되는 경우 PASS 상태로 판정합니다.</div><img class="fig-image img-fig-5-2" src="assets/nulink_debug_adapter/fig-5-2.bmp" alt="Figure 5-2 PASS 파형"/><div class="fig-cap">Figure 5-2 PASS 파형</div></div></div><div class="grid-2"><div class="fig-box"><div class="fig-note">BUSY가 1로 돌아오고 FAIL이 0이 되는 경우 FAIL 상태로 판정합니다.</div><img class="fig-image img-fig-5-3" src="assets/nulink_debug_adapter/fig-5-3.bmp" alt="Figure 5-3 FAIL 파형"/><div class="fig-cap">Figure 5-3 FAIL 파형</div></div></div>
-    </section>
-    
-      
-    <section class="section">
-      <div class="h1 scroll-anchor" id="revision"><span class="num">6</span><span>개정 이력</span></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>버전</th><th>설명</th><th>날짜</th></tr></thead>
-          <tbody>
-            <tr><td>V1.00</td><td>예비 버전</td><td>2012/07/16</td></tr>
-            <tr><td>V1.01</td><td>Nu-Link2-Me 추가, Nu-Link-Me 항목 정리</td><td>2019/10/24</td></tr>
-          </tbody>
-        </table>
+    <section class="section scroll-anchor" id="p4-s3">
+      <h2>2.1 Nu-Link-Pro</h2>
+      <div class="card line-list">
+        <p>Nu-Link-Pro는 디버깅, 온라인/오프라인 프로그래밍, SWD I/O 전압 설정 기능을 갖춘 완전한 기능의 디버거이자 프로그래머입니다. 그림 2-1에 표시된 것처럼 Nu-Link-Pro에는 컴퓨터 호스트에 연결할 수 있는 USB 포트, 상태 LED 세트, 오프라인 프로그래밍 버튼, 디버깅 및 프로그래밍을 위해 대상 칩에 연결할 수 있는 SWD 포트(SWD 포트의 전압 레벨은 소프트웨어를 통해 1.8V, 2.5V, 3.3V 또는 5.0V로 조정 가능), SWD I/O 전압 LED 및 SWD 전원 출력 LED 세트가 포함되어 있습니다.</p>
+        <p>Offline Programming Button SWD Power Output LED SWD VCC NC ICE_DAT NC USB ICE_CLK NC /RESET NC VSS(GND) NC SWD I/O Voltage LED Status LED (1.8V / 2.5V / 3.3V / 5.0V) (ICE / ICP / Red / Green)</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-005-figure-001.png" alt="Nu-Link-Pro Configuration">
+          <figcaption class="fig-cap">Figure 2-1 Nu-Link-Pro Configuration</figcaption>
+        </figure>
       </div>
     </section>
-    
-    </main>
-  </div>
-  <a class="back-top" href="#top">↑</a>
+    <section class="section scroll-anchor" id="p5-s4">
+      <h2>2.2 Nu-Link</h2>
+      <div class="card line-list">
+        <p>Nu-Link는 디버깅 및 온라인/오프라인 프로그래밍 기능을 갖춘 기본 디버거이자 프로그래머입니다. 그림 2-2에서 볼 수 있듯이 Nu-Link에는 컴퓨터 호스트에 연결할 수 있는 USB 포트, 상태 LED 세트, 오프라인 프로그래밍 버튼, 디버깅 및 프로그래밍을 위해 대상 칩에 연결할 수 있는 SWD 포트가 포함되어 있습니다(SWD 포트의 기본 전압은 5.0V).</p>
+        <p>Offline Programming Button SWD USB Green Status LED Red ICP ICE</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-005-figure-002.png" alt="Nu-Link Configuration">
+          <figcaption class="fig-cap">Figure 2-2 Nu-Link Configuration</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p5-s5">
+      <h2>2.3 Nu-Link-Me</h2>
+      <div class="card line-list">
+        <p>Nu-Link-Me는 디버깅 및 온라인 프로그래밍 기능을 갖춘 간단한 디버거이자 프로그래머로, NuTiny-SDK 키트와 함께 제공되며 NuMicro® 맞춤형 제품군 시스템을 개발하기 위해 독립형으로 사용할 수 있습니다. 그림 2-3에 표시된 것처럼 Nu-Link-Me에는 컴퓨터 호스트에 연결할 수 있는 USB 포트, 상태 LED 세트, Nu-Link-Me의 전압을 3.3V와 5.0V(기본값은 3.3V) 사이에서 전환하는 전원 스위치, 디버깅 및 프로그래밍을 위해 대상 칩에 연결할 수 있는 SWD 포트(전압은 NuLink-Me로 조정 가능)가 포함되어 있습니다.</p>
+        <p>Virtual COM Switch SWD VCC ICE_DAT ICE_CLK USB /RESET ICE_RX VSS(GND) ICE_TX Status LED (ICE / ICP / Red / Green)</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-006-figure-001.png" alt="Nu-Link-Me Configuration">
+          <figcaption class="fig-cap">Figure 2-3 Nu-Link-Me Configuration</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p6-s6">
+      <h2>2.4 Nu-Link2-Me</h2>
+      <div class="card line-list">
+        <p>Nu-Link2-Me는 디버깅 및 온라인 프로그래밍 기능을 갖춘 간단한 디버거 및 프로그래머로, Nu-Maker 키트에만 제공되며 SWD 인터페이스를 통해 온라인 프로그래밍 및 디버깅을 지원하는 맞춤형 제품군 시스템인 NuMicro® 개발을 위해 독립형으로 사용할 수 있습니다. 온보드 16Mbit SPI 플래시를 사용하면 대상 마이크로컨트롤러를 오프라인으로 프로그래밍할 수 있습니다. Nu-Link2-Me는 PC에서 메시지를 인쇄할 수 있는 가상 COM 포트(VCOM) 기능을 제공합니다. Nu-Link2-Me는 NuMaker와 분리되어 사용자가 대량 생산 프로그래밍 도구로 사용할 수 있습니다. 그림 2-4는 주요 구성요소와 커넥터를 전면에서 본 모습입니다.</p>
+        <p>VIrtual COM Switch SWD VCC BUSY ICE_DAT START USB ICE_CLK ICE_RX/Pass /RESET VSS(GND) ICE_TX/Fail ICE SW Status LED (ICE / ICP / Red / Green)</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-006-figure-002.png" alt="그림 2-4 Nu-Link2-Me 구성의 전면 모습">
+          <figcaption class="fig-cap">그림 2-4 Nu-Link2-Me 구성의 전면 모습</figcaption>
+        </figure>
+        <p>ICEVCC MCUVCC Power Switch Power Switch</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-007-figure-002.png" alt="그림 2-5 Nu-Link2-Me 구성의 후면 모습">
+          <figcaption class="fig-cap">그림 2-5 Nu-Link2-Me 구성의 후면 모습</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p7-s7">
+      <h2>2.5 Nu-Link Adapter Hardware Specifications</h2>
+      <div class="card line-list">
+        <p>Nu-Link 어댑터 하드웨어 비교는 표 2-2에 나와 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-007-table-001.png" alt="Nu-Link Adapter Hardware Comparison">
+          <figcaption class="fig-cap">Table 2-2 Nu-Link Adapter Hardware Comparison</figcaption>
+        </figure>
+        <p>*일부 버전에서만 지원됩니다(5V 및 3.3V 지원은 저항 JPR1을 통해 조정 가능).</p>
+        <p>* Nu-Link2-Me.</p>
+        <ul>
+          <li>MCUVCC Power Switch (ICEJPR1)</li>
+          <li>ICEVCC Power Switch (ICEJPR2)</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-008-table-001.png" alt="Status LEDs Difference List">
+          <figcaption class="fig-cap">Table 2-4 Status LEDs Difference List</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p10-s8">
+      <h2>3 Main Functions</h2>
+      <div class="card line-list">
+        <p>NuMicro® Nu-Link 어댑터는 제품군을 위한 완벽한 디버깅 및 프로그래밍 기능을 제공하고 다양한 타사 개발 도구를 지원합니다. 자세한 기능 지원은 표 3-1에 나열되어 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-010-table-001.png" alt="Nu-Link Adapter Functions">
+          <figcaption class="fig-cap">Table 3-1Nu-Link Adapter Functions</figcaption>
+        </figure>
+        <p>*1 코어 레지스터 보기가 지원됩니다. 주변기기 보기는 지원되지 않습니다.</p>
+        <p>*2 Nu-Link, Nu-Link-Pro 및 Nu-Link2-Me에 지원됩니다.</p>
+        <p>*3 Nu-Link-Pro에 지원됩니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p11-s9">
+      <h2>3.1 Debugging</h2>
+      <div class="card line-list">
+        <p>이 섹션에서는 Nu-Link Adapter가 지원하는 디버깅 기능에 대해 간략하게 설명합니다. 자세한 내용은 관련 사용자 매뉴얼을 참조하시기 바랍니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p11-s10">
+      <h2>3.1.1 Debug Mode</h2>
+      <div class="card line-list">
+        <p>NuMicro® Nu-Link 어댑터는 SWD 신호 인터페이스를 기반으로 하는 제품군 칩에 대한 디버깅을 지원합니다. 칩 디버깅을 위해 Nu-Link 어댑터 사용을 지원하는 타사 도구에는 Keil MDK, IAR EWARM 및 NuEclipse GCC가 포함됩니다. 디버그 모드에서 지원되는 추가 기능은 다음과 같습니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p11-s11">
+      <h2>3.1.2 Breakpoints</h2>
+      <div class="card line-list">
+        <p>디버그 모드에서 사용자는 디버깅을 위해 코드에 중단점을 추가할 수 있습니다. Nu-Link 어댑터의 실시간 시뮬레이션 중에 칩 시뮬레이션은 특정 중단점에서 중지됩니다. 그림 3-1은 Keil MDK 디버그 모드의 중단점 설정을 보여줍니다. 052행과 059행의 빨간색 레이블은 삽입된 중단점을 나타냅니다. 노란색 화살표는 다음에 실행될 코드를 나타내며 프로그램 카운터(PC)의 레지스터 값을 표시합니다(예: 그림 3-1의 &quot;R15(PC)=0x00000D04&quot; 레지스터 창).</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-011-figure-001.png" alt="그림 3-1 Keil MDK 디버그 모드에서 중단점 설정">
+          <figcaption class="fig-cap">그림 3-1 Keil MDK 디버그 모드에서 중단점 설정</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p11-s12">
+      <h2>3.1.3 Direct Register Control Interface</h2>
+      <div class="card line-list">
+        <p>직접 레지스터 제어 인터페이스는 대상 칩에 레지스터 내용을 표시하고 레지스터를 조작하는 데 사용할 수 있습니다. 예를 들어 Keil MDK 디버그 모드를 선택하면 디버그 명령을 호출하고(예: ADC, CAN, CLK 등) 직접 레지스터를 열고 그림 3-2와 같이 선택한 레지스터의 &quot;기능 레지스터 목록&quot; 제어 인터페이스에서 레지스터를 선택합니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p12-s13">      
+      <div class="card line-list">
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-012-figure-001.png" alt="그림 3-2 Keil MDK 디버그 모드의 직접 레지스터 인터페이스 제어 관련 옵션">
+          <figcaption class="fig-cap">그림 3-2 Keil MDK 디버그 모드의 직접 레지스터 인터페이스 제어 관련 옵션</figcaption>
+        </figure>
+        <p>CLK용 직접 레지스터 제어 인터페이스는 그림 3-3의 왼쪽 부분에 표시됩니다. 여기서 왼쪽 열은 레지스터 주소를 표시하고, 중간 열은 레지스터 이름을 표시하고, 오른쪽 열은 레지스터 값을 표시합니다. PWRCON용 직접 레지스터 제어 인터페이스는 그림 3-3의 오른쪽 부분에 표시되어 있으며, 왼쪽 열에는 기능 비트가 표시되고 중간 열에는 기능 이름이 표시되며 오른쪽 열에는 기능 값이 표시됩니다.</p>
+        <p>Detailed Operation:</p>
+        <p>&quot;레지스터 값&quot;을 두 번 클릭하면 그림 3-3의 오른쪽 부분에 표시된 것처럼 레지스터 제어 세부 정보가 열립니다.</p>
+        <p>&quot;레지스터 이름&quot; 또는 &quot;컨트롤 값&quot; 위로 커서를 이동하면 팁이 표시됩니다. &quot;레지스터 값&quot; 또는 &quot;제어 값&quot;은 직접 수정할 수 있습니다. 그러면 Nu-Link 어댑터가 대상 칩의 내용을 수정합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-012-figure-002.png" alt="그림 3-3 Keil MDK 디버그 모드의 직접 레지스터 제어 인터페이스">
+          <figcaption class="fig-cap">그림 3-3 Keil MDK 디버그 모드의 직접 레지스터 제어 인터페이스</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p13-s14">
+      <h2>3.1.4 Semihost</h2>
+      <div class="card line-list">
+        <p>NuMicro® Semihost 기능을 사용할 때 제품군 마이크로 컨트롤러의 메시지는 Nu-Link 어댑터를 통해 UART를 통해 디버그 창으로 출력될 수 있습니다. 즉, GPIO 없이 메시지가 출력됩니다. 그림 3-4는 Nu-Link Adapter에서 출력되는 메시지인 “UART #1” 형식의 디버그 메시지를 보여줍니다.</p>
+        <p>Semihost를 사용하려면 아래 단계를 따르십시오(Keil MDK 및 M031AE 시리즈를 예로 사용).</p>
+        <p>1단계: &quot;startup_NUC1xx.s&quot; 문자열을 다음과 같이 수정합니다.</p>
+        <ul>
+        <p>;SEMIHOSTED SETL {FALSE} ; 이 줄 삭제</p>
+        <p>;↓수정</p>
+        <p>SEMIHOSTED SETL {TRUE} ; 이 줄을 추가하세요</p>
+        </ul>
+        <p>2단계: &quot;system_NUC1xx.h&quot; 문자열을 다음과 같이 수정합니다.</p>
+        <ul>
+        <p>//#define DEBUG_ENABLE_SEMIHOST // 이 줄을 삭제합니다.</p>
+        <p>//↓수정</p>
+        <p>#define DEBUG_ENABLE_SEMIHOST // 이 줄을 추가하세요</p>
+        </ul>
+        <p>3단계: Rebuild를 호출하여 프로젝트를 다시 빌드하고 디버그 모드로 들어갑니다.</p>
+        <p>4단계: 디버그 모드에서 그림 3-4와 같이 View → Serial Windows → UART #1을 호출합니다.</p>
+        <p>5단계: F5를 눌러 대상 칩을 프로그래밍하면 디버그 메시지가 UART #1 형식으로 출력됩니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-013-figure-003.png" alt="그림 3-4 Keil MDK 디버그 모드의 세미호스트 옵션">
+          <figcaption class="fig-cap">그림 3-4 Keil MDK 디버그 모드의 세미호스트 옵션</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p14-s15">
+      <h2>3.2 Programming</h2>
+      <div class="card line-list">
+        <p>이 섹션에서는 Nu-Link 어댑터가 지원하는 프로그래밍 기능을 간략하게 설명합니다. 자세한 내용은 관련 사용자 매뉴얼을 참조하시기 바랍니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p14-s16">
+      <h2>3.2.1 Online Programming</h2>
+      <div class="card line-list">
+        <p>온라인 프로그래밍은 그림 3-5와 같이 Nu-Link 어댑터가 소프트웨어 프로그램을 통해 제품군 단일 칩의 펌웨어를 대상 칩에 다운로드할 수 있음을 의미합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-014-figure-001.png" alt="Online Programming Flow Diagram">
+          <figcaption class="fig-cap">Figure 3-5 Online Programming Flow Diagram</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p14-s17">
+      <h2>3.2.2 Offline Programming</h2>
+      <div class="card line-list">
+        <p>NuMicro® 오프라인 프로그래밍은 Nu-Link 어댑터가 소프트웨어 프로그램에 액세스하지 않고도 제품군 단일 칩의 펌웨어를 직접 업데이트할 수 있음을 의미합니다(그림 3-6 참조). 오프라인 프로그래밍은 대량 생산에 유용합니다. 대량 생산에는 원본 코드나 펌웨어 파일을 전달할 필요가 없고 Nu-Link 어댑터만 있으면 되기 때문입니다. 또한 Nu-Link 어댑터는 승인된 펌웨어 수를 효과적으로 제어할 수 있는 &quot;제한된 오프라인 프로그래밍&quot;을 지원합니다. 자세한 내용은 ICP 도구 사용자 매뉴얼을 참조하세요.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-015-figure-001.png" alt="Offline Programming Flow Diagram">
+          <figcaption class="fig-cap">Figure 3-6 Offline Programming Flow Diagram</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p15-s18">
+      <h2>3.2.3 Software Serial Number (SN)</h2>
+      <div class="card line-list">
+        <p>ICP 도구에서 제공하는 소프트웨어 일련 번호(SN) 기능을 사용하면 사용자는 온라인/오프라인 프로그래밍 중에 대상 칩에 대한 &quot;Increase SN from&quot; &quot;Write address in flash&quot; 필드에 값을 지정할 수 있습니다. 예를 들어 NUC140VE3CN 칩을 사용하면 사용자는 APROM, LDROM 및 데이터 플래시에 &quot;증가된 일련 번호(SN)&quot; 및 &quot;쓰기 주소&quot; 세트를 지정할 수 있으며 기록된 일련 번호(SN)는 자동으로 증가됩니다(그림 3-7 참조).</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-015-figure-005.png" alt="Software Serial Number (SN) Settings">
+          <figcaption class="fig-cap">Figure 3-7 Software Serial Number (SN) Settings</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p16-s19">
+      <h2>3.3 Wide Voltage Programming</h2>
+      <div class="card line-list">
+        <p>Nu-Link-Pro는 개발 소프트웨어 도구가 SWD 포트 전압을 1.8V, 2.5V, 3.3V 또는 5.0V로 조정할 수 있는 광범위한 전압 프로그래밍 기능을 지원합니다. 그림 4-2에서 볼 수 있듯이 제어할 수 있는 핀에는 VCC, ICE_DAT, ICE_CLK, /RESET이 있습니다.</p>
+        <p>또한, 그림 2-1과 같이 Nu-Link-Pro는 SWD 포트 전압을 확인하기 위한 SWD I/O 전압 LED와 SWD 전원 출력 LED 세트를 제공합니다. LED 상태에 대한 자세한 내용은 표 2-3을 참조하십시오. Nu-Link-Me는 저항기 JPR1이 SWD 포트 전압을 3.3V 또는 5.0V로 조정할 수 있는 넓은 전압 프로그래밍 기능을 지원합니다. 그림 4-2에서 볼 수 있듯이 제어할 수 있는 핀에는 VCC, ICE_DAT, ICE_CLK, /RESET, ICE_RX 및 ICE_TX가 있습니다.</p>
+        <p>Nu-Link2-Me는 저항기 ICEJPR1이 SWD 포트 전압을 1.8V, 3.3V 또는 5.0V로 조정할 수 있는 광범위한 전압 프로그래밍 기능을 지원합니다. 그림 4-2에서 볼 수 있듯이 제어할 수 있는 핀에는 VCC, ICE_DAT, ICE_CLK, /RESET, ICE_RX/PASS, ICE_TX/Fail, BUSY 및 START가 있습니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p16-s20">
+      <h2>3.4 Nu-Link 어댑터 드라이버 설치</h2>
+      <div class="card line-list">
+        <p>Nu-Link 어댑터는 다양한 기능과 타사 소프트웨어 도구(예: Keil MDK 및 IAR EWARM)를 지원합니다. 소프트웨어 프로그램을 설치한 후에는 드라이버도 필요합니다. Keil MDK용 Nu-Link 어댑터 드라이버 및 IAR EWARM용 Nu-Link 어댑터 드라이버 링크를 사용하여 최신 버전을 설치할 수 있습니다. 소프트웨어 설정에 대한 자세한 내용은 섹션 4.2를 참조하십시오.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p17-s21">
+      <h2>4 설치 및 설정</h2>
+      <div class="card line-list">
+        <p>이 장에서는 Nu-Link 어댑터를 컴퓨터에 연결하는 방법과 Nu-Link 어댑터를 디버거 및 프로그래머로 사용하도록 타사 도구를 설정하는 방법을 소개합니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p17-s22">
+      <h2>4.1 Nu-Link 어댑터에 연결하기</h2>
+      <div class="card line-list">
+        <p>그림 4-1에서 볼 수 있듯이 Nu-Link 어댑터는 소프트웨어 도구가 USB를 통해 대상 칩을 디버깅하고 프로그래밍할 수 있는 USB와 SWD 인터페이스 사이의 브리지입니다. 사용자는 Nu-Link 어댑터를 PC의 USB 포트에 직접 연결하거나 USB 커넥터를 사용하여 연결할 수 있습니다.</p>
+        <p>Nu-Link 어댑터는 SWD 포트를 통해 대상 회로 기판에 전원(1.8V, 2.5V, 3.3V 또는 5.0V)을 공급할 수 있습니다. 최대값은 5V/500mA입니다. 자세한 사양은 표 2-1을 참조하세요.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-017-figure-002.png" alt="Nu-Link Adapter Connection Diagram">
+          <figcaption class="fig-cap">Figure 4-1Nu-Link Adapter Connection Diagram</figcaption>
+        </figure>
+        <p>SWD Connector:</p>
+        <p>모든 개발 도구 및 평가 보드에 적용할 수 있는 SWD 커넥터는 그림 4-2의 왼쪽과 같이 100mil(2×5) 암 헤더입니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-017-figure-001.png" alt="SWD Connector Pin Diagrams">
+          <figcaption class="fig-cap">Figure 4-2 SWD Connector Pin Diagrams</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p18-s23">
+      <h2>4.2 Software Setup</h2>
+      <div class="card line-list">
+        <p>이 섹션에서는 Nu-Link 어댑터에 연결하는 데 필요한 소프트웨어 설정에 대해 간략하게 설명합니다. 자세한 소프트웨어 작동 방법은 관련 사용 설명서를 참조하세요.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p18-s24">
+      <h2>4.2.1 ICP 도구</h2>
+      <div class="card line-list">
+        <p>1단계: Nuvoton ICP 프로그래밍 도구를 다운로드하고 설치합니다.</p>
+        <p>2단계: 그림 4-3과 같이 ICP 도구를 열고 UI 언어와 대상 칩을 지정한 다음 계속을 클릭합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-018-figure-001.png" alt="그림 4-3 ICP 도구 시작 화면">
+          <figcaption class="fig-cap">그림 4-3 ICP 도구 시작 화면</figcaption>
+        </figure>
+        <p>3단계: 그림 4-4와 같이 ICP 도구가 Nu-Link 어댑터와 연결되지 않았기 때문에 ICP 도구 창에서 연결 상태가 &quot;연결 끊김&quot;으로 표시됩니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-018-figure-002.png" alt="그림 4-4 ICP 도구 기본 창">
+          <figcaption class="fig-cap">그림 4-4 ICP 도구 기본 창</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p19-s25">
+      <h2>4.2 Software Setup</h2>
+      <div class="card line-list">
+        <p>4단계: 그림 4-5와 같이 ICP 도구 창의 프로그램 섹션에서 옵션을 클릭하여 프로그램 옵션 양식을 엽니다.</p>
+        <p>5단계: Nu-Link Pro IO 전압 섹션에서 대상 칩에 대한 SWD 포트의 전원 전압을 지정한 다음 확인을 클릭합니다. 오프라인 프로그래밍 기능을 사용하려면 그림 4-5와 같이 오프라인 프로그래밍 모드 옵션을 선택해야 합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-019-figure-001.png" alt="그림 4-5 ICP 도구 프로그래밍 옵션">
+          <figcaption class="fig-cap">그림 4-5 ICP 도구 프로그래밍 옵션</figcaption>
+        </figure>
+        <p>6단계: ICP 도구 창으로 돌아가서 연결 버튼을 클릭합니다. 2개 이상의 Nu-Link 어댑터가 호스트에 연결된 경우 5단계로 이동하세요. Nu-Link 어댑터가 하나만 호스트에 연결된 경우 6단계로 이동하세요.</p>
+        <p>7단계: 두 개의 Nu-Link 어댑터가 컴퓨터에 연결된 경우 두 어댑터 중 하나를 선택하라는 메시지가 나타납니다. 확인을 클릭하면 그림 4-6과 같이 선택한 어댑터가 호스트에 연결됩니다. 연결을 위해 Nu-Link 어댑터를 선택하면 상태 LED가 깜박이기 시작합니다. 깜박이는 자세한 내용은 표 2-4의 “호스트와 연결할 어댑터 선택”의 상태 LED 설명을 참조하세요.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-019-figure-002.png" alt="그림 4-6 하나의 Nu-Link 어댑터 선택">
+          <figcaption class="fig-cap">그림 4-6 하나의 Nu-Link 어댑터 선택</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p20-s25b">
+      <h2>4.2 Software Setup</h2>
+      <div class="card line-list">
+        <p>8a단계: 연결 버튼을 클릭하면 ICP 도구가 Nu-Link 어댑터와 연결되고 SWD 포트가 감지됩니다. 그림 4-7은 ICP 도구가 Nu-Link 어댑터와 연결되어 대상 칩이 감지되는 것을 보여줍니다. 이때 사용자는 대상 칩 프로그래밍을 시작할 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-020-figure-001.png" alt="그림 4-7 대상 칩이 감지되어 연결된 Nu-Link 어댑터">
+          <figcaption class="fig-cap">그림 4-7 대상 칩이 감지되어 연결된 Nu-Link 어댑터</figcaption>
+        </figure>
+        <p>8b단계: 그림 4-8은 ICP 도구가 대상 칩이 감지되지 않은 상태에서 Nu-Link 어댑터와 연결되었음을 보여줍니다. ICP 도구는 확인 중지 버튼을 클릭할 때까지 대상 칩을 계속 감지합니다. 현재 사용자는 어떤 칩도 프로그래밍할 수 없지만 오프라인 프로그래밍을 사용하여 Nu-Link 어댑터에 오프라인 프로그래밍 정보를 저장할 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-020-figure-002.png" alt="그림 4-8 대상 칩이 감지되지 않은 채 연결된 Nu-Link 어댑터">
+          <figcaption class="fig-cap">그림 4-8 대상 칩이 감지되지 않은 채 연결된 Nu-Link 어댑터</figcaption>
+        </figure>
+        <p>9단계: 프로그래밍이 필요하지 않으면 연결 끊기 버튼을 클릭합니다(그림 4-7 참조). 또는 검사 중지 버튼을 클릭하여 Nu-Link 어댑터와 ICP 도구의 연결을 끊고 Nu-Link 어댑터를 사용하지 않은 상태로 둡니다(그림 4-8 참조). 따라서 Nu-Link 어댑터는 다른 도구와 연결할 수 있습니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p21-s26">
+      <h2>4.2.2 Keil MDK</h2>
+      <div class="card line-list">
+        <p>1단계: Keil MDK를 설치합니다. Nu-Link 어댑터를 설정하기 전에 Keil MDK용 Nu-Link 어댑터 드라이버가 다운로드되어 Keil MDK가 Nu-Link 어댑터를 인식할 수 있도록 설치되었는지 확인하십시오.</p>
+        <p>2단계: Keil MDK를 열고 설정할 프로젝트를 엽니다.</p>
+        <p>Debugger Settings:</p>
+        <p>3단계: 그림 4-9와 같이 프로젝트 → 대상 옵션 → 출력을 호출하고 디버그 정보 옵션을 활성화합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-021-figure-001.png" alt="그림 4-9 Keil MDK에 대한 디버그 정보 활성화">
+          <figcaption class="fig-cap">그림 4-9 Keil MDK에 대한 디버그 정보 활성화</figcaption>
+        </figure>
+        <p>4단계: 대상 디버그를 위한 프로젝트 옵션을 호출하고 그림 4-10과 같이 Use:「Nuvoton Nu→ → Link M0 Debugger 옵션이 선택되어 있는지 확인합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-021-figure-002.png" alt="Keil MDK Debugger Selection">
+          <figcaption class="fig-cap">Figure 4-10 Keil MDK Debugger Selection</figcaption>
+        </figure>
+        <p>단계: 5: 그림 4-11과 같이 설정 버튼을 클릭하여 디버그 양식을 엽니다. 각 설정 설명은 표 4-1을 참조하십시오. 디버그 양식에 표시되는 설정 옵션은 사용되는 Nu-Link 어댑터 유형에 따라 달라질 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-022-figure-001.png" alt="Nu-Link Adapter Parameter Settings">
+          <figcaption class="fig-cap">Figure 4-11 Nu-Link Adapter Parameter Settings</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-022-table-002.png" alt="Debugger Function Settings Description">
+          <figcaption class="fig-cap">Table 4-1 Debugger Function Settings Description</figcaption>
+        </figure>
+        <p>Programmer Settings:</p>
+        <p>6단계: 그림 4-12와 같이 프로젝트 호출 → 대상 옵션 → 유틸리티를 선택하고 플래시 프로그래밍용 대상 드라이버 사용 옵션이 활성화된 경우 &quot;Nuvoton Nu-Link M0 디버거&quot;를 선택한 다음 디버깅 전 대상 업데이트 옵션을 선택합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-023-figure-001.png" alt="Keil MDK Programmer Selection">
+          <figcaption class="fig-cap">Figure 4-12 Keil MDK Programmer Selection</figcaption>
+        </figure>
+        <p>7단계: 그림 4-13에 표시된 것처럼 설정 버튼을 클릭하여 플래시 다운로드 양식을 엽니다. 여기서 사용자는 Nu-Link 어댑터로 프로그래밍하기 전이나 후에 옵션을 지정할 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-023-figure-002.png" alt="Nu-Link Adapter Programming Settings">
+          <figcaption class="fig-cap">Figure 4-13 Nu-Link Adapter Programming Settings</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p24-s27">
+      <h2>4.2.3 IAR EWARM</h2>
+      <div class="card line-list">
+        <p>1단계: IAR EWARM을 설치합니다. IAR EWARM이 Nu-Link 어댑터를 인식할 수 있도록 Nu-Link 어댑터를 설정하기 전에 IAR EWARM용 Nu-Link 어댑터 드라이버가 다운로드되어 설치되었는지 확인하십시오.</p>
+        <p>2단계: IAR EWARM을 열고, 설정할 프로젝트를 엽니다.</p>
+        <p>3단계: 그림 4-14 및 그림 4-15와 같이 일반 옵션 페이지의 대상 탭에서(프로젝트 → 옵션 호출을 통해) 장치 옵션 오른쪽에 있는 버튼을 클릭하고(장치 옵션이 활성화되어 있는지 확인) 대상 칩으로 “Nuvoton → Nuvoton M031AE 시리즈”를 선택합니다(이 경우 M031AE 시리즈).</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-024-figure-001.png" alt="Options Selection">
+          <figcaption class="fig-cap">Figure 4-14 Options Selection</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-024-figure-002.png" alt="IAR EWARM Target Chip Selection">
+          <figcaption class="fig-cap">Figure 4-15 IAR EWARM Target Chip Selection</figcaption>
+        </figure>
+        <p>디버거 및 프로그래머 설정:</p>
+        <p>4단계: 그림 4-16에 표시된 대로 디버거 페이지의 설정 탭에서 타사 드라이버를 드라이버로 선택합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-025-figure-001.png" alt="그림 4-16 IAR EWARM을 디버거 및 프로그래머용 타사 드라이버로 설정">
+          <figcaption class="fig-cap">그림 4-16 IAR EWARM을 디버거 및 프로그래머용 타사 드라이버로 설정</figcaption>
+        </figure>
+        <p>단계: 5: 그림 4-17에 표시된 대로 디버거 페이지의 다운로드 탭에서 플래시 로더 사용 옵션이 선택되어 있는지 확인합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-025-figure-002.png" alt="IAR EWARM Programming Settings">
+          <figcaption class="fig-cap">Figure 4-17 IAR EWARM Programming Settings</figcaption>
+        </figure>
+        <p>단계: 6: 펌웨어를 APROM 또는 LDROM에 다운로드하려면 디버거 페이지의 다운로드 탭에서 기본 .board 파일 재정의 옵션을 선택한 다음 NUC100_APROM.board 또는 NUC100_LDROM.board 파일을 지정합니다(이 경우 NUC100 시리즈가 사용됨). 파일이 발견되지 않으면 그림 4-18과 같이 &quot;$TOOLKIT_DIR$\config\flashloader\Nuvoton\&quot; 경로를 지정합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-026-figure-001.png" alt="그림 4-18 IAR EWARM용 Select.board 파일">
+          <figcaption class="fig-cap">그림 4-18 IAR EWARM용 Select.board 파일</figcaption>
+        </figure>
+        <p>드라이버 플러그인 파일 설정:</p>
+        <p>7단계: 그림 4-19와 같이 타사 드라이버 페이지에서 IAR 디버거 드라이버 플러그인 &quot;C:\Program Files\Nuvoton Tools\Nu-Link_IAR\Nu-Link_IAR.dll&quot;의 경로를 지정합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-026-figure-002.png" alt="그림 4-19 IAR EWARM 디버거 드라이버 플러그인 경로 설정">
+          <figcaption class="fig-cap">그림 4-19 IAR EWARM 디버거 드라이버 플러그인 경로 설정</figcaption>
+        </figure>
+        <p>8단계: 확인을 클릭하여 설정을 저장하고 IAR EWARM 기본 창으로 돌아갑니다.</p>
+        <p>9단계: Nu-Link를 호출하여 Nu-Link 양식을 열고 SWD를 포트로 선택한 다음 그림 4-20과 같이 대상 전원 제어 섹션(이 경우 3.3V)에서 Nu-LinkPro I/O 전압을 지정합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-027-figure-001.png" alt="그림 4-20 포트 및 대상 I/O 전압 지정">
+          <figcaption class="fig-cap">그림 4-20 포트 및 대상 I/O 전압 지정</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p28-s28">
+      <h2>4.2.4 NuEclipse GCC</h2>
+      <div class="card line-list">
+        <p>1단계: 드라이버 설치가 필요 없는 NuEclipse GCC를 설치합니다.</p>
+        <p>2단계: NuEclipse GCC를 열고 설정할 프로젝트를 엽니다.</p>
+        <p>UM_NuEclipse_EN도 참고해주세요.</p>
+        <p>Debugger Settings:</p>
+        <p>3단계: 디버그 모드에서는 디버그 모드에 대한 모든 필수 정보가 포함된 디버그 구성을 준비해야 합니다. 실행 &gt; 디버그 구성…을 클릭하여 디버그 구성 대화 상자를 엽니다. GDB Nuvoton NuLink 디버깅 그룹을 두 번 클릭합니다. Nuvoton Nu-Link 디버그 구성이 오른쪽에 나타납니다. Main 탭에서 Project 이름은 프로젝트 이름과 일치해야 합니다. C/C++ 애플리케이션은 빌드 프로세스에서 생성된 .elf 애플리케이션을 가리켜야 합니다. 그림 4-21과 같습니다. 프로젝트 이름이나 C/C++ 애플리케이션이 잘못된 경우 프로젝트 보기에서 먼저 예상되는 프로젝트를 선택하고 프로젝트를 빌드하여 실행 파일을 생성한 후 트리를 확장하여 생성된 실행 파일이 있는지 확인하세요. 그런 다음 이전 작업을 다시 반복하십시오.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-028-figure-001.png" alt="NuEclipse GCC Debug Configuration">
+          <figcaption class="fig-cap">Figure 4-21 NuEclipse GCC Debug Configuration</figcaption>
+        </figure>
+        <p>Programmer Settings:</p>
+        <p>4단계: 디버거 탭은 OpenOCD 및 GDB 클라이언트 설정을 제공하는 데 사용됩니다. OpenOCD는 어댑터 및 대상 칩 작업 방법을 알기 위해 올바른 구성 파일이 필요합니다. 구성 파일은 구성 옵션 필드에 지정됩니다. Nuvoton의 어댑터는 Nu-Link입니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p29-s29">
+      <h2>4.2.4 GCC</h2>
+      <div class="card line-list">
+        <p>nulink.cfg라는 인터페이스 구성 파일을 사용합니다. 또한 Nuvoton에는 M0, M4 및 M23과 같은 세 가지 ARM 제품군이 있습니다. 해당 대상 구성 파일은 numicroM0.cfg, numicroM4.cfg 및 numicroM23.cfg입니다. M0 2차 개발의 경우 대상 구성 파일은 그림 4-22와 같이 numicroM0_NS.cfg가 됩니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-029-figure-001.png" alt="그림 4-22 디버거 탭 구성">
+          <figcaption class="fig-cap">그림 4-22 디버거 탭 구성</figcaption>
+        </figure>
+        <p>5단계: 첫 번째 단계로 시작 탭에서 올바른 칩 시리즈를 선택해야 합니다. 완료되면 해당 대상 구성 파일이 디버거 탭의 구성 옵션 필드에 자동으로 기록됩니다. 실행 파일을 플래시로 로드하려면 로드 실행 파일을 플래시 확인란을 선택해야 합니다. 실행 파일을 RAM에 로드하려면 SRAM에 실행 파일 로드 확인란을 선택해야 합니다. 모든 설정이 완료되면 적용 버튼을 클릭하여 적용합니다. 애플리케이션을 디버그 모드로 시작하려면 디버그 버튼을 클릭하세요.</p>
+        <p>6단계: 마지막으로 그림 4-23과 같이 적용을 클릭하여 설정을 저장합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-030-figure-001.png" alt="그림 4-23 시작 탭 구성">
+          <figcaption class="fig-cap">그림 4-23 시작 탭 구성</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p31-s31">
+      <h2>5.1 Nu-Link Adapter Operating Current</h2>
+      <div class="card line-list">
+        <p>온라인 프로그래밍 중 USB를 통해 전원을 공급할 때 Nu-Link 어댑터의 작동 전류는 아래 표와 같습니다.</p>
+        <p>오프라인 프로그래밍 중 타겟 보드(SWD VCC 핀)에서 전원을 공급할 때 Nu-Link Adapter의 작동 전류는 아래 표와 같습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-031-table-001.png" alt="Nu-Link Adapter Operating Current (Offline Programming)">
+          <figcaption class="fig-cap">Table 5-2 Nu-Link Adapter Operating Current (Offline Programming)</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p31-s32">
+      <h2>5.2 Automatic IC Programming System</h2>
+      <div class="card line-list">
+        <p>그림 5-1과 같이 개별 슬롯과 제어 버스를 통한 자동 IC 프로그래밍 시스템.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-032-figure-001.png" alt="SWD Connector Pin Diagrams">
+          <figcaption class="fig-cap">Figure 5-1 SWD Connector Pin Diagrams</figcaption>
+        </figure>
+        <p>Operation sequence</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p32-s33">
+      <h2>5.2.1 및 파형</h2>
+      <div class="card line-list">
+        <p>1. Nu-Link2-ME의 전원을 켭니다. START, BUSY, PASS, FAIL이 로직으로 설정됩니다.</p>
+        <p>2. 프로그래밍을 시작하려면 START를 TSTART에 대해 논리 0으로 설정해야 합니다.</p>
+        <p>3. 프로그래밍 시작. BUSY는 로직 0으로 설정되며 프로그래밍 중에 토글될 수 있습니다.</p>
+        <p>4. 프로그래밍이 끝나면 BUSY는 로직 1로 설정되고 PASS 또는 FAIL은 로직 0으로 설정됩니다.</p>
+        <ul>
+          <li>BUSY가 로직 1로 설정되고, PASS가 로직 0으로 설정되면 “PASS”를 의미합니다.</li>
+          <li>BUSY가 로직 1로 설정되고, FAIL이 로직 0으로 설정되면 “FAIL”을 의미합니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-032-figure-002.png" alt="PASS Waveform">
+          <figcaption class="fig-cap">Figure 5-2 PASS Waveform</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-032-figure-003.png" alt="FAIL Waveform">
+          <figcaption class="fig-cap">Figure 5-3 FAIL Waveform</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+</div>
 </body>
 </html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuvoton 8051 BSP 빠른 시작 가이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+:root{--red:#c8102e;--red-dark:#8c0b1f;--red-light:#fdeaed;--bg:#f5f6f8;--panel:#fff;--text:#171717;--muted:#6b7280;--border:#e3e5ea;--shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 28px rgba(0,0,0,.12);--r:8px;}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:'Noto Sans KR',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+.site-header{background:linear-gradient(135deg,var(--red-dark),var(--red) 62%,#e33b58);color:#fff;padding:34px 42px;}
+.hdr-kicker{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;opacity:.82;margin-bottom:8px;}
+.hdr-title{font-size:clamp(22px,4vw,36px);font-weight:900;line-height:1.25;}
+.layout{display:grid;grid-template-columns:292px minmax(0,1fr);max-width:1420px;margin:0 auto;}
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:22px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-title{font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--muted);padding:0 24px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-link{display:block;padding:7px 22px 7px 28px;color:var(--text);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover{background:var(--red-light);border-left-color:var(--red);color:var(--red-dark);font-weight:700;}
+.main{padding:36px 44px;min-width:0;}
+.section{margin-bottom:42px;}
+.scroll-anchor{scroll-margin-top:18px;}
+h2{font-size:22px;font-weight:900;color:var(--red-dark);border-bottom:3px solid var(--red);padding-bottom:10px;margin:0 0 16px;line-height:1.35;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin:12px 0;box-shadow:var(--shadow);}
+.line-list p{margin:0 0 8px;}
+.line-list p:last-child{margin-bottom:0;}
+.line-list ul{margin:4px 0 8px 20px;padding:0;}
+.line-list li{margin:3px 0;}
+.figure-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;align-items:start;}
+.fig-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);margin:16px 0;}
+.figure-grid .fig-box{margin:0;}
+.fig-box img{width:100%;display:block;background:#fff;}
+.fig-cap{text-align:center;font-size:13px;color:var(--muted);padding:10px;font-style:italic;border-top:1px solid var(--border);background:#fafafa;}
+@media (max-width:980px){.layout{grid-template-columns:1fr;}.sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}.main{padding:26px 16px;}.figure-grid{grid-template-columns:1fr;}.site-header{padding:28px 20px;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hdr-kicker">Nuvoton Guide</div>
+  <div class="hdr-title">Nuvoton 8051 BSP 빠른 시작 가이드</div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">바로가기</div>    
+    <a class="nav-link" href="#p2-s2">Agenda</a>    
+    <a class="nav-link" href="#p4-s4">Folder structure</a>
+    <a class="nav-link" href="#p5-s5">.c 파일은 다른 컴파일러에 대해 정의됩니다.</a>
+    <a class="nav-link" href="#p6-s6">프로젝트 구축</a>
+    <a class="nav-link" href="#p7-s7">케일의 경우</a>
+    <a class="nav-link" href="#p10-s8">KEIL PK51의 옵션</a>
+    <a class="nav-link" href="#p11-s9">KEIL의 경우 - 장치</a>
+    <a class="nav-link" href="#p12-s10">KEIL - 타겟</a>
+    <a class="nav-link" href="#p13-s11">KEIL - 출력용</a>
+    <a class="nav-link" href="#p14-s12">KEIL의 경우 - 사용자</a>
+    <a class="nav-link" href="#p15-s13">케일 – C51</a>
+    <a class="nav-link" href="#p16-s14">KEIL – LX51 기타</a>
+    <a class="nav-link" href="#p17-s15">KEIL의 경우 - 디버그</a>
+    <a class="nav-link" href="#p18-s16">KEIL – 유틸리티</a>
+    <a class="nav-link" href="#p19-s17">프로젝트 구축</a>
+    <a class="nav-link" href="#p20-s18">IAR의 경우</a>
+    <a class="nav-link" href="#p22-s19">IAR 워크벤치 옵션</a>
+    <a class="nav-link" href="#p23-s20">IAR의 경우 – 일반 옵션</a>
+    <a class="nav-link" href="#p27-s21">IAR – C/C++ 컴파일러</a>
+    <a class="nav-link" href="#p28-s22">IAR의 경우 – 빌드 작업</a>
+    <a class="nav-link" href="#p30-s23">IAR – C/C++ 컴파일러</a>
+    <a class="nav-link" href="#p31-s24">IAR용 – 디버거</a>
+    <a class="nav-link" href="#p32-s25">IAR의 경우 – 타사 드라이버</a>
+    <a class="nav-link" href="#p33-s26">IAR의 경우 – Nu-Link 설정 및 CONFIG 정의</a>
+    <a class="nav-link" href="#p34-s27">프로젝트 구축</a>
+    <a class="nav-link" href="#p35-s28">NuEclispe SDCC의 경우</a>
+  </aside>
+  <main class="main">
+    <section class="section scroll-anchor" id="p2-s2">
+      <h2>Agenda</h2>
+      <div class="card line-list">
+        <ul>
+          <li>BSP의 구조</li>
+          <li>BSP를 활용한 프로젝트 구축 - KEIL</li>
+          <li>BSP를 활용하여 프로젝트 구축 - IAR</li>
+          <li>BSP를 활용하여 프로젝트 구축 - NuEclipse</li>
+        </ul>
+      </div>
+    </section>    
+    <section class="section scroll-anchor" id="p4-s4">
+      <h2>Folder structure</h2>
+      <div class="card line-list">
+        <ul>
+          <li>&quot;Template&quot; 또는 &quot;RegBased&quot; 디렉터리 내의 하위 폴더와 동일한 수준에 새 프로젝트 폴더를 생성하는 것이 좋습니다.</li>
+          <li>&quot;라이브러리&quot; 폴더와 모든 하위 폴더는 항상 유지되어야 합니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-004-image-002.png" alt="page-004-image-002.png">
+          <figcaption class="fig-cap">page-004-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p5-s5">
+      <h2>.c 파일은 다른 컴파일러에 대해 정의됩니다.</h2>
+      <div class="card line-list">
+        <ul>
+          <li>Different Coding Rule</li>
+        </ul>
+        <p>__C51__은 KEIL PK51용입니다.</p>
+        <p>__ICC8051__은 IAR 8051 워크벤치용입니다.</p>
+        <p>__SDCC__는 NuEclipse용입니다.</p>
+        <p>NuEclipse 정의 기호 창</p>
+        <ul>
+          <li>Simplify code</li>
+        </ul>
+        <p>특정 컴파일러를 사용하기로 결정하면 다른 컴파일러 전체 그룹의 정의를 제거할 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-005-image-003.png" alt="page-005-image-003.png">
+          <figcaption class="fig-cap">page-005-image-003.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-005-image-002.png" alt="page-005-image-002.png">
+          <figcaption class="fig-cap">page-005-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p6-s6">
+      <h2>프로젝트 구축</h2>
+      <div class="card line-list">
+        <p>Utilizing BSP - KEIL</p>
+        <p>기존 프로젝트에서 복사하는 것이 새 프로젝트를 만드는 것보다 더 유리한 경우가 많습니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p7-s7">
+      <h2>케일의 경우</h2>
+      <div class="card line-list">
+        <ul>
+          <li>&quot;Project_temp&quot; 템플릿에서 폴더 복사</li>
+          <li>&quot;project_temp.uvproj&quot;의 이름을 &quot;Rename.uvproj&quot;로 바꿉니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-007-image-003.png" alt="page-007-image-003.png">
+          <figcaption class="fig-cap">page-007-image-003.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-007-image-004.png" alt="page-007-image-004.png">
+          <figcaption class="fig-cap">page-007-image-004.png</figcaption>
+        </figure>
+        <ul>
+          <li>KEIL에서 프로젝트 이름을 수정합니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-008-image-002.png" alt="page-008-image-002.png">
+          <figcaption class="fig-cap">page-008-image-002.png</figcaption>
+        </figure>
+        <ul>
+          <li>새 애플리케이션 .c 파일로 컴파일합니다. 출력 hex 및 bin 파일을 찾습니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-009-image-002.png" alt="page-009-image-002.png">
+          <figcaption class="fig-cap">page-009-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p10-s8">
+      <h2>KEIL PK51의 옵션</h2>
+      <div class="card line-list">
+        <ul>
+          <li>다음 소개에서는 Nuvoton 8051 시리즈의 특별한 정의에 중점을 둡니다.</li>
+          <li>모든 옵션에 대한 포괄적인 설명을 보려면 공식 Keil 문서를 참조하세요.</li>
+        </ul>
+        <p>https://www.keil.com/support/man/docs/uv4cl/uv4cl_dg_options.htm</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-010-image-003.png" alt="page-010-image-003.png">
+          <figcaption class="fig-cap">page-010-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p11-s9">
+      <h2>KEIL의 경우 - 장치</h2>
+      <div class="card line-list">
+        <ul>
+          <li>&quot;Nuvoton 8051 Device&quot;가 선택 가능한지 확인하세요.</li>
+          <li>이 옵션을 사용할 수 없는 경우 Nuvoton Keil 드라이버 패키지를 설치하십시오.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-011-image-002.png" alt="page-011-image-002.png">
+          <figcaption class="fig-cap">page-011-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p12-s10">
+      <h2>KEIL - 타겟</h2>
+      <div class="card line-list">
+        <ul>
+          <li>기기를 확인해 보세요. 일치하지 않는 경우 &quot;장치&quot; 페이지에서 올바른 장치를 선택하세요.</li>
+          <li>Memory Model:</li>
+        </ul>
+        <p>XDATA를 사용하는 변수 기본값의 경우 큼</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-012-image-002.png" alt="page-012-image-002.png">
+          <figcaption class="fig-cap">page-012-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p13-s11">
+      <h2>KEIL - 출력용</h2>
+      <div class="card line-list">
+        <ul>
+          <li>&quot;실행 파일 이름&quot;은 출력 .hex 파일 이름을 정의합니다.</li>
+          <li>Keil은 HEX 형식 파일을 독점적으로 생성하는 반면 BIN 파일은 Nuvoton 명령줄을 사용하여 생성됩니다. 다음 페이지에서 소개하는 명령줄입니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-013-image-002.png" alt="page-013-image-002.png">
+          <figcaption class="fig-cap">page-013-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p14-s12">
+      <h2>KEIL의 경우 - 사용자</h2>
+      <div class="card line-list">
+        <ul>
+          <li>이 파일은 Keil 설정 폴더에 있습니다. 예: C:\Keil_v5\C51\NULink</li>
+        </ul>
+        <p>。 기본적으로 사용되지 않은 위치는 0xFF로 채워집니다.</p>
+        <p>。 사용자는 매개변수를 포함할 수도 있습니다. -P 0x00은 사용되지 않는 위치가 0으로 채워짐을 의미합니다.</p>
+        <p>。 매개변수 &lt;시작 주소&gt; &lt;데이터 길이&gt;</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-014-image-002.png" alt="page-014-image-002.png">
+          <figcaption class="fig-cap">page-014-image-002.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-014-image-003.png" alt="page-014-image-003.png">
+          <figcaption class="fig-cap">page-014-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p15-s13">
+      <h2>케일 – C51</h2>
+      <div class="card line-list">
+        <ul>
+          <li>Code Optimization</li>
+        </ul>
+        <p>특히 코드 크기를 고려할 때 레벨 7과 4가 권장됩니다.</p>
+        <ul>
+          <li>Include Paths</li>
+        </ul>
+        <p>디바이스와 라이브러리의 헤더 파일 경로를 정의합니다.</p>
+        <ul>
+          <li>다음은 가장 인기 있는 정의를 보여줍니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-015-image-002.png" alt="page-015-image-002.png">
+          <figcaption class="fig-cap">page-015-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p16-s14">
+      <h2>KEIL – LX51 기타</h2>
+      <div class="card line-list">
+        <ul>
+          <li>코드 크기에 대한 매개변수입니다.</li>
+        </ul>
+        <p>&quot;REMOVEUNUSED&quot;는 컴파일할 프로젝트에 연결되지 않은 호출되지 않은 서브루틴입니다. 이렇게 하면 bin 파일 코드 크기를 줄일 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-016-image-002.png" alt="page-016-image-002.png">
+          <figcaption class="fig-cap">page-016-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p17-s15">
+      <h2>KEIL의 경우 - 디버그</h2>
+      <div class="card line-list">
+        <p>CONFIG setup page</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-017-image-002.png" alt="page-017-image-002.png">
+          <figcaption class="fig-cap">page-017-image-002.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-017-image-003.png" alt="page-017-image-003.png">
+          <figcaption class="fig-cap">page-017-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p18-s16">
+      <h2>KEIL – 유틸리티</h2>
+      <div class="card line-list">
+        <p>Nu-Link setup</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-018-image-002.png" alt="page-018-image-002.png">
+          <figcaption class="fig-cap">page-018-image-002.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-018-image-003.png" alt="page-018-image-003.png">
+          <figcaption class="fig-cap">page-018-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p19-s17">
+      <h2>프로젝트 구축</h2>
+      <div class="card line-list">
+        <p>Utilizing BSP - IAR</p>
+        <p>기존 프로젝트에서 복사하는 것이 새 프로젝트를 만드는 것보다 더 유리한 경우가 많습니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p20-s18">
+      <h2>IAR의 경우</h2>
+      <div class="card line-list">
+        <ul>
+          <li>&quot;Project_temp&quot; 템플릿에서 폴더를 복제합니다.</li>
+          <li>그런 다음 &quot;.ewd&quot;, &quot;.ewp&quot; 및 &quot;.eww&quot; 파일 이름을 적절하게 변경합니다.</li>
+          <li>&quot;.eww&quot; 파일을 열고 새 이름 &quot;Rename.ewp&quot;를 반영하도록 프로젝트 &lt;path&gt;를 수정합니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-020-image-003.png" alt="page-020-image-003.png">
+          <figcaption class="fig-cap">page-020-image-003.png</figcaption>
+        </figure>
+        <ul>
+          <li>새 애플리케이션 .c 파일로 컴파일합니다. 출력 hex 및 bin 파일을 찾습니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-021-image-002.png" alt="page-021-image-002.png">
+          <figcaption class="fig-cap">page-021-image-002.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-021-image-003.png" alt="page-021-image-003.png">
+          <figcaption class="fig-cap">page-021-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p22-s19">
+      <h2>IAR 워크벤치 옵션</h2>
+      <div class="card line-list">
+        <ul>
+          <li>다음 소개에서는 Nuvoton 8051 시리즈의 특별한 정의에 중점을 둡니다.</li>
+          <li>모든 옵션에 대한 포괄적인 설명을 보려면 공식 IAR 문서를 참조하세요.</li>
+        </ul>
+        <p>https://wwwfiles.iar.com/8051/webic/doc/EW8051_MigrationGuide_v7.pdf</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-022-image-003.png" alt="page-022-image-003.png">
+          <figcaption class="fig-cap">page-022-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p23-s20">
+      <h2>IAR의 경우 – 일반 옵션</h2>
+      <div class="card line-list">
+        <ul>
+          <li>기기를 확인해 보세요.</li>
+          <li>Data Model:</li>
+        </ul>
+        <p>XDATA를 사용하는 변수 기본값의 경우 큼</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-023-image-002.png" alt="page-023-image-002.png">
+          <figcaption class="fig-cap">page-023-image-002.png</figcaption>
+        </figure>
+        <ul>
+          <li>Stack / Heap</li>
+          <li>XDATA 값은 printf에 중요합니다.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-024-image-002.png" alt="page-024-image-002.png">
+          <figcaption class="fig-cap">page-024-image-002.png</figcaption>
+        </figure>
+        <ul>
+          <li>DPTRs</li>
+          <li>항상 1개의 DPTR을 사용하십시오.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-025-image-002.png" alt="page-025-image-002.png">
+          <figcaption class="fig-cap">page-025-image-002.png</figcaption>
+        </figure>
+        <ul>
+          <li>Printf 포맷터용 자동</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-026-image-002.png" alt="page-026-image-002.png">
+          <figcaption class="fig-cap">page-026-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p27-s21">
+      <h2>IAR – C/C++ 컴파일러</h2>
+      <div class="card line-list">
+        <ul>
+          <li>Include Paths</li>
+        </ul>
+        <p>디바이스와 라이브러리의 헤더 파일 경로를 정의합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-027-image-002.png" alt="page-027-image-002.png">
+          <figcaption class="fig-cap">page-027-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p28-s22">
+      <h2>IAR의 경우 – 빌드 작업</h2>
+      <div class="card line-list">
+        <ul>
+          <li>링커 구성 파일</li>
+          <li>Nuvoton이 수동으로 조정한 장치 정의에서 파생되었습니다(IAR 도구에 의해 자동으로 선택되지 않음).</li>
+          <li>어떠한 경우에도 이 영역의 값을 수정하지 마십시오.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-028-image-002.png" alt="page-028-image-002.png">
+          <figcaption class="fig-cap">page-028-image-002.png</figcaption>
+        </figure>
+        <ul>
+          <li>16진수 형식 출력으로 빌드</li>
+          <li>Bin 형식은 nuvoton 명령줄을 사용합니다. 다음 페이지에서 소개합니다.</li>
+          <li>다음과 같은 컴파일러 이후</li>
+          <ul>
+            <p>.a51 hex format</p>
+            <p>.bin bin format</p>
+            <p>IAR용 .d51 디버그 파일</p>
+          </ul>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-029-image-002.png" alt="page-029-image-002.png">
+          <figcaption class="fig-cap">page-029-image-002.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-029-image-003.png" alt="page-029-image-003.png">
+          <figcaption class="fig-cap">page-029-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p30-s23">
+      <h2>IAR – C/C++ 컴파일러</h2>
+      <div class="card line-list">
+        <ul>
+          <li>Hex2bin</li>
+        </ul>
+        <p>이 파일은 Nuvoton IAR 드라이버 폴더에 있습니다.</p>
+        <p>. \Nuvoton Tools\Nu-Link_IAR\Hex2Bin.exe</p>
+        <ul>
+          <p> 기본적으로 사용되지 않은 위치는 0xFF로 채워집니다.</p>
+          <p> 사용자는 매개변수를 포함할 수도 있습니다. -P 0x00은 사용되지 않는 위치가 0으로 채워짐을 의미합니다.</p>
+          <p> 매개변수 &lt;시작 주소&gt; &lt;데이터 길이&gt;</p>
+        </ul>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-030-image-002.png" alt="page-030-image-002.png">
+          <figcaption class="fig-cap">page-030-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p31-s24">
+      <h2>IAR용 – 디버거</h2>
+      <div class="card line-list">
+        <ul>
+          <li>Third-Party Driver</li>
+          <ul>
+            <p>Nuvoton에 의해 수동으로 조정됩니다(IAR 도구에 의해 자동으로 선택되지 않음).</p>
+            <p>어떠한 경우에도 이 영역의 값을 수정하지 마십시오.</p>
+          </ul>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-031-image-002.png" alt="page-031-image-002.png">
+          <figcaption class="fig-cap">page-031-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p32-s25">
+      <h2>IAR의 경우 – 타사 드라이버</h2>
+      <div class="card line-list">
+        <ul>
+          <li>Third-Party Driver</li>
+          <ul>
+            <p>Nuvoton에 의해 수동으로 조정됩니다(IAR 도구에 의해 자동으로 선택되지 않음).</p>
+            <p>어떠한 경우에도 이 영역의 값을 수정하지 마십시오.</p>
+          </ul>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-032-image-002.png" alt="page-032-image-002.png">
+          <figcaption class="fig-cap">page-032-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p33-s26">
+      <h2>IAR의 경우 – Nu-Link 설정 및 CONFIG 정의</h2>
+      <div class="card line-list">
+        <ul>
+          <li>Third-Party Driver</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-033-image-002.png" alt="page-033-image-002.png">
+          <figcaption class="fig-cap">page-033-image-002.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-033-image-003.png" alt="page-033-image-003.png">
+          <figcaption class="fig-cap">page-033-image-003.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-033-image-004.png" alt="page-033-image-004.png">
+          <figcaption class="fig-cap">page-033-image-004.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p34-s27">
+      <h2>프로젝트 구축</h2>
+      <div class="card line-list">
+        <p>Utilizing BSP - KEIL</p>
+        <p>기존 프로젝트에서 복사하는 것이 새 프로젝트를 만드는 것보다 더 유리한 경우가 많습니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p35-s28">
+      <h2>NuEclispe SDCC의 경우</h2>
+      <div class="card line-list">
+        <ul>
+          <li>안내사항은 &quot;Nu Eclipse SDCC Quick Start_EN.pdf&quot;를 참고하세요.</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-035-image-003.png" alt="page-035-image-003.png">
+          <figcaption class="fig-cap">page-035-image-003.png</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

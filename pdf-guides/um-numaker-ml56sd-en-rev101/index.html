@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NuMaker ML56SD 사용자 가이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+:root{--red:#c8102e;--red-dark:#8c0b1f;--red-light:#fdeaed;--bg:#f5f6f8;--panel:#fff;--text:#171717;--muted:#6b7280;--border:#e3e5ea;--shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 28px rgba(0,0,0,.12);--r:8px;}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:'Noto Sans KR',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+.site-header{background:linear-gradient(135deg,var(--red-dark),var(--red) 62%,#e33b58);color:#fff;padding:34px 42px;}
+.hdr-kicker{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;opacity:.82;margin-bottom:8px;}
+.hdr-title{font-size:clamp(22px,4vw,36px);font-weight:900;line-height:1.25;}
+.layout{display:grid;grid-template-columns:292px minmax(0,1fr);max-width:1420px;margin:0 auto;}
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:22px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-title{font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--muted);padding:0 24px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-link{display:block;padding:7px 22px 7px 28px;color:var(--text);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover{background:var(--red-light);border-left-color:var(--red);color:var(--red-dark);font-weight:700;}
+.main{padding:36px 44px;min-width:0;}
+.section{margin-bottom:42px;}
+.scroll-anchor{scroll-margin-top:18px;}
+h2{font-size:22px;font-weight:900;color:var(--red-dark);border-bottom:3px solid var(--red);padding-bottom:10px;margin:0 0 16px;line-height:1.35;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin:12px 0;box-shadow:var(--shadow);}
+.line-list p{margin:0 0 8px;}
+.line-list p:last-child{margin-bottom:0;}
+.line-list ul{margin:8px 0 10px;padding-left:1.35rem;list-style-position:outside;}
+.line-list li{margin:5px 0;line-height:1.55;padding-left:2px;}
+.line-list li > ul{margin:6px 0 6px 0.2rem;padding-left:1.2rem;}
+.figure-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;align-items:start;}
+.fig-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);margin:16px 0;}
+.figure-grid .fig-box{margin:0;}
+.fig-box img{width:100%;display:block;background:#fff;}
+.fig-cap{text-align:center;font-size:13px;color:var(--muted);padding:10px;font-style:italic;border-top:1px solid var(--border);background:#fafafa;}
+@media (max-width:980px){.layout{grid-template-columns:1fr;}.sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}.main{padding:26px 16px;}.figure-grid{grid-template-columns:1fr;}.site-header{padding:28px 20px;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hdr-kicker">Nuvoton Guide</div>
+  <div class="hdr-title">NuMaker ML56SD 사용자 가이드</div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">바로가기</div>
+    <a class="nav-link" href="#p6-s6">1 OVERVIEW</a>
+    <a class="nav-link" href="#p7-s7">2 FEATURES</a>
+    <a class="nav-link" href="#p8-s8">3 HARDWARE CONFIGURATION</a>
+    <a class="nav-link" href="#p10-s9">3.3 확장 커넥터</a>
+    <a class="nav-link" href="#p11-s10">3.3.1 전체 핀 확장 커넥터</a>
+    <a class="nav-link" href="#p14-s11">3.3.2 NuMaker-TNLCDSub_ML56SD Compatible Extension Connectors</a>
+    <a class="nav-link" href="#p16-s12">3.3.3 Arduino UNO Compatible Extension Connectors</a>
+    <a class="nav-link" href="#p18-s12">3.4 Power Supply Configuration</a>
+    <a class="nav-link" href="#p18-s13">3.4.1 VIN Power Source</a>
+    <a class="nav-link" href="#p18-s14">3.4.2 5 V Power Sources</a>
+    <a class="nav-link" href="#p19-s15">3.4.3 3.3 V Power Sources</a>
+    <a class="nav-link" href="#p19-s16">3.4.4 1.8 V Power Sources</a>
+    <a class="nav-link" href="#p19-s17">3.4.5 Power Connectors</a>
+    <a class="nav-link" href="#p20-s18">3.4.6 USB Connectors</a>
+    <a class="nav-link" href="#p20-s19">3.4.7 Power Switches</a>
+    <a class="nav-link" href="#p20-s21">3.4.8.1 Nu-Link2-Me를 ​​통해 대상 칩에 외부 전원 공급</a>
+    <a class="nav-link" href="#p21-s22">3.4.8.2 ML56 플랫폼을 통해 대상 칩에 외부 전원 공급</a>
+    <a class="nav-link" href="#p22-s23">3.4.8.2 외부 전원 공급 계속</a>
+    <a class="nav-link" href="#p23-s24">3.5 External Reference Voltage Connector</a>
+    <a class="nav-link" href="#p23-s25">3.6 Ammeter Connector</a>
+    <a class="nav-link" href="#p24-s25">3.7 Push Buttons</a>
+    <a class="nav-link" href="#p24-s26">3.8 LEDs</a>
+    <a class="nav-link" href="#p24-s27">3.9 Touch Key</a>
+    <a class="nav-link" href="#p25-s27">3.10 LCD</a>
+    <a class="nav-link" href="#p28-s28">3.11 Nu-Link2-Me</a>
+    <a class="nav-link" href="#p28-s29">3.11.1 VCOM Switches</a>
+    <a class="nav-link" href="#p28-s30">3.11.2 Status LEDs</a>
+    <a class="nav-link" href="#p29-s31">4 QUICK START</a>
+    <a class="nav-link" href="#p33-s32">4.5 예제 프로젝트 찾기</a>
+    <a class="nav-link" href="#p33-s33">4.6 툴체인에서 프로젝트 실행</a>
+    <a class="nav-link" href="#p33-s34">4.6.1 Keil C51</a>
+    <a class="nav-link" href="#p35-s35">4.6.1 Keil C51 계속</a>
+    <a class="nav-link" href="#p36-s36">4.6.1 Keil C51 디버그</a>
+    <a class="nav-link" href="#p37-s37">4.6.2 IAR EW8051</a>
+    <a class="nav-link" href="#p38-s38">4.6.2 IAR EW8051 디버그</a>
+    <a class="nav-link" href="#p39-s39">5.1 Nu-Link2-Me</a>
+    <a class="nav-link" href="#p40-s41">5.2 ML56 플랫폼</a>
+    <a class="nav-link" href="#p41-s42">5.3 확장 커넥터</a>
+    <a class="nav-link" href="#p42-s43">5.4 TK 및 LCD Cap</a>
+    <a class="nav-link" href="#p43-s44">5.5 PCB Placement</a>
+    <a class="nav-link" href="#p44-s46">6.1 LCD Connector</a>
+  </aside>
+  <main class="main">
+    <section class="section scroll-anchor" id="p6-s6">
+      <h2>1 OVERVIEW</h2>
+      <div class="card line-list">
+        <p>NuMaker-ML56SD는 Nuvoton NuMicro® ML56 시리즈 마이크로컨트롤러용 개발 보드입니다.</p>
+        <p>ML56 시리즈는 터치 키와 LCD 컨트롤러 기능이 통합된 NuMicro® 8051 시리즈 중 첫 번째 시리즈입니다. 터치 키 컨트롤러는 높은 터치 감도와 높은 잡음 내성으로 IEC 61000-4-6 10Vrms 테스트를 통과했습니다. LCD 컨트롤러는 최대 10cm x 10cm 패널을 구동할 수 있습니다. 그리고 VDD의 전압 변화에 관계없이 안정적인 V LCD를 제공하여 LCD 패널의 우수한 디스플레이 품질을 유지할 수 있는 프로그래밍 가능한 내부 차지 펌프 회로가 내장되어 있습니다. NuMaker-ML56SD 플랫폼은 ML56 평가 보드, 온보드 Nu-Link2-Me 디버거 및 프로그래머, HTN-LCD 패널 모듈의 세 부분으로 구성됩니다. NuMaker-ML56SD는 전력 소비 모니터링 기능을 통해 프로젝트 평가, 프로토타입 개발 및 검증을 위해 설계되었습니다.</p>
+        <p>ML56 평가 보드는 NuMicro® ML56SD1AE MCU를 기반으로 합니다. 개발 유연성을 위해 ML56 플랫폼은 Arduino UNO 호환 헤더인 ML56SD1AE의 확장 커넥터를 제공하며 다중 전원 공급 장치를 채택할 수 있습니다. 또한 Nuvoton이 설계한 전류계 커넥터는 프로토타입 평가에 필수적인 전력 소비를 즉시 측정할 수 있습니다. 또한 TK0의 정전식 터치 키 감지 기능은 터치 키 하드웨어 설계 규칙, 펌웨어 라이브러리 기능 및 관련 PC 개발 도구에 대한 예입니다. NuMaker-ML56SD는 정전식 터치 키 감지 기능 외에도 8 x 28 COM/SEG LCD 디스플레이 기능을 제공합니다. HTN-LCD 패널을 사용하면 사용자는 ML56SD1AE의 LCD 디스플레이 기능을 쉽게 구현할 수 있습니다. ML56 플랫폼 외에도 온보드 디버거 및 프로그래머 &quot;NuLink2-Me&quot;가 부착되어 있습니다. Nu-Link2-Me는 SWD 인터페이스를 통해 온칩 디버깅, 온라인 및 오프라인 ICP 프로그래밍을 지원합니다. Nu-Link2-Me는 PC에서 디버그 메시지를 인쇄하기 위한 가상 COM(VCOM) 포트를 지원합니다.</p>
+        <p>게다가 프로그래밍 상태는 내장된 LED에 표시될 수 있습니다. 마지막으로 Nu-Link2-Me는 개발 보드에서 분리되어 독립형 대량 생산 프로그래머가 될 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-006-figure-001.png" alt="NuMaker-ML56SD Development Board">
+          <figcaption class="fig-cap">Figure 1-1 NuMaker-ML56SD Development Board</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p7-s7">
+      <h2>2 FEATURES</h2>
+      <div class="card line-list">
+        <ul>
+          <li>다음과 호환되는 기능을 갖춘 NuMicro® ML56SD1AE 마이크로컨트롤러:
+            <ul>
+              <li>ML56LD1AE</li>
+              <li>ML56MD1AE</li>
+              <li>ML56LC1AE</li>
+              <li>ML56TC1AE</li>
+            </ul>
+          </li>
+          <li>ML56SD1AE full pin extension connectors
+            <ul>
+              <li>HTN-LCD panel module board can be plugged into extension connectors</li>
+            </ul>
+          </li>
+          <li>Arduino UNO compatible extension connectors</li>
+          <li>마이크로 컨트롤러의 전력 소비를 측정하기 위한 전류계 커넥터</li>
+          <li>Flexible board power source:
+            <ul>
+              <li>External VDD power connector</li>
+              <li>Arduino UNO compatible extension connector Vin</li>
+              <li>USB FS connector on ML56 evaluation board</li>
+              <li>ICE USB connector on Nu-Link2-Me</li>
+            </ul>
+          </li>
+          <li>Supports one touch key on board
+            <ul>
+              <li>터치 키 1개 + 기준 패드 + 차폐 전극 장착</li>
+              <li>터치 개발 도구는 하드웨어 및 소프트웨어 매개변수를 자동으로 설정할 수 있습니다.</li>
+            </ul>
+          </li>
+          <li>Supports 8 x 25 COM/SEG HTN-LCD panel on NuMaker-TNLCDSub_ML56SD
+            <ul>
+              <li>1/4 바이어스, 1/8 듀티, 8 x 25 COM/SEG</li>
+            </ul>
+          </li>
+          <li>온보드 Nu-Link2-Me 디버거 및 프로그래머:
+            <ul>
+              <li>Debug through SWD interface</li>
+              <li>On-line/off-line programming</li>
+              <li>Virtual COM port function</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p8-s8">
+      <h2>3 HARDWARE CONFIGURATION</h2>
+      <div class="card line-list">
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-008-figure-001.png" alt="그림 3-1 NuMaker-ML56SD 전면 모습">
+          <figcaption class="fig-cap">그림 3-1 NuMaker-ML56SD 전면 모습</figcaption>
+        </figure>
+        <p>그림 3-1은 NuMaker-ML56SD 전면의 주요 구성 요소와 커넥터를 보여줍니다. 다음은 전면에서 본 구성 요소와 커넥터 목록입니다.</p>
+        <ul>
+          <li>Target chip:ML56SD1AE (U1)</li>
+          <li>USB PWR Connector (J2)</li>
+          <li>Arduino UNO 호환 확장 커넥터(NU1, NU2, NU3, NU4)</li>
+          <li>ML56 확장 커넥터(JP3, JP4, JP5, JP6, JP7, JP8, JP9 및 JP10)</li>
+          <li>NuMaker-TNLCDSub_ML56 확장 커넥터(JP3, JP4, JP5 및 JP6)</li>
+          <li>External VDD Power Connector (JP1)</li>
+          <li>External VSS Power Connector (JP2)</li>
+          <li>External VREF Connector (VREF)</li>
+          <li>VDD Switch (SW2)</li>
+          <li>Ammeter Connector (AMMETER)</li>
+          <li>Reset Button (SW1)</li>
+          <li>전원 LED, P3.2 LED 및 P0.0 LED(LEDG1, LEDR1 및 LEDG2)</li>
+          <li>Nu-Link2-Me
+            <ul>
+              <li>VCOM Switch</li>
+              <li>ICE Chip: M48SSIDAE (ICEU2)</li>
+              <li>ICE USB Connector (ICEJ3)</li>
+              <li>ICE 상태 LED(ICES0, ICES1, ICES2, ICES3)</li>
+              <li>Off-line Program Button (ICESW1)</li>
+            </ul>
+          </li>
+        </ul>
+        <h2>3.2 Rear View</h2>
+        <p>그림 3-2는 NuMaker-ML56SD 후면의 주요 구성 요소와 커넥터를 보여줍니다.</p>
+        <p>다음은 후면에서 본 구성 요소 및 커넥터 목록입니다.</p>
+        <ul>
+          <li>Nu-Link2-Me
+            <ul>
+              <li>MCUVCC Power Switch (ICEJPR1)</li>
+              <li>ICEVCC Power Switch (ICEJPR2)</li>
+            </ul>
+          </li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-009-figure-001.png" alt="그림 3-2 NuMaker-ML56SD 후면 모습">
+          <figcaption class="fig-cap">그림 3-2 NuMaker-ML56SD 후면 모습</figcaption>
+        </figure>
+        <p>Extension Connectors</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p10-s9">
+      <h2>3.3 확장 커넥터</h2>
+      <div class="card line-list">
+        <p>표 3-1은 확장 커넥터를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-010-table-001.png" alt="Extension Connectors">
+          <figcaption class="fig-cap">Table 3-1 Extension Connectors</figcaption>
+        </figure>
+        <p>3.3.1 확장 커넥터의 핀 할당</p>
+        <p>NuMaker-ML56SD는 ML56SD1AE 온보드 및 확장 커넥터(JP3, JP4, JP5 및 JP6)를 제공합니다. 그림 3-3은 ML56SD1AE 확장 커넥터를 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-010-figure-002.png" alt="ML56SD1AE Extension Connectors">
+          <figcaption class="fig-cap">Figure 3-3 ML56SD1AE Extension Connectors</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p11-s10">
+      <h2>3.3.1 전체 핀 확장 커넥터</h2>
+      <div class="card line-list">
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-011-table-001.png" alt="page-011-table-001.png">
+          <figcaption class="fig-cap">Table 3-2 ML56SD1AE Full-pin Extension Connectors and GPIO Function List (1/3)</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-012-table-001.png" alt="page-012-table-001.png">
+          <figcaption class="fig-cap">Table 3-2 ML56SD1AE Full-pin Extension Connectors and GPIO Function List (2/3)</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-013-table-001.png" alt="Table 3-2 ML56SD1AE Full-pin Extension Connectors and GPIO Function List">
+          <figcaption class="fig-cap">Table 3-2 ML56SD1AE Full-pin Extension Connectors and GPIO Function List (3/3)</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p14-s11">
+      <h2>3.3.2 NuMaker-TNLCDSub_ML56SD Compatible Extension Connectors</h2>
+      <div class="card line-list">
+        <p>표 3-3은 NuMaker-TNLCDSub_ML56SD 호환 확장 커넥터를 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-014-table-001.png" alt="표 3-3은 NuMaker-TNLCDSub_ML56SD 호환 확장 커넥터를 보여줍니다.">
+          <figcaption class="fig-cap">표 3-3은 NuMaker-TNLCDSub_ML56SD 호환 확장 커넥터를 보여줍니다.</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-015-table-001.png" alt="page-015-table-001.png">
+          <figcaption class="fig-cap">page-015-table-001.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-016-table-001.png" alt="NuMaker-TNLCDSub_ML56SD Compatible Extension Connectors">
+          <figcaption class="fig-cap">Table 3-3 NuMaker-TNLCDSub_ML56SD Compatible Extension Connectors</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p16-s12">
+      <h2>3.3.3 Arduino UNO Compatible Extension Connectors</h2>
+      <div class="card line-list">
+        <p>그림 3-4는 Arduino UNO 호환 확장 커넥터를 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-016-figure-002.png" alt="Arduino UNO Compatible Extension Connectors">
+          <figcaption class="fig-cap">Figure 3-4 Arduino UNO Compatible Extension Connectors</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-017-table-001.png" alt="표 3-4 Arduino UNO 확장 커넥터 및 ML56SD1AE 매핑 GPIO 목록">
+          <figcaption class="fig-cap">표 3-4 Arduino UNO 확장 커넥터 및 ML56SD1AE 매핑 GPIO 목록</figcaption>
+        </figure>       
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p18-s12">
+      <h2>3.4 Power Supply Configuration</h2>
+      <div class="card line-list">
+        <p>NuMaker-ML56SD는 다중 전원 공급 장치를 채택할 수 있습니다. 외부 전원에는 NU1 Vin(7V ~ 12V), VDD(대상 칩 작동 전압에 따라 다름) 및 USB 커넥터를 통한 PC가 포함됩니다. 스위치와 전압 조정기를 사용하면 NuMaker-ML56SD에서 여러 전력 도메인을 생성할 수 있습니다.</p>
+      </div>
+    </section>        
+    <section class="section scroll-anchor" id="p18-s13">
+      <h2>3.4.1 VIN Power Source</h2>
+      <div class="card line-list">
+        <p>표 3-5는 Vin 전원 소스를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-018-table-001.png" alt="Vin Power Source">
+          <figcaption class="fig-cap">Table 3-5 Vin Power Source</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p18-s14">
+      <h2>3.4.2 5 V Power Sources</h2>
+      <div class="card line-list">
+        <p>표 3-6은 5V 전원 소스를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-018-table-002.png" alt="5 V Power Sources">
+          <figcaption class="fig-cap">Table 3-6 5 V Power Sources</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p19-s15">
+      <h2>3.4.3 3.3 V Power Sources</h2>
+      <div class="card line-list">
+        <p>표 3-7은 3.3V 전원 소스를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-019-table-001.png" alt="3.3 V Power Sources">
+          <figcaption class="fig-cap">Table 3-7 3.3 V Power Sources</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p19-s16">
+      <h2>3.4.4 1.8 V Power Sources</h2>
+      <div class="card line-list">
+        <p>표 3-8은 1.8V 전원 소스를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-019-table-002.png" alt="1.8 V Power Sources">
+          <figcaption class="fig-cap">Table 3-8 1.8 V Power Sources</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p19-s17">
+      <h2>3.4.5 Power Connectors</h2>
+      <div class="card line-list">
+        <p>표 3-9는 전원 커넥터를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-019-table-003.png" alt="Power Connectors">
+          <figcaption class="fig-cap">Table 3-9 Power Connectors</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p20-s18">
+      <h2>3.4.6 USB Connectors</h2>
+      <div class="card line-list">
+        <p>표 3-10은 USB 커넥터를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-020-table-001.png" alt="USB Connectors">
+          <figcaption class="fig-cap">Table 3-10 USB Connectors</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p20-s19">
+      <h2>3.4.7 Power Switches</h2>
+      <div class="card line-list">
+        <p>표 3-11은 전원 스위치를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-020-table-002.png" alt="Power Switches">
+          <figcaption class="fig-cap">Table 3-11 Power Switches</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p20-s21">
+      <h2>3.4.8.1 Nu-Link2-Me를 ​​통해 대상 칩에 외부 전원 공급</h2>
+      <div class="card line-list">
+        <p>Nu-Link2-Me의 외부 전원 공급 장치는 그림 3-5에 나와 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-020-figure-003.png" alt="External Power Supply Sources on Nu-Link2-Me">
+          <figcaption class="fig-cap">Figure 3-5 External Power Supply Sources on Nu-Link2-Me</figcaption>
+        </figure>
+        <div class="procedure">
+          <p class="procedure-title">Nu-Link2-Me와 함께 ICEJ3를 외부 전원 공급 장치로 사용하려면 아래 단계를 따르십시오.</p>
+          <ol>
+            <li>대상 칩 작동 전압에 따라 ICEJPR1(MCUVCC)에 저항기를 납땜합니다.</li>
+            <li>ICEJPR2(ICEVCC)의 저항기를 납땜하는 것은 ICE 칩 작동 전압에 따라 다릅니다.</li>
+            <li>SW2를 OFF로 전환합니다.</li>
+            <li>외부 전원 공급 장치를 ICEJ3에 연결합니다.</li>
+          </ol>
+        </div>
+        <p>표 3-12는 Nu-Link2-Me를 통해 외부 전원을 공급할 때의 모든 전원 모델을 나타냅니다. Nu-Link2-Me 외부 전원 소스는 노란색으로 강조되어 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-021-table-001.png" alt="Supply External Power through Nu-Link2-Me">
+          <figcaption class="fig-cap">Table 3-12 Supply External Power through Nu-Link2-Me</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p21-s22">
+      <h2>3.4.8.2 ML56 플랫폼을 통해 대상 칩에 외부 전원 공급</h2>
+      <div class="card line-list">
+        <p>ML56 플랫폼의 외부 전원 공급 장치는 그림 3-6에 나와 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-021-figure-002.png" alt="External Power Supply Sources on ML56 Platform">
+          <figcaption class="fig-cap">Figure 3-6 External Power Supply Sources on ML56 Platform</figcaption>
+        </figure>
+        <div class="procedure">
+          <p class="procedure-title">Vin 또는 J2를 외부 전원 공급 소스로 사용하려면 아래 단계를 따르십시오.</p>
+          <ol>
+            <li>대상 칩 작동 전압에 따라 SW2를 전환합니다.</li>
+            <li>ICEJPR1(MCUVCC)에서 저항기를 제거합니다.</li>
+            <li>ICEJPR2(ICEVCC)에 저항기를 납땜하면 ICE 칩 작동 전압에 따라 달라집니다.</li>
+            <li>외부 전원 공급 장치를 Vin 또는 J2에 연결합니다.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p22-s23">      
+      <h2>3.4.8.2 외부 전원 공급 계속</h2>
+      <div class="card line-list">
+        <div class="procedure">
+          <p class="procedure-title">JP1을 외부 전원 공급 소스로 사용하려면 아래 단계를 따르십시오.</p>
+          <ol>
+            <li>SW2를 OFF로 전환합니다.</li>
+            <li>ICEJPR1(MCUVCC)에서 저항기를 제거합니다.</li>
+            <li>ICEJPR2(ICEVCC)에 저항기를 납땜하면 ICE 칩 작동 전압에 따라 달라집니다.</li>
+            <li>ICEJ3를 PC에 연결합니다.</li>
+            <li>외부 전원 공급 장치를 JP1에 연결합니다.</li>
+          </ol>
+        </div>
+        <div class="procedure">
+          <p class="procedure-title">NuMaker-ML56SD에서 분리된 Nu-Link2-Me를 사용하여 Vin 또는 J2를 외부 전원 공급 장치로 사용하려면 아래 단계를 따르십시오.</p>
+          <ol>
+            <li>대상 칩 작동 전압에 따라 SW2를 전환합니다.</li>
+            <li>NuMaker-ML56SD에서 Nu-Link2-Me를 분리합니다.</li>
+            <li>외부 전원 공급 장치를 Vin 또는 J2에 연결합니다.</li>
+          </ol>
+        </div>
+        <div class="procedure">
+          <p class="procedure-title">NuMaker-ML56SD에서 분리된 Nu-Link2-Me를 사용하여 JP1을 외부 전원 공급 장치로 사용하려면 다음 단계를 따르십시오.</p>
+          <ol>
+            <li>SW2를 OFF로 전환합니다.</li>
+            <li>NuMaker-ML56SD에서 Nu-Link2-Me를 분리합니다.</li>
+            <li>외부 전원 공급 장치를 JP1에 연결합니다.</li>
+          </ol>
+        </div>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-022-figure-001.png" alt="그림 3-7 NuMaker-ML56SD에서 Nu-Link2-Me 분리">
+          <figcaption class="fig-cap">그림 3-7 NuMaker-ML56SD에서 Nu-Link2-Me 분리</figcaption>
+        </figure>
+        <p>표 3-13은 ML56 플랫폼을 통해 외부 전원을 공급할 때의 모든 전원 모델을 나타냅니다. ML56 플랫폼 외부 전원 소스는 노란색으로 강조되어 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-023-table-001.png" alt="표 3-13 ML56 플랫폼에 외부 전원 공급">
+          <figcaption class="fig-cap">표 3-13 ML56 플랫폼에 외부 전원 공급</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p23-s24">
+      <h2>3.5 External Reference Voltage Connector</h2>
+      <div class="card line-list">
+        <p>표 3-14는 외부 기준 전압 커넥터를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-023-table-002.png" alt="External Reference Voltage Connector">
+          <figcaption class="fig-cap">Table 3-14 External Reference Voltage Connector</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p23-s25">
+      <h2>3.6 Ammeter Connector</h2>
+      <div class="card line-list">
+        <p>표 3-15는 전류계 커넥터를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-023-table-003.png" alt="Ammeter Connector">
+          <figcaption class="fig-cap">Table 3-15 Ammeter Connector</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-024-figure-004.png" alt="그림 3-8 전류계 커넥터와 전류계 사이의 배선">
+          <figcaption class="fig-cap">그림 3-8 전류계 커넥터와 전류계 사이의 배선</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p24-s25">
+      <h2>3.7 Push Buttons</h2>
+      <div class="card line-list">
+        <p>표 3-16은 푸시 버튼을 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-024-table-001.png" alt="Push-Buttons">
+          <figcaption class="fig-cap">Table 3-16 Push-Buttons</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p24-s26">
+      <h2>3.8 LEDs</h2>
+      <div class="card line-list">
+        <p>표 3-17은 LED를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-024-table-002.png" alt="LEDs">
+          <figcaption class="fig-cap">Table 3-17 LEDs</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p24-s27">
+      <h2>3.9 Touch Key</h2>
+      <div class="card line-list">
+        <p>표 3-18은 터치 키를 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-024-table-003.png" alt="Touch Key">
+          <figcaption class="fig-cap">Table 3-18 Touch Key</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p25-s27">
+      <h2>3.10 LCD</h2>
+      <div class="card line-list">
+        <p>LCD</p>
+        <p>8 x 40 COM/SEG를 갖춘 NuMaker-ML56SD의 LCD. LCD는 시간, 배터리 상태, 온도, 습도 등과 같은 일부 정보를 제공합니다. LCD는 TRICOMTEK 부품 번호 RHE6616TP01의 것입니다. 그림 3-9는 LCD 숫자 세그먼트 매핑 테이블을 보여줍니다. 표 3-20은 LCD의 핀 맵을 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-025-figure-002.png" alt="그림 3-9 LCD 숫자 매핑 테이블">
+          <figcaption class="fig-cap">그림 3-9 LCD 숫자 매핑 테이블</figcaption>
+        </figure>
+        <p>LCD와 NuMaker-ML56SD의 COM 핀과 SEG 핀 할당은 표 3-3과 같습니다.</p>
+        <p>표 3-19는 LCD 사양을 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-025-table-001.png" alt="LCD Specifications">
+          <figcaption class="fig-cap">Table 3-19 LCD Specifications</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-026-table-001.png" alt="page-026-table-001.png">
+          <figcaption class="fig-cap">page-026-table-001.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-027-table-001.png" alt="LCD Pin Mapping Table">
+          <figcaption class="fig-cap">Table 3-20 LCD Pin Mapping Table</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p28-s28">
+      <h2>3.11 Nu-Link2-Me</h2>
+      <div class="card line-list">
+        <p>Nu-Link2-Me는 부착된 온보드 디버거 및 프로그래머입니다. Nu-Link2-Me는 SWD 인터페이스를 통해 온칩 디버깅, 온라인 및 오프라인 ICP 프로그래밍을 지원합니다. Nu-Link2-Me는 PC에서 디버그 메시지를 인쇄하기 위한 가상 COM 포트(VCOM)도 지원합니다. 게다가 프로그래밍 상태는 내장된 LED에 표시될 수 있습니다. 마지막으로 Nu-Link2-Me는 개발 보드에서 분리되어 독립형 대량 생산 프로그래머가 될 수 있습니다. Nu-Link2-Me에 대한 자세한 내용은 Nu-Link2-Pro 디버거 및 프로그래머 사용자 설명서를 참조하세요.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p28-s29">
+      <h2>3.11.1 VCOM Switches</h2>
+      <div class="card line-list">
+        <p>표 3-21은 ICESW2로 VCOM 기능을 설정하는 방법을 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-028-table-001.png" alt="표 3-21 Nu-Link2-Me의 VCOM 기능">
+          <figcaption class="fig-cap">표 3-21 Nu-Link2-Me의 VCOM 기능</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p28-s30">
+      <h2>3.11.2 Status LEDs</h2>
+      <div class="card line-list">
+        <p>표 3-22는 Nu-Link2-Me의 동작별 상태 LED 패턴을 나타냅니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-028-table-002.png" alt="Operation Status LED Patterns">
+          <figcaption class="fig-cap">Table 3-22 Operation Status LED Patterns</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p29-s31">
+      <h2>4 QUICK START</h2>
+      <div class="card line-list">
+        <p>4.1 Toolchains Supporting</p>
+        <p>선호하는 툴체인을 설치하십시오. 툴체인 중 하나 이상이 설치되어 있는지 확인하십시오.</p>
+        <ul>
+          <li>KEIL C51</li>
+          <li>IAR EW8051</li>
+        </ul>
+        <p>4.2 Nuvoton Nu-Link Driver Installation</p>
+        <p>최신 Nuvoton Nu-Link 드라이버를 다운로드하여 설치하세요.</p>
+        <ul>
+          <li>Keil C51 사용 시 Nu-Link_Keil_Driver를 다운로드하여 설치하세요.</li>
+          <li>IAR EW8051 사용 시 Nu-Link_IAR_Driver를 다운로드하여 설치하세요.</li>
+        </ul>
+        <p>설치가 끝나면 Nu-Link USB 드라이버도 함께 설치하세요. 설치는 그림 4-1과 그림 4-2에 나와 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-029-figure-001.png" alt="Nu-Link USB Driver Installation Setup">
+          <figcaption class="fig-cap">Figure 4-1 Nu-Link USB Driver Installation Setup</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-030-figure-004.png" alt="Nu-Link USB Driver Installation">
+          <figcaption class="fig-cap">Figure 4-2 Nu-Link USB Driver Installation</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-030-image-001.png" alt="page-030-image-001.png">
+          <figcaption class="fig-cap">page-030-image-001.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-030-image-002.png" alt="page-030-image-002.png">
+          <figcaption class="fig-cap">page-030-image-002.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-030-image-003.png" alt="page-030-image-003.png">
+          <figcaption class="fig-cap">page-030-image-003.png</figcaption>
+        </figure>
+        <p>4.3 BSP Firmware Download</p>
+        <p>
+          <a href="https://www.nuvoton.com/tool-and-software/board-support-package/numicro-8051-board-support-package/index.html" target="_blank" rel="noopener">
+            보드 지원 패키지(BSP)
+          </a>를 다운로드하고 압축을 풉니다.
+        </p>
+        <p>4.4 Hardware Setup</p>
+        <p>1. Nu-Link2-Me VCOM 스위치 1번과 2번을 ON으로 변경하여 가상 COM(VCOM) 기능을 엽니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-031-figure-001.png" alt="그림 4-3 개방형 VCOM 기능">
+          <figcaption class="fig-cap">그림 4-3 개방형 VCOM 기능</figcaption>
+        </figure>
+        <p>2. 그림 4-4에 표시된 ICE USB 커넥터를 USB 케이블을 통해 PC USB 포트에 연결합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-031-figure-002.png" alt="ICE USB Connector">
+          <figcaption class="fig-cap">Figure 4-4 ICE USB Connector</figcaption>
+        </figure>
+        <p>3. 그림 4-5와 같이 장치 관리자에서 &quot;Nuvoton Virtual COM Port&quot;를 찾습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-032-figure-002.png" alt="Device Manger">
+          <figcaption class="fig-cap">Figure 4-5 Device Manger</figcaption>
+        </figure>
+        <p>4. 디버그 메시지를 인쇄하려면 PuTTY와 같은 직렬 포트 터미널을 엽니다. 속도를 115200으로 설정합니다. 그림 4-6은 PuTTY 세션 설정을 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-032-figure-001.png" alt="그림 4-6 PuTTY 세션 설정">
+          <figcaption class="fig-cap">그림 4-6 PuTTY 세션 설정</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p33-s32">
+      <h2>4.5 예제 프로젝트 찾기</h2>
+      <div class="card line-list">
+        <p>&quot;템플릿&quot; 프로젝트를 예로 사용하세요. 프로젝트는 그림 4-7과 같이 BSP 폴더 아래에서 찾을 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-033-figure-002.png" alt="그림 4-7 템플릿 프로젝트 폴더 경로">
+          <figcaption class="fig-cap">그림 4-7 템플릿 프로젝트 폴더 경로</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p33-s33">
+      <h2>4.6 툴체인에서 프로젝트 실행</h2>
+      <div class="card line-list">
+        <p>툴체인에서 프로젝트를 열고 실행합니다. 섹션 4.6.1과 4.6.2는 각각 Keil C51과 IAR EW8051에서 프로젝트를 실행하는 단계를 설명합니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p33-s34">
+      <h2>4.6.1 Keil C51</h2>
+      <div class="card line-list">
+        <p>이 섹션에서는 초보자에게 Keil C51을 사용하여 프로젝트를 실행하는 방법에 대한 단계를 제공합니다.</p>
+        <p>1. &quot;Template.uvproj&quot;를 두 번 클릭하여 프로젝트를 엽니다.</p>
+        <p>참고: 그림 4-8 경고 메시지가 튀어나오면 그림 4-9와 같이 버전 5 형식으로 마이그레이션하십시오. &quot;.uvproj&quot; 파일 이름 확장자는 &quot;.uvprojx&quot;로 변경됩니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-033-figure-001.png" alt="그림 4-8 “장치를 찾을 수 없습니다”라는 경고 메시지">
+          <figcaption class="fig-cap">그림 4-8 “장치를 찾을 수 없습니다”라는 경고 메시지</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-034-figure-001.png" alt="그림 4-9 프로젝트 파일을 버전 5 형식으로 마이그레이션">
+          <figcaption class="fig-cap">그림 4-9 프로젝트 파일을 버전 5 형식으로 마이그레이션</figcaption>
+        </figure>
+        <p>2. 그림 4-10 및 그림 4-11에 표시된 대로 디버거가 &quot;Nuvoton Nu-Link Debugger&quot;인지 확인하십시오.</p>
+        <p>참고: 그림 4-10의 드롭다운 메뉴에 &quot;Nuvoton Nu-Link Debugger&quot; 항목이 없으면 섹션 4.2를 다시 작업하십시오.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-034-figure-002.png" alt="그림 4-10 옵션 창의 디버거 설정">
+          <figcaption class="fig-cap">그림 4-10 옵션 창의 디버거 설정</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p35-s35">
+      <h2>4.6.1 Keil C51 계속</h2>
+      <div class="card line-list">
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-035-figure-001.png" alt="그림 4-11 옵션 창의 프로그래밍 설정">
+          <figcaption class="fig-cap">그림 4-11 옵션 창의 프로그래밍 설정</figcaption>
+        </figure>
+        <p>3. 모든 대상 파일을 다시 빌드합니다. 프로젝트를 성공적으로 컴파일한 후 코드를 플래시 메모리에 다운로드합니다.</p>
+        <p>&quot;디버그 섹션 시작/중지&quot; 버튼을 클릭하면 디버그 모드로 들어갈 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-035-figure-002.png" alt="그림 4-12 프로젝트 컴파일 및 다운로드">
+          <figcaption class="fig-cap">그림 4-12 프로젝트 컴파일 및 다운로드</figcaption>
+        </figure>
+        <p>4. 그림 4-13은 Keil C51의 디버그 모드를 보여줍니다. &quot;실행&quot;을 클릭하면 디버그 메시지가 나타납니다.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p36-s36">
+      <h2>4.6.1 Keil C51 디버그</h2>
+      <div class="card line-list">
+        <p>그림 4-14와 같이 인쇄됩니다. 사용자는 소스 코드, 어셈블리 언어, 주변 장치의 레지스터를 확인하고 중단점, 단계 실행, 값 모니터 등을 설정하여 디버그 모드에서 프로젝트를 디버깅할 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-036-figure-001.png" alt="Keil C51 Debug Mode">
+          <figcaption class="fig-cap">Figure 4-13 Keil C51 Debug Mode</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-036-figure-002.png" alt="Debug Message on Serial Port Terminal Windows">
+          <figcaption class="fig-cap">Figure 4-14 Debug Message on Serial Port Terminal Windows</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p37-s37">
+      <h2>4.6.2 IAR EW8051</h2>
+      <div class="card line-list">
+        <p>이 섹션에서는 초보자에게 IAR EW8051을 사용하여 프로젝트를 실행하는 방법에 대한 단계를 제공합니다.</p>
+        <p>1. &quot;Template.eww&quot;를 두 번 클릭하여 프로젝트를 엽니다.</p>
+        <p>2. 그림 4-15와 같이 도구 모음에 &quot;Nu-Link&quot; 항목이 포함되어 있는지 확인하십시오.</p>
+        <p>참고: 도구 모음에 &quot;Nu-Link&quot; 항목이 포함되어 있지 않으면 섹션 4.2를 다시 작업하십시오.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-037-figure-001.png" alt="그림 4-15 IAR EW8051 창">
+          <figcaption class="fig-cap">그림 4-15 IAR EW8051 창</figcaption>
+        </figure>
+        <p>3. 그림 4-16과 같이 대상 파일을 만듭니다. 프로젝트를 성공적으로 컴파일한 후 코드를 플래시 메모리에 다운로드하고 디버그 모드로 들어갑니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-037-figure-003.png" alt="그림 4-16 프로젝트 컴파일 및 다운로드">
+          <figcaption class="fig-cap">그림 4-16 프로젝트 컴파일 및 다운로드</figcaption>
+        </figure>        
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p38-s38">
+      <h2>4.6.2 IAR EW8051 디버그</h2>
+      <div class="card line-list">
+        <p>4. 그림 4-17은 IAR EW8051의 디버그 모드를 보여줍니다. &quot;이동&quot;을 클릭하면 그림 4-18과 같이 디버그 메시지가 인쇄됩니다. 사용자는 소스 코드, 어셈블리 언어, 주변 장치의 레지스터를 확인하고 중단점, 단계 실행, 값 모니터 등을 설정하여 디버그 모드에서 프로젝트를 디버깅할 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-038-figure-001.png" alt="IAR EW8051 Debug Mode">
+          <figcaption class="fig-cap">Figure 4-17 IAR EW8051 Debug Mode</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-038-figure-002.png" alt="Debug Message on Serial Port Terminal Windows">
+          <figcaption class="fig-cap">Figure 4-18 Debug Message on Serial Port Terminal Windows</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p39-s39">
+      <h2>5.1 Nu-Link2-Me</h2>
+      <div class="card line-list">
+        <p>그림 5-1은 Nu-Link2-Me 회로를 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-039-figure-001.png" alt="그림 5-1 Nu-Link2-Me 회로">
+          <figcaption class="fig-cap">그림 5-1 Nu-Link2-Me 회로</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p40-s41">
+      <h2>5.2 ML56 플랫폼</h2>
+      <div class="card line-list">
+        <p>그림 5-2는 ML56 플랫폼 회로를 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-040-figure-001.png" alt="그림 5-2 ML56 플랫폼 회로">
+          <figcaption class="fig-cap">그림 5-2 ML56 플랫폼 회로</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p41-s42">
+      <h2>5.3 확장 커넥터</h2>
+      <div class="card line-list">
+        <p>그림 5-3은 NuMaker-ML56SD의 확장 커넥터 회로를 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-041-figure-001.png" alt="그림 5-3 확장 커넥터 회로">
+          <figcaption class="fig-cap">그림 5-3 확장 커넥터 회로</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p42-s43">
+      <h2>5.4 TK 및 LCD Cap</h2>
+      <div class="card line-list">
+        <p>그림 5-4는 NuMaker-ML56SD의 터치 키 및 LCD Cap 회로를 보여줍니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-042-figure-001.png" alt="그림 5-4 터치 키 및 LCD Cap 회로">
+          <figcaption class="fig-cap">그림 5-4 터치 키 및 LCD Cap 회로</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p43-s44">
+      <h2>5.5 PCB Placement</h2>
+      <div class="card line-list">
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-043-figure-001.png" alt="Front Placement">
+          <figcaption class="fig-cap">Figure 5-5 Front Placement</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-043-figure-002.png" alt="Rear Placement">
+          <figcaption class="fig-cap">Figure 5-6 Rear Placement</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p44-s46">
+      <h2>6.1 LCD Connector</h2>
+      <div class="card line-list">
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-044-figure-001.png" alt="그림 6-1 NuMaker-TNLCDSUB_ML56의 LCD 커넥터">
+          <figcaption class="fig-cap">그림 6-1 NuMaker-TNLCDSUB_ML56의 LCD 커넥터</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

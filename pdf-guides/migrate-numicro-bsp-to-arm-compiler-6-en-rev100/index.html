@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NuMicro BSP Arm Compiler 6 마이그레이션 가이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+:root{--red:#c8102e;--red-dark:#8c0b1f;--red-light:#fdeaed;--bg:#f5f6f8;--panel:#fff;--text:#171717;--muted:#6b7280;--border:#e3e5ea;--shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 28px rgba(0,0,0,.12);--r:8px;}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:'Noto Sans KR',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+.site-header{background:linear-gradient(135deg,var(--red-dark),var(--red) 62%,#e33b58);color:#fff;padding:34px 42px;}
+.hdr-kicker{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;opacity:.82;margin-bottom:8px;}
+.hdr-title{font-size:clamp(22px,4vw,36px);font-weight:900;line-height:1.25;}
+.layout{display:grid;grid-template-columns:292px minmax(0,1fr);max-width:1420px;margin:0 auto;}
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:22px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-title{font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--muted);padding:0 24px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-link{display:block;padding:7px 22px 7px 28px;color:var(--text);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover{background:var(--red-light);border-left-color:var(--red);color:var(--red-dark);font-weight:700;}
+.main{padding:36px 44px;min-width:0;}
+.section{margin-bottom:42px;}
+.scroll-anchor{scroll-margin-top:18px;}
+h2{font-size:22px;font-weight:900;color:var(--red-dark);border-bottom:3px solid var(--red);padding-bottom:10px;margin:0 0 16px;line-height:1.35;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin:12px 0;box-shadow:var(--shadow);}
+.line-list p{margin:0 0 8px;}
+.line-list p:last-child{margin-bottom:0;}
+.line-list ul{margin:4px 0 8px 20px;padding:0;}
+.line-list li{margin:3px 0;}
+.figure-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;align-items:start;}
+.fig-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);margin:16px 0;}
+.figure-grid .fig-box{margin:0;}
+.fig-box img{width:100%;display:block;background:#fff;}
+.fig-cap{text-align:center;font-size:13px;color:var(--muted);padding:10px;font-style:italic;border-top:1px solid var(--border);background:#fafafa;}
+@media (max-width:980px){.layout{grid-template-columns:1fr;}.sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}.main{padding:26px 16px;}.figure-grid{grid-template-columns:1fr;}.site-header{padding:28px 20px;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hdr-kicker">Nuvoton Guide</div>
+  <div class="hdr-title">NuMicro BSP Arm Compiler 6 마이그레이션 가이드</div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">바로가기</div>
+    <a class="nav-link" href="#p3-s1">1 Overview</a>
+    <a class="nav-link" href="#p4-s3">2.1 Arm Keil MDK Nuvoton Edition</a>
+    <a class="nav-link" href="#p4-s4">2.2 DFP Supporting</a>
+    <a class="nav-link" href="#p5-s5">3 Arm 컴파일러 5에서 컴파일러 6으로 마이그레이션</a>
+    <a class="nav-link" href="#p5-s6">3.1 retarget.c 및 start_xxx.s 얻기</a>
+    <a class="nav-link" href="#p5-s7">3.2 프로젝트 파일을 *.uvprojx로 변경</a>
+    <a class="nav-link" href="#p6-s8">3.3 Arm 컴파일러 6으로 전환</a>
+    <a class="nav-link" href="#p7-s9">3.4 Remove Suppressed Diagnostic Messages</a>
+    <a class="nav-link" href="#p8-s10">4 Special Sample Code</a>
+    <a class="nav-link" href="#p8-s11">4.1 StdDriver/HSOTG_Dual_Role_UMAS</a>
+    <a class="nav-link" href="#p8-s12">4.2 StdDrvier/FreeRTOS</a>
+    <a class="nav-link" href="#p9-s13">4.3 NuMaker-PFM-M487/LwIP_MQTT</a>    
+  </aside>
+  <main class="main">
+    <section class="section scroll-anchor" id="p3-s1">
+      <h2>1 Overview</h2>
+      <div class="card line-list">
+        <p>Arm 컴파일러 6(AC6)은 MDK 버전에서 사용 가능</p>
+        <p>5. Arm 컴파일러 6은 신기술을 기반으로 하기 때문에 이전 Arm 컴파일러와 부분적으로만 호환됩니다.</p>
+        <p>5. 이 애플리케이션 노트는 소스 코드 포팅에 대한 요약 가이드를 제공합니다.</p>
+        <p>자세한 내용을 보려면 온라인에서 &quot;Migrate Arm Compiler 5 to Arm Compiler 6&quot;을 검색하여 MDK 튜토리얼 PDF 문서를 얻으십시오.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p4-s3">
+      <h2>2.1 Arm Keil MDK Nuvoton Edition</h2>
+      <div class="card line-list">
+        <p>Arm과 Nuvoton은 소프트웨어 개발자에게 Arm Cortex-M0, M0+, M23, M33, M4, M55, M7 및 M85와 같은 Arm Cortex-M 코어 기반의 모든 Nuvoton 장치에 대한 지원을 포함하여 상업용으로 무료로 사용할 수 있는 전문 도구 제품군인 Keil MDK Nuvoton Edition – Full Cortex-M을 제공합니다.</p>
+        <p>이 무료 서비스는 Keil MDK 버전 5.37 이상에서 사용할 수 있으며 Arm Compiler 6만 지원합니다.</p>
+        <p>Keil MDK Nuvoton Edition은 Nuvoton 공식 웹사이트(https://www.nuvoton.com/tool-and-software/ide-and-compiler/keil-download/)에서 다운로드할 수 있습니다. 웹페이지의 단계에 따라 설치 및 활성화를 완료하세요.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p4-s4">
+      <h2>2.2 DFP Supporting</h2>
+      <div class="card line-list">
+        <p>Pack Installer에서 Install을 클릭하여 Nuvoton에서 제공하는 DPF(Device Family Pack)를 다운로드하고 설치합니다. Arm 컴파일러 6을 사용하려면 최소한 다음 DFP 버전을 사용하는 것이 좋습니다.</p>
+        <ul>
+          <li>Nuvoton.NuMicro_DFP.1.3.25.pack 이상</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-004-figure-001.png" alt="Pack Installer">
+          <figcaption class="fig-cap">Figure 2-1 Pack Installer</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p5-s5">
+      <h2>3 Arm 컴파일러 5에서 컴파일러 6으로 마이그레이션</h2>
+      <div class="card line-list">
+        <p>이 섹션에서는 Arm 컴파일러 5에서 컴파일러 6으로 샘플 코드를 마이그레이션하는 간단한 프로세스를 보여줍니다. 샘플 코드 마이그레이션에 대한 전체 참조는 4장을 참조하세요.</p>
+        <p>Arm 컴파일러 6은 다양한 경고 메시지를 제공합니다. 마이그레이션의 첫 번째 단계에서는 오류 메시지에 집중하기 위해 경고 수준을 &quot;경고 없음&quot;으로 전환하는 것이 좋습니다.</p>
+        <p>마이그레이션의 기본 단계는 다음과 같습니다.</p>
+        <ul>
+          <li>해당 NuMicro 시리즈 BSP(컴파일러 6 지원)에서 retarget.c 및 start_xxx.s를 얻습니다.</li>
+          <li>프로젝트 파일 확장자를 *.uvproj에서 *.uvprojx로 변경합니다.</li>
+          <li>μVision IDE에서 Arm 컴파일러 6으로 전환합니다.</li>
+          <li>μVision IDE에서 표시되지 않는 진단 메시지를 제거합니다.</li>
+        </ul>
+        <p>Arm 컴파일러 5에 표시되는 모든 경고를 표시하려면 다음을 수행하면 됩니다.</p>
+        <ul>
+          <li>μVision IDE에서 &quot;AC5와 유사한 경고&quot;를 선택하십시오.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p5-s6">
+      <h2>3.1 retarget.c 및 start_xxx.s 얻기</h2>
+      <div class="card line-list">
+        <p>Arm 컴파일러 6 어셈블리 구문은 이제 Arm 스타일이 아닌 GNU 스타일과 호환됩니다. 컴파일 오류를 해결하는 간단한 방법은 Arm Compiler 6을 지원하는 NuMicro 시리즈에 해당하는 최신 BSP에서 retarget.c 및 start_xxx.s를 가져온 다음 이를 소스 코드로 바꾸는 것입니다. 시작하기 전에 소스 코드의 백업 복사본을 만드는 것이 좋습니다.</p>
+        <p>NuMicro 시리즈 BSP를 다운로드하려면 OpenNuvoton 웹사이트(https://github.com/OpenNuvoton)를 방문하세요.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p5-s7">
+      <h2>3.2 프로젝트 파일을 *.uvprojx로 변경</h2>
+      <div class="card line-list">
+        <p>1. 원본 Keil 프로젝트 *.uvproj를 엽니다.</p>
+        <p>2. 메인 메뉴 바에서 프로젝트 &gt; 관리 &gt; 버전 5 형식으로 마이그레이션…을 선택합니다.</p>
+        <p>3. 마이그레이션이 완료되면 프로젝트가 *.uvprojx로 저장됩니다. 대상 메모리/디버거 설정이 변경되었을 수 있습니다. 확인하고 업데이트해주세요.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-006-figure-001.png" alt="그림 3-1 버전 5 형식으로 마이그레이션">
+          <figcaption class="fig-cap">그림 3-1 버전 5 형식으로 마이그레이션</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p6-s8">
+      <h2>3.3 Arm 컴파일러 6으로 전환</h2>
+      <div class="card line-list">
+        <p>1. Keil 프로젝트를 열고 프로젝트 &gt; 대상 옵션을 선택합니다.</p>
+        <p>2. Arm 컴파일러를 MDK에 포함된 버전 6.x로 설정합니다.</p>
+        <p>3. 메인 페이지로 돌아가려면 확인을 클릭하세요.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-006-figure-002.png" alt="그림 3-2 대상 탭에서 컴파일러 버전 선택">
+          <figcaption class="fig-cap">그림 3-2 대상 탭에서 컴파일러 버전 선택</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p7-s9">
+      <h2>3.4 Remove Suppressed Diagnostic Messages</h2>
+      <div class="card line-list">
+        <p>1. Keil 프로젝트를 열고 프로젝트 &gt; 대상 옵션을 선택합니다.</p>
+        <p>2. C/C++(AC6) 탭의 기타 컨트롤에서 --diag_suppress 매개변수를 제거합니다.</p>
+        <p>3. 메인 페이지로 돌아가려면 확인을 클릭하세요.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-007-figure-001.png" alt="그림 3-3 기타 컨트롤의 매개변수 제거">
+          <figcaption class="fig-cap">그림 3-3 기타 컨트롤의 매개변수 제거</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p8-s10">
+      <h2>4 Special Sample Code</h2>
+      <div class="card line-list">
+        <p>3장에서 언급한 기본 방법 외에도 마이그레이션 단계에는 잠재적인 컴파일 오류를 해결하기 위한 추가 설정도 포함됩니다. 이 장에서는 MDK 버전 5.41을 사용하여 Arm 컴파일러 5에서 컴파일러 6으로 마이그레이션하는 방법을 보여주기 위해 M480 BSP의 여러 샘플 코드를 예로 사용합니다. 각 샘플 코드마다 설정이 조금씩 다를 수 있으니 참고하세요.</p>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p8-s11">
+      <h2>4.1 StdDriver/HSOTG_Dual_Role_UMAS</h2>
+      <div class="card line-list">
+        <p>1. retarget.c 및 start_M480.s를 교체하십시오.</p>
+        <p>2. 프로젝트 파일 확장자를 *.uvprojx로 변경합니다.</p>
+        <p>3. Arm 컴파일러 6으로 전환합니다.</p>
+        <p>4. C/C++(AC6) 탭의 기타 컨트롤에 -Wno-format을 추가하여 C 및 C++ 코드의 형식 문자열과 관련된 경고를 억제합니다.</p>
+        <p>5. 프로젝트를 다시 빌드합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-008-figure-001.png" alt="그림 4-1 기타 컨트롤을 사용하여 사용자 정의 경고 비활성화">
+          <figcaption class="fig-cap">그림 4-1 기타 컨트롤을 사용하여 사용자 정의 경고 비활성화</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p8-s12">
+      <h2>4.2 StdDrvier/FreeRTOS</h2>
+      <div class="card line-list">
+        <p>1. retarget.c 및 start_M480.s를 교체하십시오.</p>
+        <p>2. 프로젝트 파일 확장자를 *.uvprojx로 변경합니다.</p>
+        <p>3. Arm 컴파일러 6으로 전환합니다.</p>
+        <p>4. port.c를 RVDS에서 GCC 버전으로 변경합니다. 또한 컴파일러 포함 경로를 수정하십시오.</p>
+        <p>(ThirdParty\FreeRTOS\Source\portable\GCC\ARM_CM4F)</p>
+        <p>5. C/C++(AC6) 탭에서 언어 C를 C99로 설정합니다.</p>
+        <p>6. 프로젝트를 다시 빌드합니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-009-figure-001.png" alt="Setup Compiler Include Paths">
+          <figcaption class="fig-cap">Figure 4-2 Setup Compiler Include Paths</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-009-figure-002.png" alt="그림 4-3 C 언어 설정">
+          <figcaption class="fig-cap">그림 4-3 C 언어 설정</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p9-s13">
+      <h2>4.3 NuMaker-PFM-M487/LwIP_MQTT</h2>
+      <div class="card line-list">
+        <p>1. retarget.c 및 start_M480.s를 교체하십시오.</p>
+        <p>2. 프로젝트 파일 확장자를 *.uvprojx로 변경합니다.</p>
+        <p>3. Arm 컴파일러 6으로 전환합니다.</p>
+        <p>4. C/C++(AC6) 탭의 기타 컨트롤에서 --diag_suppress를 제거합니다.</p>
+        <p>5. port.c를 RVDS에서 GCC 버전으로 변경합니다. 또한 컴파일러 포함 경로를 수정하십시오.</p>
+        <p>(ThirdParty\FreeRTOS\Source\portable\GCC\ARM_CM4F)</p>
+        <p>6. C/C++(AC6) 탭에서 언어 C를 C99로 설정합니다.</p>
+        <p>7. lwipopts.h에서 __GNUC__ 매크로 감지를 수정합니다.</p>
+        <p>참고: Arm 컴파일러 6에서는 __GNUC__ 매크로를 정의하여 잘못된 코드가 컴파일될 수 있습니다.</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-009-figure-003.png" alt="Arm Compiler 6 defines __GNUC__">
+          <figcaption class="fig-cap">Figure 4-4 Arm Compiler 6 defines __GNUC__</figcaption>
+        </figure>
+      </div>
+    </section>    
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keil 무료 라이선스 등록 가이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+:root{--red:#c8102e;--red-dark:#8c0b1f;--red-light:#fdeaed;--bg:#f5f6f8;--panel:#fff;--text:#171717;--muted:#6b7280;--border:#e3e5ea;--shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 28px rgba(0,0,0,.12);--r:8px;}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:'Noto Sans KR',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;}
+.site-header{background:linear-gradient(135deg,var(--red-dark),var(--red) 62%,#e33b58);color:#fff;padding:34px 42px;}
+.hdr-kicker{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;opacity:.82;margin-bottom:8px;}
+.hdr-title{font-size:clamp(22px,4vw,36px);font-weight:900;line-height:1.25;}
+.layout{display:grid;grid-template-columns:292px minmax(0,1fr);max-width:1420px;margin:0 auto;}
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:22px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-title{font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--muted);padding:0 24px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.nav-link{display:block;padding:7px 22px 7px 28px;color:var(--text);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover{background:var(--red-light);border-left-color:var(--red);color:var(--red-dark);font-weight:700;}
+.main{padding:36px 44px;min-width:0;}
+.section{margin-bottom:42px;}
+.scroll-anchor{scroll-margin-top:18px;}
+h2{font-size:22px;font-weight:900;color:var(--red-dark);border-bottom:3px solid var(--red);padding-bottom:10px;margin:0 0 16px;line-height:1.35;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin:12px 0;box-shadow:var(--shadow);}
+.line-list p{margin:0 0 8px;}
+.line-list p:last-child{margin-bottom:0;}
+.line-list ul{margin:4px 0 8px 20px;padding:0;}
+.line-list li{margin:3px 0;}
+.figure-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;align-items:start;}
+.fig-box{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);margin:16px 0;}
+.figure-grid .fig-box{margin:0;}
+.fig-box img{width:100%;display:block;background:#fff;}
+.fig-cap{text-align:center;font-size:13px;color:var(--muted);padding:10px;font-style:italic;border-top:1px solid var(--border);background:#fafafa;}
+@media (max-width:980px){.layout{grid-template-columns:1fr;}.sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}.main{padding:26px 16px;}.figure-grid{grid-template-columns:1fr;}.site-header{padding:28px 20px;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hdr-kicker">Nuvoton Guide</div>
+  <div class="hdr-title">Keil 무료 라이선스 등록 가이드</div>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">바로가기</div>
+    <a class="nav-link" href="#p2-s1">NTC KEIL 컴파일러 라이선스 등록</a>
+    <a class="nav-link" href="#p3-s2">NTC KEIL 컴파일러 라이선스 등록</a>
+  </aside>
+  <main class="main">
+    <section class="section scroll-anchor" id="p2-s1">
+      <h2>NTC KEIL 컴파일러 라이선스 등록,</h2>
+      <div class="card line-list">
+        <ul>
+          <li>KEIL iVision을 실행 후</li>
+          <li>파일 ==&gt; 라이센스</li>
+        </ul>
+        <p>Management 클릭</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-002-image-001.png" alt="page-002-image-001.png">
+          <figcaption class="fig-cap">page-002-image-001.png</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="section scroll-anchor" id="p3-s2">
+      <h2>NTC KEIL 컴파일러 라이선스 등록</h2>
+      <div class="card line-list">
+        <ul>
+          <li>File ==&gt; License Management ==&gt; User메뉴 상단 탭으로 이동 Based License 클릭</li>
+          <li>Activate/Deactivate</li>
+        </ul>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-003-image-001.png" alt="page-003-image-001.png">
+          <figcaption class="fig-cap">page-003-image-001.png</figcaption>
+        </figure>
+        <p>1. License Server 클릭 후</p>
+        <p>서버주소입력 : https://nuvoton-free.licensing.keil.arm.com 버튼 클릭 후, 클릭</p>
+        <p>2. Query Activate 재시작 후 사용하시면 됩니다.</p>
+        <p>3. KEIL iVision 사용에 문제 있을 때, 홈페이지 참고하세요:</p>
+        <p>https://www.nuvoton.com/tool-and-software/ide-and-compiler/keil-mdk-nuvoton-edition/</p>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-004-image-001.png" alt="page-004-image-001.png">
+          <figcaption class="fig-cap">page-004-image-001.png</figcaption>
+        </figure>
+        <figure class="fig-box">
+          <img src="./pages/assets/items/page-004-image-002.png" alt="page-004-image-002.png">
+          <figcaption class="fig-cap">page-004-image-002.png</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
