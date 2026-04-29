@@ -362,34 +362,12 @@ const PREFERRED = {
 
 const META_KEYS = new Set(['_category','_subcategory','_source_page','_series']);
 
-// Canonical column -> alternative keys observed across series/tables
+// 순수 인코딩 차이만 처리 - 이름이 조금이라도 다르면 별도 컬럼으로 표시
 const COL_FALLBACKS = {
-  'Core': ['CPU'],
-  'GPIO': ['GPIO (pin)', 'GPIOs'],
-  'Operating Voltage (min) (V)': ['Operating Voltage (min)', 'Operating Voltage (min)(V)', 'Operating Voltage(min)(V)'],
-  'Operating Voltage (max) (V)': ['Operating Voltage (max)', 'Operating Voltage (max)(V)', 'Operating Voltage(max)(V)'],
-  'Operating Temperature (Tj, min)(°C)': ['Operating Temperature (min)', 'Operating Temperature (min)(°C)'],
-  'Operating Temperature (Tj, max)(°C)': ['Operating Temperature (max)', 'Operating Temperature (max)(°C)'],
-  'LDROM Flash (KB)': ['LDROM Flash', 'LDROM Flash(KB)'],
-  'APROM Flash (KB)': ['APROM Flash(KB)', 'APROM Flash', 'APROM Flash (KB))'],
-  'Data Flash (KB)': ['Data Flash(KB)'],
-  'SRAM (KB)': ['SRAM', 'SRAM(KB)', 'SRAM (MB)', 'SRAM(MB)'],
-  'PDMA (ch)': ['PDMA(ch)', 'PDMA (CH)', 'PDMA'],
-  'Timer (16-bit)': ['Timer(16-bit)'],
-  'Timer (32-bit)': ['Timer(32-bit)'],
-  'I²C': ['I2C', 'I��C'],
-  'SPI/ I²S': ['SPI/I²S', 'SPI/I��S'],
-  'ISO-7816-3': ['ISO-7816'],
-  'SPROM (Byte)': ['SPROM(B)'],
-  'XOM (KB)': ['XOM'],
-  'TRNG': ['True Random Number Generator (TRNG)'],
+  'I²C': ['I2C'],
+  'SPI/ I²S': ['SPI/I²S'],
   'DDR(MB)': ['DDR (MB)'],
   'DDR (MB)': ['DDR(MB)'],
-  'SDHC': ['Secure Digital Host Controller (SDHC)'],
-  'USB FS Device/ Host': ['USB FS Device'],
-  'USB HS Device/ Host': ['USB HS Device'],
-  'Quad SPI (QSPI)': ['Quad SPI'],
-  'Package Type': ['Package'],
 };
 
 function isBlankCell(v) {
