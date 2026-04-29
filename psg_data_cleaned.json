@@ -1190,12 +1190,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M467HJHAN",
@@ -1239,12 +1239,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "85",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M467J2JHAE",
@@ -1288,12 +1288,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M467JJHAN",
@@ -1337,12 +1337,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "85",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M467K2JHAE",
@@ -1386,12 +1386,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M467KJHAN",
@@ -1435,12 +1435,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "85",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M467S2JHAE",
@@ -1484,12 +1484,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M467SJHAN",
@@ -1533,12 +1533,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "85",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M460 Series",
-    "_source_page": "31"
+    "_source_page": "31",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M463K2GCAC",
@@ -1582,7 +1582,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "125",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "External Bus Interface (EBI)": "v",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -1631,7 +1630,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -1680,7 +1678,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "125",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -1729,7 +1726,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -1778,7 +1774,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "125",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -1827,7 +1822,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -1876,7 +1870,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -1988,11 +1981,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "85",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "33"
+    "_source_page": "33",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M487JIDAE",
@@ -2031,11 +2024,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "33"
+    "_source_page": "33",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M487KIDAE",
@@ -2074,11 +2067,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "33"
+    "_source_page": "33",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M487SIDAE",
@@ -2117,7 +2110,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -2160,11 +2152,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "33"
+    "_source_page": "33",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M484KIDAE",
@@ -2203,11 +2195,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "33"
+    "_source_page": "33",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M484SIDAE2U",
@@ -2246,11 +2238,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "33"
+    "_source_page": "33",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M484SIDAE",
@@ -2289,7 +2281,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -2332,11 +2323,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M483SIDAE",
@@ -2375,7 +2366,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -2418,11 +2408,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M483KGCAE2A",
@@ -2461,11 +2451,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M483SGCAE",
@@ -2504,11 +2494,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M483SGCAE2A",
@@ -2547,11 +2537,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482KIDAE",
@@ -2590,11 +2580,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482SIDAE",
@@ -2633,11 +2623,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482LIDAE",
@@ -2676,11 +2666,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482ZIDAE",
@@ -2719,11 +2709,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482KGCAE",
@@ -2762,11 +2752,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482SGCAE",
@@ -2805,11 +2795,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482LGCAE",
@@ -2848,11 +2838,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M482ZGCAE",
@@ -2891,11 +2881,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
-    "_source_page": "34"
+    "_source_page": "34",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M481SIDAE",
@@ -2934,7 +2924,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -2977,7 +2966,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -3020,7 +3008,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -3063,7 +3050,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -3106,7 +3092,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -3149,7 +3134,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
@@ -3192,7 +3176,6 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "2",
-    "USB": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M480 Series",
