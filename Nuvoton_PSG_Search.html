@@ -348,6 +348,7 @@ const META_KEYS = new Set(['_category','_subcategory','_source_page','_series'])
 
 // Canonical column -> alternative keys observed across series/tables
 const COL_FALLBACKS = {
+  'Core': ['CPU'],
   'GPIO': ['GPIO (pin)', 'GPIOs'],
   'Operating Voltage (min) (V)': ['Operating Voltage (min)', 'Operating Voltage (min)(V)', 'Operating Voltage(min)(V)'],
   'Operating Voltage (max) (V)': ['Operating Voltage (max)', 'Operating Voltage (max)(V)', 'Operating Voltage(max)(V)'],
@@ -518,11 +519,11 @@ const GROUPS = {
     { label:'Tool',             cols:['EVB'] },
   ],
   MCU: [
-    { label:'System',       cols:['Core','CPU','Operating Frequency (MHz)',
-                                  'Operating Voltage (min) (V)','Operating Voltage (min)','Operating Voltage (min)(V)','Operating Voltage(min)(V)',
-                                  'Operating Voltage (max) (V)','Operating Voltage (max)','Operating Voltage (max)(V)','Operating Voltage(max)(V)',
-                                  'Operating Temperature (Tj, min)(°C)','Operating Temperature (min)','Operating Temperature (min)(°C)',
-                                  'Operating Temperature (Tj, max)(°C)','Operating Temperature (max)','Operating Temperature (max)(°C)',
+    { label:'System',       cols:['Core','Operating Frequency (MHz)',
+                                  'Operating Voltage (min) (V)',
+                                  'Operating Voltage (max) (V)',
+                                  'Operating Temperature (Tj, min)(°C)',
+                                  'Operating Temperature (Tj, max)(°C)',
                                   'GPIO','GPIO (pin)','GPIOs','I-RAM (KB)'] },
     { label:'Memory',       cols:['LDROM Flash (KB)','LDROM Flash','LDROM Flash(KB)',
                                   'APROM Flash (KB)','APROM Flash (KB))','APROM Flash(KB)','APROM Flash','APROM Flash (MB)',
