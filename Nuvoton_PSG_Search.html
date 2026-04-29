@@ -111,6 +111,22 @@
     text-align: left; padding: 6px 10px; white-space: nowrap;
     min-width: 150px; width: 150px; vertical-align: middle; border: 1px solid #b0bec5;
   }
+  /* ── 좌측 고정 컬럼 (수평 스크롤 시 고정) ── */
+  table.results th.sticky-fav,
+  table.results td.sticky-fav {
+    position: sticky; left: 0; z-index: 4;
+    background: inherit;
+  }
+  table.results thead th.sticky-fav { background: #7c8fa8; z-index: 6; }
+  table.results th.sticky-pn,
+  table.results td.sticky-pn {
+    position: sticky; left: 28px; z-index: 4;
+    background: inherit;
+    box-shadow: 2px 0 4px rgba(0,0,0,0.08);
+  }
+  table.results thead th.sticky-pn { background: #7c8fa8; z-index: 6; }
+  table.results tbody tr:hover td.sticky-fav,
+  table.results tbody tr:hover td.sticky-pn { background: #eff6ff; }
   /* 개별 컬럼 헤더 행 (2행) — 세로 텍스트 */
   table.results th.th-col {
     background: #f1f5f9; color: #334155; font-size: 0.69rem; font-weight: 600;
@@ -626,8 +642,8 @@ function buildGroupedHead(groups, allKeys, rows) {
   // Flat ordered col list
   const flatCols = active.flatMap(g => g.cols);
   // Row 1: ♡(rowspan2) + Part No. (rowspan2) + group labels (colspan) + 출처 (rowspan2)
-  const tr1 = `<th rowspan="2" style="width:28px;min-width:28px;background:#7c8fa8;border:1px solid #b0bec5;"></th>`
-    + `<th class="th-pn" rowspan="2">Part No.</th>`
+  const tr1 = `<th rowspan="2" class="sticky-fav" style="width:28px;min-width:28px;background:#7c8fa8;border:1px solid #b0bec5;"></th>`
+    + `<th class="th-pn sticky-pn" rowspan="2">Part No.</th>`
     + active.map(g => `<th class="th-group" colspan="${g.cols.length}">${esc(g.label)}</th>`).join('')
     + `<th class="th-pn" rowspan="2" style="min-width:50px;width:50px;text-align:center">출처</th>`;
   // Row 2: individual col headers (rotated)
@@ -853,8 +869,8 @@ function renderResults() {
       return `<td class="${isDash?'dash':isHitCol?'hit-col':''}">${display}</td>`;
     }).join('');
     return `<tr onclick="showDetail(${DATA.indexOf(r)})" style="${isFav?'background:#fff5f5':''}">
-      <td class="fav-cell"><button class="fav-btn ${isFav?'on':'off'}" onclick="toggleFav(event,'${esc(pnVal)}')" title="즐겨찾기">${isFav?'❤':'♡'}</button></td>
-      <td class="pn">${esc(pnVal)}</td>${tds}<td class="pg">p.${sp}</td>
+      <td class="fav-cell sticky-fav"><button class="fav-btn ${isFav?'on':'off'}" onclick="toggleFav(event,'${esc(pnVal)}')" title="즐겨찾기">${isFav?'❤':'♡'}</button></td>
+      <td class="pn sticky-pn">${esc(pnVal)}</td>${tds}<td class="pg">p.${sp}</td>
     </tr>`;
   }).join('');
 

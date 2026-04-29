@@ -1904,11 +1904,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M433 Series/M480 Series",
-    "_source_page": "32"
+    "_source_page": "32",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M433SE8AE",
@@ -1938,11 +1938,11 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
-    "USB": "1",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "M433 Series/M480 Series",
-    "_source_page": "32"
+    "_source_page": "32",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M487KMCAN",
