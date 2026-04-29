@@ -4102,7 +4102,6 @@
     "I²C": "2",
     "SPI/ I²S": "1",
     "CAN": "-",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4115,7 +4114,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M452LG6AE",
@@ -4141,7 +4141,6 @@
     "I²C": "2",
     "SPI/ I²S": "1",
     "CAN": "-",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4154,7 +4153,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M452RD3AE",
@@ -4219,7 +4219,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4232,7 +4231,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M452RG6AE",
@@ -4258,7 +4258,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4271,7 +4270,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M452VE6AE",
@@ -4297,7 +4297,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4310,7 +4309,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M452VG6AE",
@@ -4336,7 +4336,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4349,7 +4348,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M453LC3AE",
@@ -4453,7 +4453,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4466,7 +4465,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M453LG6AE",
@@ -4492,7 +4492,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4505,7 +4504,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M453RD3AE",
@@ -4570,7 +4570,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4583,7 +4582,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M453RG6AE",
@@ -4609,7 +4609,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4622,7 +4621,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M453VD3AE",
@@ -4687,7 +4687,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4700,7 +4699,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "M453VG6AE",
@@ -4726,7 +4726,6 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
-    "USB FS Device/ Host": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4739,7 +4738,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "USB FS OTG": "1"
   },
   {
     "Part No.": "KM1M4BF05G",
