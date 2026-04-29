@@ -891,10 +891,11 @@ function filterRows() {
     }
     // pn: — Part No. 전용 검색
     if (pnFilter && !getPN(r).toLowerCase().includes(pnFilter)) return false;
-    // Free text (전체 필드 검색)
+    // Free text — EVB/MP Programmer 등 툴 필드 제외
     if (q) {
+      const EXCLUDE_KEYS = new Set(['EVB','MP Programmer','Development Tools']);
       const blob = Object.entries(r)
-        .filter(([k]) => !META_KEYS.has(k))
+        .filter(([k]) => !META_KEYS.has(k) && !EXCLUDE_KEYS.has(k))
         .map(([,v]) => String(v)).join(' ').toLowerCase();
       if (!blob.includes(q)) return false;
     }
