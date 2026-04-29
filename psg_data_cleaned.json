@@ -2,7 +2,7 @@
   {
     "Part No.": "MA35D16F787C",
     "Package": "LQFP216",
-    "MCP DDR": "128 MB",
+    "MCP DDR": "√",
     "Temper Pins": "-",
     "EADC": "-",
     "GPIOs": "154",
@@ -56,7 +56,7 @@
   {
     "Part No.": "MA35D16F887C",
     "Package": "LQFP216",
-    "MCP DDR": "256 MB",
+    "MCP DDR": "√",
     "Temper Pins": "-",
     "EADC": "-",
     "GPIOs": "154",
@@ -110,7 +110,7 @@
   {
     "Part No.": "MA35D16F987C",
     "Package": "LQFP216",
-    "MCP DDR": "512 MB",
+    "MCP DDR": "√",
     "Temper Pins": "-",
     "EADC": "-",
     "GPIOs": "154",
@@ -164,7 +164,7 @@
   {
     "Part No.": "MA35D16A887C",
     "Package": "BGA312",
-    "MCP DDR": "256 MB",
+    "MCP DDR": "√",
     "Temper Pins": "√",
     "EADC": "√",
     "GPIOs": "208",
@@ -218,7 +218,7 @@
   {
     "Part No.": "MA35D16AJ87C",
     "Package": "BGA312",
-    "MCP DDR": "512 MB",
+    "MCP DDR": "√",
     "Temper Pins": "√",
     "EADC": "√",
     "GPIOs": "208",
@@ -326,7 +326,7 @@
   {
     "Part No.": "MA35H04F764C",
     "Package": "LQFP216",
-    "MCP DDR": "128 MB",
+    "MCP DDR": "√",
     "Temper Pins": "-",
     "EADC": "-",
     "GPIOs": "154",
@@ -380,7 +380,7 @@
   {
     "Part No.": "MA35D03F864C",
     "Package": "LQFP216",
-    "MCP DDR": "256 MB",
+    "MCP DDR": "√",
     "Temper Pins": "-",
     "EADC": "-",
     "GPIOs": "154",
@@ -434,7 +434,7 @@
   {
     "Part No.": "MA35D03F764C",
     "Package": "LQFP216",
-    "MCP DDR": "128 MB",
+    "MCP DDR": "√",
     "Temper Pins": "-",
     "EADC": "-",
     "GPIOs": "154",
