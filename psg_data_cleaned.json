@@ -513,7 +513,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7AF50N",
@@ -543,7 +544,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7CF06N",
@@ -574,7 +576,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7CF05N",
@@ -605,7 +608,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7CF04N",
@@ -636,7 +640,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7CF03N",
@@ -667,7 +672,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7BF02K",
@@ -696,7 +702,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7BF02M",
@@ -725,7 +732,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7BF02N",
@@ -754,7 +762,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7BF00K",
@@ -783,7 +792,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7BF00M",
@@ -812,7 +822,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "KM1M7BF00N",
@@ -841,7 +852,8 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M7",
     "_series": "KM1M7A/KM1M7C Digital Power Control Series",
-    "_source_page": "27"
+    "_source_page": "27",
+    "Core": "Cortex-M7"
   },
   {
     "Part No.": "M55M1H2LJAE",
@@ -3331,6 +3343,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3370,6 +3383,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3409,6 +3423,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3448,6 +3463,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3487,6 +3503,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3526,6 +3543,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3565,6 +3583,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3604,6 +3623,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3643,6 +3663,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3682,6 +3703,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3721,6 +3743,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3760,6 +3783,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3799,6 +3823,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3838,6 +3863,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3877,6 +3903,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3916,6 +3943,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3955,6 +3983,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -3994,6 +4023,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -4033,6 +4063,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -4072,6 +4103,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -4102,6 +4134,7 @@
     "I²C": "2",
     "SPI/ I²S": "1",
     "CAN": "-",
+    "USB FS OTG": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4114,8 +4147,7 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M452LG6AE",
@@ -4141,6 +4173,7 @@
     "I²C": "2",
     "SPI/ I²S": "1",
     "CAN": "-",
+    "USB FS OTG": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4153,8 +4186,7 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M452RD3AE",
@@ -4219,6 +4251,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
+    "USB FS OTG": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4231,8 +4264,7 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M452RG6AE",
@@ -4258,6 +4290,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
+    "USB FS OTG": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4270,8 +4303,7 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M452VE6AE",
@@ -4297,6 +4329,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
+    "USB FS OTG": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4309,8 +4342,7 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M452VG6AE",
@@ -4336,6 +4368,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "-",
+    "USB FS OTG": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4344,12 +4377,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M453LC3AE",
@@ -4384,6 +4417,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -4423,6 +4457,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -4453,6 +4488,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
+    "USB FS OTG": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4461,12 +4497,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M453LG6AE",
@@ -4492,6 +4528,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
+    "USB FS OTG": "1",
     "Package Type": "LQFP48",
     "Package Size": "7x7",
     "Mass Production": "√",
@@ -4500,12 +4537,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M453RD3AE",
@@ -4540,6 +4577,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -4570,6 +4608,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
+    "USB FS OTG": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4578,12 +4617,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M453RG6AE",
@@ -4609,6 +4648,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
+    "USB FS OTG": "1",
     "Package Type": "LQFP64",
     "Package Size": "10x10",
     "Mass Production": "√",
@@ -4617,12 +4657,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M453VD3AE",
@@ -4657,6 +4697,7 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
@@ -4687,6 +4728,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
+    "USB FS OTG": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4695,12 +4737,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "M453VG6AE",
@@ -4726,6 +4768,7 @@
     "I²C": "2",
     "SPI/ I²S": "2",
     "CAN": "1",
+    "USB FS OTG": "1",
     "Package Type": "LQFP100",
     "Package Size": "14x14",
     "Mass Production": "√",
@@ -4734,24 +4777,19 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37",
-    "USB FS OTG": "1"
+    "_source_page": "37"
   },
   {
     "Part No.": "KM1M4BF05G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "14",
     "Power control PWM": "8",
-    "Connectivity": "4",
-    "col_9": "4",
-    "col_10": "4",
-    "col_11": "4",
     "ADC(12-bit)": "10",
-    "col_13": "3",
     "DAC (8-bit)": "6",
     "DAC (10-bit)": "1",
     "VGA": "2",
@@ -4766,19 +4804,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "4",
+    "UART": "4",
+    "SPI": "4",
+    "I²C": "4",
+    "ADC Unit": "3"
   },
   {
     "Part No.": "KM1M4BF54G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "14",
     "Power control PWM": "8",
-    "Connectivity": "7",
-    "col_9": "7",
-    "col_10": "7",
-    "col_11": "7",
     "ADC(12-bit)": "13",
-    "col_13": "3",
     "DAC (8-bit)": "6",
     "DAC (10-bit)": "1",
     "VGA": "2",
@@ -4793,19 +4832,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "7",
+    "UART": "7",
+    "SPI": "7",
+    "I²C": "7",
+    "ADC Unit": "3"
   },
   {
     "Part No.": "KM1M4BF54K",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "14",
     "Power control PWM": "8",
-    "Connectivity": "7",
-    "col_9": "7",
-    "col_10": "7",
-    "col_11": "7",
     "ADC(12-bit)": "13",
-    "col_13": "3",
     "DAC (8-bit)": "6",
     "DAC (10-bit)": "1",
     "VGA": "2",
@@ -4820,19 +4860,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "7",
+    "UART": "7",
+    "SPI": "7",
+    "I²C": "7",
+    "ADC Unit": "3"
   },
   {
     "Part No.": "KM1M4BF53G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "14",
     "Power control PWM": "8",
-    "Connectivity": "7",
-    "col_9": "7",
-    "col_10": "7",
-    "col_11": "7",
     "ADC(12-bit)": "18",
-    "col_13": "3",
     "DAC (8-bit)": "6",
     "DAC (10-bit)": "1",
     "VGA": "2",
@@ -4847,19 +4888,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "7",
+    "UART": "7",
+    "SPI": "7",
+    "I²C": "7",
+    "ADC Unit": "3"
   },
   {
     "Part No.": "KM1M4BF53K",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "14",
     "Power control PWM": "8",
-    "Connectivity": "7",
-    "col_9": "7",
-    "col_10": "7",
-    "col_11": "7",
     "ADC(12-bit)": "18",
-    "col_13": "3",
     "DAC (8-bit)": "6",
     "DAC (10-bit)": "1",
     "VGA": "2",
@@ -4874,19 +4916,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "7",
+    "UART": "7",
+    "SPI": "7",
+    "I²C": "7",
+    "ADC Unit": "3"
   },
   {
     "Part No.": "KM1M4BF52G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "14",
     "Power control PWM": "8",
-    "Connectivity": "7",
-    "col_9": "7",
-    "col_10": "7",
-    "col_11": "7",
     "ADC(12-bit)": "23",
-    "col_13": "3",
     "DAC (8-bit)": "6",
     "DAC (10-bit)": "1",
     "VGA": "2",
@@ -4901,19 +4944,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "7",
+    "UART": "7",
+    "SPI": "7",
+    "I²C": "7",
+    "ADC Unit": "3"
   },
   {
     "Part No.": "KM1M4BF52K",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "14",
     "Power control PWM": "8",
-    "Connectivity": "7",
-    "col_9": "7",
-    "col_10": "7",
-    "col_11": "7",
     "ADC(12-bit)": "23",
-    "col_13": "3",
     "DAC (8-bit)": "6",
     "DAC (10-bit)": "1",
     "VGA": "2",
@@ -4928,19 +4972,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "7",
+    "UART": "7",
+    "SPI": "7",
+    "I²C": "7",
+    "ADC Unit": "3"
   },
   {
     "Part No.": "KM1M4BF64G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "12",
     "Power control PWM": "6",
-    "Connectivity": "6",
-    "col_9": "6",
-    "col_10": "6",
-    "col_11": "6",
     "ADC(12-bit)": "13",
-    "col_13": "2",
     "DAC (8-bit)": "2",
     "DAC (10-bit)": "1",
     "VGA": "1",
@@ -4955,19 +5000,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "6",
+    "UART": "6",
+    "SPI": "6",
+    "I²C": "6",
+    "ADC Unit": "2"
   },
   {
     "Part No.": "KM1M4BF65G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "12",
     "Power control PWM": "6",
-    "Connectivity": "6",
-    "col_9": "6",
-    "col_10": "6",
-    "col_11": "6",
     "ADC(12-bit)": "11",
-    "col_13": "2",
     "DAC (8-bit)": "2",
     "DAC (10-bit)": "1",
     "VGA": "1",
@@ -4982,19 +5028,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "6",
+    "UART": "6",
+    "SPI": "6",
+    "I²C": "6",
+    "ADC Unit": "2"
   },
   {
     "Part No.": "KM1M4BF66G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "12",
     "Power control PWM": "4",
-    "Connectivity": "6",
-    "col_9": "6",
-    "col_10": "6",
-    "col_11": "6",
     "ADC(12-bit)": "10",
-    "col_13": "2",
     "DAC (8-bit)": "2",
     "DAC (10-bit)": "1",
     "VGA": "1",
@@ -5009,19 +5056,20 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "6",
+    "UART": "6",
+    "SPI": "6",
+    "I²C": "6",
+    "ADC Unit": "2"
   },
   {
     "Part No.": "KM1M4BF67G",
     "SRAM (KB)": "16",
     "Timer (16-bit)": "12",
     "Power control PWM": "4",
-    "Connectivity": "3",
-    "col_9": "3",
-    "col_10": "3",
-    "col_11": "3",
     "ADC(12-bit)": "6",
-    "col_13": "2",
     "DAC (8-bit)": "2",
     "DAC (10-bit)": "1",
     "VGA": "1",
@@ -5036,7 +5084,13 @@
     "_category": "MCU",
     "_subcategory": "Cortex-M4",
     "_series": "Cortex-M4",
-    "_source_page": "37"
+    "_source_page": "37",
+    "Core": "Cortex-M4F",
+    "Clock synchronous": "3",
+    "UART": "3",
+    "SPI": "3",
+    "I²C": "3",
+    "ADC Unit": "2"
   },
   {
     "Part No.": "M3334KIGAE",
@@ -6633,12 +6687,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31ZD4AE",
@@ -6682,12 +6736,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31LD4AE",
@@ -6731,12 +6785,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31YD4AE",
@@ -6780,12 +6834,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31ZE4AE",
@@ -6829,12 +6883,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31YE4AE",
@@ -6878,12 +6932,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31LE4AE",
@@ -6927,12 +6981,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31SE4AE",
@@ -6976,12 +7030,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31YG4AE",
@@ -7025,12 +7079,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31YGDAE",
@@ -7074,12 +7128,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "V",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31LG4AE",
@@ -7123,12 +7177,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31LGDAE",
@@ -7172,12 +7226,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31CGDAE",
@@ -7221,12 +7275,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31SGDAE",
@@ -7270,12 +7324,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31SG4AE",
@@ -7319,12 +7373,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31KGDAE",
@@ -7368,12 +7422,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31YIDAE",
@@ -7417,12 +7471,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31LIDAE",
@@ -7466,12 +7520,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31CIDAE",
@@ -7515,12 +7569,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31SIDAE",
@@ -7564,12 +7618,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2L31KIDAE",
@@ -7613,12 +7667,12 @@
     "Operating Temperature (Tj, min)(°C)": "-40",
     "Operating Temperature (Tj, max)(°C)": "105",
     "Timer (16-bit)": "4",
+    "USB": "√",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "43",
-    "USB FS Device Crystal-less": "√"
+    "_source_page": "43"
   },
   {
     "Part No.": "M2003FC1AE",
@@ -10080,6 +10134,7 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -10127,6 +10182,7 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "-",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -10174,6 +10230,7 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "-",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -10221,12 +10278,12 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "50",
-    "USB FS Device Crystal-less": "1"
+    "_source_page": "50"
   },
   {
     "Part No.": "M262SIAAE",
@@ -10269,12 +10326,12 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "50",
-    "USB FS Device Crystal-less": "1"
+    "_source_page": "50"
   },
   {
     "Part No.": "M262ZIAAE",
@@ -10317,12 +10374,12 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "50",
-    "USB FS Device Crystal-less": "1"
+    "_source_page": "50"
   },
   {
     "Part No.": "M263KIAAE",
@@ -10365,12 +10422,12 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "50",
-    "USB FS Device Crystal-less": "1"
+    "_source_page": "50"
   },
   {
     "Part No.": "M263SIAAE",
@@ -10413,12 +10470,12 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "50",
-    "USB FS Device Crystal-less": "1"
+    "_source_page": "50"
   },
   {
     "Part No.": "M263ZIAAE",
@@ -10461,12 +10518,12 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
     "_series": "Cortex-M23",
-    "_source_page": "50",
-    "USB FS Device Crystal-less": "1"
+    "_source_page": "50"
   },
   {
     "Part No.": "NUC1262NE4AE",
@@ -10816,6 +10873,7 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -10862,6 +10920,7 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -10908,6 +10967,7 @@
     "Operating Temperature (Tj, max)(°C)": "85",
     "Quad SPI (QSPI)": "-",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -10954,6 +11014,7 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "√",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -11000,6 +11061,7 @@
     "Operating Temperature (Tj, max)(°C)": "105",
     "Quad SPI (QSPI)": "1",
     "Timer (16-bit)": "4",
+    "USB": "1",
     "External Bus Interface (EBI)": "-",
     "_category": "MCU",
     "_subcategory": "Cortex-M23",
@@ -37379,6 +37441,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "8MB",
+    "USB": "-",
     "Security": "-",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "-",
@@ -37401,6 +37464,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "10MB",
+    "USB": "-",
     "Security": "-",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "-",
@@ -37423,6 +37487,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "8MB",
+    "USB": "Yes",
     "Security": "-",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "Yes",
@@ -37445,6 +37510,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "10MB",
+    "USB": "Yes",
     "Security": "-",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "Yes",
@@ -37467,6 +37533,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "8MB",
+    "USB": "Yes",
     "Security": "Yes",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "Yes",
@@ -37489,6 +37556,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "10MB",
+    "USB": "Yes",
     "Security": "Yes",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "Yes",
@@ -37511,6 +37579,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "6MB",
+    "USB": "Yes",
     "Security": "-",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "Yes",
@@ -37533,6 +37602,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "6MB",
+    "USB": "Yes",
     "Security": "Yes",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "Yes",
@@ -37555,6 +37625,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "5MB",
+    "USB": "Yes",
     "Security": "-",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "-",
@@ -37577,6 +37648,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "5MB",
+    "USB": "Yes",
     "Security": "-",
     "Package": "QFP 24mm 216pins",
     "CAN FD": "Yes",
@@ -37599,6 +37671,7 @@
     "External Memory IF": "S-Flash SDRAM",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "6MB",
+    "USB": "Yes",
     "Security": "Yes",
     "Package": "QFP 28mm 256pins",
     "CAN FD": "Yes",
@@ -37621,6 +37694,7 @@
     "External Memory IF": "S-Flash SDRAM",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "5MB",
+    "USB": "Yes",
     "Security": "-",
     "Package": "QFP 28mm 256pins",
     "CAN FD": "Yes",
@@ -37643,6 +37717,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "3.5MB",
+    "USB": "-",
     "Security": "(Optional)",
     "Package": "QFP 12mm 100pins",
     "CAN FD": "(Optional)",
@@ -37665,6 +37740,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "3.5MB",
+    "USB": "-",
     "Security": "(Optional)",
     "Package": "QFP 14mm 128pins",
     "CAN FD": "(Optional)",
@@ -37687,6 +37763,7 @@
     "External Memory IF": "S-Flash",
     "Boot Memory": "S-Flash",
     "Embedded Memory": "3.5MB",
+    "USB": "-",
     "Security": "(Optional)",
     "Package": "QFP 20mm 144pins",
     "CAN FD": "(Optional)",
