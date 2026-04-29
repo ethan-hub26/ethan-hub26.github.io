@@ -444,9 +444,16 @@ function parseQuery(rawQ) {
   const tokens = rawQ.trim().split(/\s+/).filter(Boolean);
   const filters = [];
   const textParts = [];
+  let pnFilter = null;  // pn: 전용 Part No. 검색
   let i = 0;
   while (i < tokens.length) {
     const tok = tokens[i];
+    // Pattern pn: — Part No. 전용 검색 (예: pn:m487)
+    const mPN = tok.match(/^pn:(.+)$/i);
+    if (mPN) {
+      pnFilter = mPN[1].toLowerCase();
+      i++; continue;
+    }
     // Pattern A: "ADC>=8" or "Flash:128" — all in one token
     const mA = tok.match(/^([a-zA-Z0-9_]+)(>=|<=|>|<|=|:)(\d+\.?\d*)$/i);
     if (mA) {
@@ -468,7 +475,7 @@ function parseQuery(rawQ) {
     textParts.push(tok);
     i++;
   }
-  return { filters, text: textParts.join(' ') };
+  return { filters, text: textParts.join(' '), pnFilter };
 }
 
 function matchesFilter(r, f) {
@@ -725,7 +732,7 @@ function renderCategory(catId) {
         <input type="search" id="q" placeholder="검색: MA35D16 ADC>=8 Flash>=128 UART>=2 …" value="${esc(state.q)}">
         ${favChip}${editChip}${connectChip}${statusChip}
       </div>
-      <div class="search-hint">키워드: ${hintKeys} &nbsp;·&nbsp; 조합 가능: <code>ADC>=8 Flash>=128 UART>=2</code></div>
+      <div class="search-hint">키워드: ${hintKeys} &nbsp;·&nbsp; 조합 가능: <code>ADC>=8 Flash>=128 UART>=2</code> &nbsp;·&nbsp; Part No. 전용: <code>pn:M487</code></div>
       <div id="filter-tags" class="filter-tags"></div>
       ${subs.length > 1 ? `<div class="chips">${subChips}</div>` : ''}
       ${featureChips ? `<div class="chips">${featureChips}</div>` : ''}
@@ -866,7 +873,7 @@ function renderResults() {
 }
 
 function filterRows() {
-  const { filters, text } = parseQuery(state.q);
+  const { filters, text, pnFilter } = parseQuery(state.q);
   const q = text.trim().toLowerCase();
   return DATA.filter(r => {
     if (r._category !== state.cat) return false;
@@ -882,7 +889,9 @@ function filterRows() {
     for (const f of filters) {
       if (!matchesFilter(r, f)) return false;
     }
-    // Free text
+    // pn: — Part No. 전용 검색
+    if (pnFilter && !getPN(r).toLowerCase().includes(pnFilter)) return false;
+    // Free text (전체 필드 검색)
     if (q) {
       const blob = Object.entries(r)
         .filter(([k]) => !META_KEYS.has(k))
