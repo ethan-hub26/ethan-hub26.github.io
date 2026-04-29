@@ -331,7 +331,7 @@ const PREFERRED = {
     'Ethernet 10/100 Mbps','Ethernet 10/100/1000 Mbps',
     'Camera Interface','TFT-LCD Interface','2D Graphics Engine',
     'Trusted Secure Island (TSI)',
-    'Package','Package Type','Package Size','Mass Production'
+    'Package Type','Package Size','Mass Production'
   ],
   Audio: ['Part No.','Description','Sample Rate (KHz)','Duration (Under 8KHz)','Operating Voltage (V)','Power Output (W)'],
   Battery: ['Part No.','Description','Operating Voltage (V)','Package'],
@@ -372,7 +372,6 @@ const COL_FALLBACKS = {
   'SDHC': ['Secure Digital Host Controller (SDHC)'],
   'USB HS Device/ Host': ['USB HS Device'],
   'Quad SPI (QSPI)': ['Quad SPI'],
-  'Package': ['Package Type'],
   'Package Type': ['Package'],
 };
 
@@ -514,7 +513,7 @@ const GROUPS = {
     { label:'TSI',              cols:['Trusted Secure Island (TSI)'] },
     { label:'Security',         cols:['Tamper Detection Pin','Crypto Engine'] },
     { label:'OS',               cols:['Linux'] },
-    { label:'Package',          cols:['Package','Package Type','Package Size'] },
+    { label:'Package',          cols:['Package Type','Package Size'] },
     { label:'Status',           cols:['Mass Production'] },
     { label:'Tool',             cols:['EVB'] },
   ],
@@ -567,7 +566,7 @@ const GROUPS = {
                                   'AES','AES/RSA/ECC/SHA/HMAC','AES/DES/3DS/SHA/ECC',
                                   'TrustZone','Tamper','Tamper Controller'] },
     { label:'Display',      cols:['ComSeg LCD'] },
-    { label:'Package',      cols:['Package','Package Type','Package Size'] },
+    { label:'Package',      cols:['Package Type','Package Size'] },
     { label:'Status',       cols:['Mass Production'] },
     { label:'Tool',         cols:['EVB','MP Programmer'] },
     { label:'AI',           cols:['NPU','NPU MAC (MAC/cc)'] },
